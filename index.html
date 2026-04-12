@@ -1687,6 +1687,124 @@ form { display: flex; flex-direction: column; gap: 16px; }
 .comp-cross { color:var(--gray-4); }
 .comp-partial { color:#d4a84b; }
 
+.t2-badge { background:var(--accent-light); color:var(--accent); }
+.t3-badge { background:#eeedfe; color:#534ab7; }
+
+/* ── ROI CALCULATOR ── */
+.roi-section { padding:100px 48px; border-bottom:1px solid var(--rule); background:var(--gray-6); }
+.roi-inner { max-width:1280px; margin:0 auto; }
+.roi-header { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:56px; align-items:end; }
+.roi-desc { font-size:15px; font-weight:300; color:var(--gray-2); line-height:1.75; }
+.roi-wrap { display:grid; grid-template-columns:360px 1fr; gap:48px; align-items:start; }
+.roi-controls { display:flex; flex-direction:column; gap:28px; }
+.roi-control { display:flex; flex-direction:column; gap:10px; }
+.roi-label { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray-3); }
+.roi-slider-row { display:flex; align-items:center; gap:14px; }
+.roi-slider-row input[type=range] { flex:1; accent-color:var(--accent); height:2px; }
+.roi-val { font-family:var(--mono); font-size:12px; color:var(--black); min-width:90px; text-align:right; }
+.roi-tier-row { display:flex; gap:8px; }
+.roi-tier-btn { flex:1; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:8px 4px; border:1px solid var(--rule); border-radius:3px; background:var(--white); color:var(--gray-3); cursor:pointer; transition:.15s; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.roi-tier-btn span { font-size:9px; color:var(--gray-4); }
+.roi-tier-btn:hover { border-color:var(--gray-2); color:var(--black); }
+.roi-tier-act { background:var(--black) !important; color:var(--white) !important; border-color:var(--black) !important; }
+.roi-tier-act span { color:var(--gray-4) !important; }
+.roi-output { display:flex; flex-direction:column; gap:32px; }
+.roi-metrics { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.roi-metric { background:var(--white); padding:20px 24px; display:flex; flex-direction:column; gap:6px; }
+.roi-metric-highlight { background:var(--black); }
+.roi-metric-label { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-3); }
+.roi-metric-highlight .roi-metric-label { color:#444442; }
+.roi-metric-val { font-family:var(--serif); font-size:28px; font-weight:400; letter-spacing:-0.02em; color:var(--black); }
+.roi-metric-highlight .roi-metric-val { color:var(--white); }
+.roi-red { color:#c0392b !important; }
+.roi-green { color:#27ae60 !important; }
+.roi-bar-wrap { display:flex; flex-direction:column; gap:12px; }
+.roi-bar-label { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray-3); }
+.roi-bars { display:flex; flex-direction:column; gap:8px; }
+.roi-bar-row { display:grid; grid-template-columns:110px 1fr 80px; gap:12px; align-items:center; }
+.roi-bar-name { font-family:var(--mono); font-size:11px; color:var(--gray-2); text-align:right; }
+.roi-bar-track { height:24px; background:var(--gray-5); border-radius:2px; overflow:hidden; }
+.roi-bar-fill { height:100%; border-radius:2px; transition:width .5s ease; }
+.roi-bar-cost { background:#c0392b44; border:1px solid #c0392b66; }
+.roi-bar-save { background:rgba(39,174,96,.25); border:1px solid rgba(39,174,96,.4); }
+.roi-bar-num { font-family:var(--mono); font-size:11px; color:var(--gray-2); }
+
+/* ── OWNERSHIP SECTION ── */
+.own-section { padding:100px 48px; border-bottom:1px solid var(--rule); }
+.own-inner { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.own-copy h2 { margin-bottom:20px; }
+.own-copy p { font-size:16px; font-weight:300; color:var(--gray-2); line-height:1.75; margin-bottom:16px; }
+.own-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.own-pill { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:6px 14px; border:1px solid var(--rule); border-radius:2px; color:var(--gray-2); }
+.own-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.own-item { background:var(--white); padding:24px; }
+.own-item-icon { font-size:20px; margin-bottom:10px; }
+.own-item-title { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--black); margin-bottom:6px; }
+.own-item-text { font-size:13px; font-weight:300; color:var(--gray-2); line-height:1.6; }
+
+/* ── AUDIENCES ── */
+.aud-section { padding:100px 48px; border-bottom:1px solid var(--rule); background:var(--gray-6); }
+.aud-inner { max-width:1280px; margin:0 auto; }
+.aud-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; margin-top:48px; }
+.aud-card { background:var(--white); padding:36px 32px; display:flex; flex-direction:column; gap:16px; }
+.aud-card-kicker { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray-3); }
+.aud-card-title { font-family:var(--serif); font-size:22px; font-weight:400; letter-spacing:-0.01em; line-height:1.2; }
+.aud-card-title em { font-style:italic; color:var(--accent); }
+.aud-card-text { font-size:14px; font-weight:300; color:var(--gray-2); line-height:1.7; }
+.aud-card-features { display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+.aud-feature { display:flex; align-items:baseline; gap:8px; font-family:var(--mono); font-size:11px; color:var(--gray-2); }
+.aud-feature::before { content:'→'; color:var(--accent); flex-shrink:0; }
+
+/* ── CASE STUDIES ── */
+.case-section { padding:100px 48px; border-bottom:1px solid var(--rule); }
+.case-inner { max-width:1280px; margin:0 auto; }
+.case-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+.case-card { border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+.case-card-head { padding:24px 28px 20px; border-bottom:1px solid var(--rule); }
+.case-card-type { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray-3); margin-bottom:8px; }
+.case-card-company { font-family:var(--serif); font-size:20px; font-weight:400; letter-spacing:-0.01em; }
+.case-card-body { padding:24px 28px; display:flex; flex-direction:column; gap:14px; }
+.case-card-text { font-size:14px; font-weight:300; color:var(--gray-2); line-height:1.7; }
+.case-stat { display:flex; align-items:baseline; gap:10px; }
+.case-stat-num { font-family:var(--serif); font-size:32px; font-weight:400; letter-spacing:-0.02em; color:var(--black); }
+.case-stat-label { font-family:var(--mono); font-size:11px; color:var(--gray-3); letter-spacing:.04em; }
+.case-tier-tag { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:2px; width:fit-content; }
+
+/* ── DISCOVERY PACKAGE ── */
+.disc-section { padding:80px 48px; border-bottom:1px solid var(--rule); background:var(--black); }
+.disc-inner { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.disc-copy h2 { color:var(--white); margin-bottom:16px; }
+.disc-copy h2 em { color:#85b7eb; }
+.disc-copy p { font-size:15px; font-weight:300; color:#666664; line-height:1.75; margin-bottom:20px; }
+.disc-price { font-family:var(--serif); font-size:48px; font-weight:400; letter-spacing:-0.03em; color:var(--white); margin-bottom:4px; }
+.disc-note { font-family:var(--mono); font-size:11px; color:#444442; }
+.disc-cta { display:inline-block; margin-top:24px; padding:13px 28px; background:var(--white); color:var(--black); font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; border-radius:3px; transition:background .15s; }
+.disc-cta:hover { background:#8faee8; }
+.disc-items { display:flex; flex-direction:column; gap:1px; }
+.disc-item { background:#1a1a18; padding:18px 22px; display:grid; grid-template-columns:24px 1fr; gap:14px; align-items:start; }
+.disc-item-icon { font-size:14px; margin-top:1px; }
+.disc-item-title { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#c8c8c4; margin-bottom:4px; }
+.disc-item-text { font-size:13px; font-weight:300; color:#555553; line-height:1.6; }
+
+/* ── MULTILINGUAL ── */
+.lang-section { padding:100px 48px; border-bottom:1px solid var(--rule); background:var(--gray-6); }
+.lang-inner { max-width:1280px; margin:0 auto; }
+.lang-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; margin-top:48px; }
+.lang-card { background:var(--white); padding:40px; }
+.lang-flag { font-size:24px; margin-bottom:16px; }
+.lang-title { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray-3); margin-bottom:20px; }
+.lang-text { font-size:15px; font-weight:300; color:var(--gray-1); line-height:1.85; }
+.lang-security { margin-top:20px; padding-top:20px; border-top:1px solid var(--rule); font-size:13px; font-weight:300; color:var(--gray-2); line-height:1.75; }
+
+/* ── RESPONSIVE NEW SECTIONS ── */
+@media(max-width:960px) {
+  .roi-header,.roi-wrap,.own-inner,.disc-inner,.lang-grid { grid-template-columns:1fr; gap:32px; }
+  .aud-grid,.case-grid { grid-template-columns:1fr; }
+  .roi-metrics { grid-template-columns:1fr; }
+  .own-grid { grid-template-columns:1fr; }
+  .roi-section,.own-section,.aud-section,.case-section,.disc-section,.lang-section { padding:72px 24px; }
+}
+
 /* ── SCROLL ANIMATIONS ── */
 .reveal {
   opacity: 0;
@@ -1734,6 +1852,8 @@ form { display: flex; flex-direction: column; gap: 16px; }
   <div class="nav-links">
     <a href="#how">Process</a>
     <a href="#features">Features</a>
+    <a href="#demo">Demo</a>
+    <a href="briefops_tiers.html">Compare</a>
     <a href="#pricing">Pricing</a>
     <a href="#contact" class="nav-cta">Contact</a>
   </div>
@@ -1820,6 +1940,87 @@ form { display: flex; flex-direction: column; gap: 16px; }
     </div>
   </div>
 </div>
+
+<!-- ROI CALCULATOR -->
+<section class="roi-section" id="roi">
+  <div class="roi-inner">
+    <div class="roi-header reveal">
+      <div>
+        <p class="section-kicker">Return on investment</p>
+        <h2>How fast does it<br><em>pay for itself?</em></h2>
+      </div>
+      <p class="roi-desc">Adjust the sliders to match your team. BriefOps calculates the coordination overhead you are currently paying for — and how quickly the implementation cost is recovered.</p>
+    </div>
+    <div class="roi-wrap reveal">
+      <div class="roi-controls">
+        <div class="roi-control">
+          <label class="roi-label">Team size</label>
+          <div class="roi-slider-row">
+            <input type="range" id="roi-team" min="3" max="50" value="10" step="1">
+            <span class="roi-val" id="roi-team-val">10 people</span>
+          </div>
+        </div>
+        <div class="roi-control">
+          <label class="roi-label">Meetings per week</label>
+          <div class="roi-slider-row">
+            <input type="range" id="roi-meetings" min="2" max="20" value="6" step="1">
+            <span class="roi-val" id="roi-meetings-val">6 meetings</span>
+          </div>
+        </div>
+        <div class="roi-control">
+          <label class="roi-label">Average hourly rate</label>
+          <div class="roi-slider-row">
+            <input type="range" id="roi-rate" min="30" max="200" value="80" step="5">
+            <span class="roi-val" id="roi-rate-val">€80 / hour</span>
+          </div>
+        </div>
+        <div class="roi-control">
+          <label class="roi-label">Tier</label>
+          <div class="roi-tier-row">
+            <button class="roi-tier-btn roi-tier-act" data-cost="2500">Starter<span>$2,500</span></button>
+            <button class="roi-tier-btn" data-cost="6000">Standard<span>$6,000</span></button>
+            <button class="roi-tier-btn" data-cost="11000">Advanced<span>$11,000</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="roi-output">
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <span class="roi-metric-label">Coordination overhead / week</span>
+            <span class="roi-metric-val roi-red" id="roi-overhead">€960</span>
+          </div>
+          <div class="roi-metric">
+            <span class="roi-metric-label">Overhead per year</span>
+            <span class="roi-metric-val roi-red" id="roi-yearly">€49,920</span>
+          </div>
+          <div class="roi-metric">
+            <span class="roi-metric-label">Time saved per week</span>
+            <span class="roi-metric-val roi-green" id="roi-saved">11.2 hours</span>
+          </div>
+          <div class="roi-metric roi-metric-highlight">
+            <span class="roi-metric-label">Payback period</span>
+            <span class="roi-metric-val" id="roi-payback">2.6 weeks</span>
+          </div>
+        </div>
+        <div class="roi-bar-wrap">
+          <p class="roi-bar-label">Implementation cost vs. first year savings</p>
+          <div class="roi-bars">
+            <div class="roi-bar-row">
+              <span class="roi-bar-name">Implementation</span>
+              <div class="roi-bar-track"><div class="roi-bar-fill roi-bar-cost" id="roi-bar-cost" style="width:5%"></div></div>
+              <span class="roi-bar-num" id="roi-num-cost">$2,500</span>
+            </div>
+            <div class="roi-bar-row">
+              <span class="roi-bar-name">Year 1 savings</span>
+              <div class="roi-bar-track"><div class="roi-bar-fill roi-bar-save" id="roi-bar-save" style="width:100%"></div></div>
+              <span class="roi-bar-num roi-green" id="roi-num-save">€49,920</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- TIER COMPARISON DEMO -->
 <section class="demo-section" id="demo">
@@ -2372,6 +2573,209 @@ form { display: flex; flex-direction: column; gap: 16px; }
   </div>
 </section>
 
+<!-- OWNERSHIP -->
+<section class="own-section">
+  <div class="own-inner">
+    <div class="own-copy reveal">
+      <p class="section-kicker">No vendor lock-in</p>
+      <h2>You own the code.<br><em>Permanently.</em></h2>
+      <p>BriefOps is not a subscription. It is a custom-built system delivered as yours — you receive the full source code, own the infrastructure, and owe nothing ongoing. No platform fees, no per-seat pricing, no dependency on any third-party service continuing to exist.</p>
+      <p>This matters especially in German-speaking markets where organisations have learned hard lessons from SaaS lock-in: price increases after adoption, data held hostage, vendors acquired and shut down. BriefOps eliminates that risk entirely.</p>
+      <div class="own-pills">
+        <span class="own-pill">Full source code delivered</span>
+        <span class="own-pill">No monthly fees</span>
+        <span class="own-pill">No per-seat pricing</span>
+        <span class="own-pill">Deploy on your infrastructure</span>
+        <span class="own-pill">No vendor dependency</span>
+      </div>
+    </div>
+    <div class="own-grid reveal">
+      <div class="own-item">
+        <div class="own-item-icon">⚙</div>
+        <p class="own-item-title">Your infrastructure</p>
+        <p class="own-item-text">Runs on AWS or Google Cloud in the EU. You control where the data lives and who can access it.</p>
+      </div>
+      <div class="own-item">
+        <div class="own-item-icon">🔑</div>
+        <p class="own-item-title">Your encryption keys</p>
+        <p class="own-item-text">AES-256 encryption with keys that never leave your environment. Not ours — yours.</p>
+      </div>
+      <div class="own-item">
+        <div class="own-item-icon">📄</div>
+        <p class="own-item-title">Your code</p>
+        <p class="own-item-text">The complete source code is transferred to you at delivery. No black box, no hidden dependencies.</p>
+      </div>
+      <div class="own-item">
+        <div class="own-item-icon">📋</div>
+        <p class="own-item-title">Your contracts</p>
+        <p class="own-item-text">DPA and SCCs signed before go-live. Audit trail included. Works Council requirements addressed from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET AUDIENCES -->
+<section class="aud-section">
+  <div class="aud-inner">
+    <div class="section-header reveal">
+      <h2>Built for<br><em>your team type</em></h2>
+      <p class="section-desc">BriefOps adapts to how your organisation actually works — not a generic template.</p>
+    </div>
+    <div class="aud-grid">
+      <div class="aud-card reveal">
+        <p class="aud-card-kicker">For agencies</p>
+        <h3 class="aud-card-title">Client work.<br><em>Zero admin overhead.</em></h3>
+        <p class="aud-card-text">Agencies run on meetings — client briefs, status calls, internal reviews. BriefOps turns every call into structured deliverables, routes them to the right account manager, and keeps clients informed automatically.</p>
+        <div class="aud-card-features">
+          <span class="aud-feature">Client-specific knowledge models</span>
+          <span class="aud-feature">Automatic status update emails</span>
+          <span class="aud-feature">Cross-project dependency detection</span>
+          <span class="aud-feature">Retainer and milestone tracking</span>
+        </div>
+      </div>
+      <div class="aud-card reveal">
+        <p class="aud-card-kicker">For product teams</p>
+        <h3 class="aud-card-title">Sprint velocity.<br><em>Without coordination tax.</em></h3>
+        <p class="aud-card-text">Product teams lose 30–40% of sprint capacity to coordination — standups, handoffs, clarifications. BriefOps eliminates the overhead so engineers ship instead of attend meetings about meetings.</p>
+        <div class="aud-card-features">
+          <span class="aud-feature">Memo-to-Jira sprint creation</span>
+          <span class="aud-feature">Cross-team blocker detection</span>
+          <span class="aud-feature">Capacity and risk alerts</span>
+          <span class="aud-feature">Retrospective assistant</span>
+        </div>
+      </div>
+      <div class="aud-card reveal">
+        <p class="aud-card-kicker">For consultancies</p>
+        <h3 class="aud-card-title">Institutional memory.<br><em>That actually persists.</em></h3>
+        <p class="aud-card-text">Consultancies lose knowledge when projects end and people move on. BriefOps builds a permanent, searchable knowledge base from every engagement — decisions, rationale, and context preserved and accessible.</p>
+        <div class="aud-card-features">
+          <span class="aud-feature">Semantic knowledge graph per client</span>
+          <span class="aud-feature">Onboarding accelerator for new staff</span>
+          <span class="aud-feature">Decision log with full context</span>
+          <span class="aud-feature">Executive digest for leadership</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="case-section">
+  <div class="case-inner">
+    <div class="section-header reveal">
+      <h2>Results in<br><em>the first sprint</em></h2>
+      <p class="section-desc">Illustrative outcomes based on typical team profiles and coordination overhead patterns.</p>
+    </div>
+    <div class="case-grid">
+      <div class="case-card reveal">
+        <div class="case-card-head">
+          <p class="case-card-type">Software agency · 22 people</p>
+          <p class="case-card-company">8 client accounts, 3 project managers</p>
+        </div>
+        <div class="case-card-body">
+          <p class="case-card-text">Before BriefOps, each PM spent 6–8 hours per week writing meeting notes, chasing follow-ups, and re-explaining context to developers. After implementation, that overhead dropped to under 30 minutes.</p>
+          <div class="case-stat"><span class="case-stat-num">87%</span><span class="case-stat-label">reduction in coordination overhead per PM</span></div>
+          <div class="case-stat"><span class="case-stat-num">3.1 weeks</span><span class="case-stat-label">to full payback on implementation</span></div>
+          <span class="case-tier-tag t2-badge">Standard tier</span>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-card-head">
+          <p class="case-card-type">Product team · 14 engineers</p>
+          <p class="case-card-company">2-week sprints, 4 cross-team dependencies per sprint</p>
+        </div>
+        <div class="case-card-body">
+          <p class="case-card-text">The team was missing sprint deadlines primarily due to undetected blockers — IT waiting on Legal, Design waiting on Product. BriefOps surfaced every dependency before the sprint started.</p>
+          <div class="case-stat"><span class="case-stat-num">60%</span><span class="case-stat-label">reduction in missed sprint deadlines</span></div>
+          <div class="case-stat"><span class="case-stat-num">+2.4 days</span><span class="case-stat-label">average sprint velocity improvement</span></div>
+          <span class="case-tier-tag t2-badge">Standard tier</span>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-card-head">
+          <p class="case-card-type">Management consultancy · 38 people</p>
+          <p class="case-card-company">International team, 4 languages, 6 active engagements</p>
+        </div>
+        <div class="case-card-body">
+          <p class="case-card-text">New consultants were spending their first 3–4 weeks getting up to speed on client history. The knowledge base reduced that onboarding time significantly — context was immediately searchable.</p>
+          <div class="case-stat"><span class="case-stat-num">68%</span><span class="case-stat-label">faster new staff onboarding</span></div>
+          <div class="case-stat"><span class="case-stat-num">4 languages</span><span class="case-stat-label">meeting processing — DE, EN, FR, NL</span></div>
+          <span class="case-tier-tag t3-badge">Advanced tier</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVERY PACKAGE -->
+<section class="disc-section">
+  <div class="disc-inner">
+    <div class="disc-copy reveal">
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#444442;margin-bottom:16px">Not sure where to start?</p>
+      <h2>Start with a<br><em>Discovery session</em></h2>
+      <p>Before committing to a full implementation, a Discovery session maps your exact coordination overhead, identifies the highest-value automation opportunities, and produces a concrete recommendation — Starter, Standard, or Advanced — with a clear rationale.</p>
+      <p>The session cost is deducted from the implementation price if you proceed.</p>
+      <div class="disc-price">$300</div>
+      <p class="disc-note">3–5 business days · Written recommendation · No obligation</p>
+      <a href="#contact" class="disc-cta">Book a Discovery session</a>
+    </div>
+    <div class="disc-items reveal">
+      <div class="disc-item">
+        <span class="disc-item-icon">🗺</span>
+        <div>
+          <p class="disc-item-title">Coordination audit</p>
+          <p class="disc-item-text">We map where your team currently loses time — which meetings produce no action, which handoffs fail, which decisions get lost.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <span class="disc-item-icon">⚙</span>
+        <div>
+          <p class="disc-item-title">Integration assessment</p>
+          <p class="disc-item-text">We review your existing tools — Jira, Slack, Teams, Google Workspace — and identify exactly what connects and what does not.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <span class="disc-item-icon">📋</span>
+        <div>
+          <p class="disc-item-title">Tier recommendation</p>
+          <p class="disc-item-text">A written recommendation with cost, timeline, and expected ROI — specific to your team size, tool stack, and coordination patterns.</p>
+        </div>
+      </div>
+      <div class="disc-item">
+        <span class="disc-item-icon">↩</span>
+        <div>
+          <p class="disc-item-title">Deducted from implementation</p>
+          <p class="disc-item-text">If you proceed, the $300 is fully deducted from the implementation price. No double cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTILINGUAL -->
+<section class="lang-section">
+  <div class="lang-inner">
+    <div class="section-header reveal">
+      <h2>Built for<br><em>European teams</em></h2>
+      <p class="section-desc">BriefOps processes meetings in German, English, French, and Dutch — and delivers task outputs in the language of each recipient.</p>
+    </div>
+    <div class="lang-grid">
+      <div class="lang-card reveal">
+        <div class="lang-flag">🇫🇷</div>
+        <p class="lang-title">Français — Concept &amp; Sécurité</p>
+        <p class="lang-text">BriefOps est un système d'intelligence artificielle sur mesure qui transforme automatiquement vos réunions en tâches structurées, les attribue aux bonnes équipes et assure le suivi jusqu'à leur achèvement. Au lieu de rédiger manuellement des comptes rendus et de coordonner entre les départements, le système le fait de manière autonome — en s'appuyant sur la structure réelle de votre entreprise.</p>
+        <p class="lang-security">L'inférence IA s'exécute exclusivement sur AWS Francfort ou Google Vertex AI EU. Le contenu des réunions est chiffré avec AES-256 avant toute transmission. Les documents sensibles peuvent être marqués comme "Reference-only" — le système sait qu'ils existent sans en lire le contenu. Un contrat de traitement des données et des clauses contractuelles types sont signés avant chaque mise en production.</p>
+      </div>
+      <div class="lang-card reveal">
+        <div class="lang-flag">🇩🇪</div>
+        <p class="lang-title">Deutsch — Konzept &amp; Sicherheit</p>
+        <p class="lang-text">BriefOps ist ein maßgeschneidertes KI-System das Meetings automatisch in strukturierte Aufgaben umwandelt, diese an die richtigen Teams weiterleitet und den Fortschritt bis zum Abschluss verfolgt. Anstatt manuell Protokolle zu schreiben und zwischen Abteilungen zu koordinieren, übernimmt das System diese Arbeit vollständig — basierend auf der tatsächlichen Struktur deines Unternehmens.</p>
+        <p class="lang-security">Die KI-Inferenz läuft ausschließlich auf AWS Frankfurt oder Google Vertex AI EU. Meeting-Inhalte werden vor der Übertragung mit AES-256 verschlüsselt, die Schlüssel bleiben beim Kunden. Sensible Dokumente können als "Reference-only" markiert werden — das System weiß dass ein Dokument existiert, liest seinen Inhalt aber nicht. Vor jedem Go-Live werden ein Auftragsverarbeitungsvertrag und Standardvertragsklauseln unterzeichnet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CAPABILITY COMPARISON -->
 <section class="features-section" style="background:var(--gray-6)">
   <div class="features-inner">
@@ -2597,6 +3001,52 @@ form { display: flex; flex-direction: column; gap: 16px; }
 </footer>
 
 <script>
+  // ── ROI Calculator ──
+  let roiCost = 2500;
+
+  function calcROI() {
+    const team     = parseInt(document.getElementById('roi-team').value);
+    const meetings = parseInt(document.getElementById('roi-meetings').value);
+    const rate     = parseInt(document.getElementById('roi-rate').value);
+
+    document.getElementById('roi-team-val').textContent     = team + ' people';
+    document.getElementById('roi-meetings-val').textContent = meetings + ' meetings';
+    document.getElementById('roi-rate-val').textContent     = '€' + rate + ' / hour';
+
+    // Coordination overhead: avg 45min per meeting per attendee, ~30% is pure overhead
+    const hoursPerWeek = Math.round((meetings * 0.75 * (team * 0.4)) * 10) / 10;
+    const overhead     = Math.round(hoursPerWeek * rate);
+    const yearly       = overhead * 52;
+    const saved        = Math.round(hoursPerWeek * 0.93 * 10) / 10;
+    const paybackWeeks = Math.round((roiCost / overhead) * 10) / 10;
+
+    document.getElementById('roi-overhead').textContent = '€' + overhead.toLocaleString();
+    document.getElementById('roi-yearly').textContent   = '€' + yearly.toLocaleString();
+    document.getElementById('roi-saved').textContent    = saved + ' hours';
+    document.getElementById('roi-payback').textContent  = paybackWeeks < 1 ? 'Under 1 week' : paybackWeeks + ' weeks';
+    document.getElementById('roi-num-cost').textContent = '$' + roiCost.toLocaleString();
+    document.getElementById('roi-num-save').textContent = '€' + yearly.toLocaleString();
+
+    const maxVal = Math.max(roiCost, yearly);
+    document.getElementById('roi-bar-cost').style.width = Math.max(3, Math.round(roiCost / maxVal * 100)) + '%';
+    document.getElementById('roi-bar-save').style.width = Math.round(yearly / maxVal * 100) + '%';
+  }
+
+  document.getElementById('roi-team').addEventListener('input', calcROI);
+  document.getElementById('roi-meetings').addEventListener('input', calcROI);
+  document.getElementById('roi-rate').addEventListener('input', calcROI);
+
+  document.querySelectorAll('.roi-tier-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.roi-tier-btn').forEach(b => b.classList.remove('roi-tier-act'));
+      btn.classList.add('roi-tier-act');
+      roiCost = parseInt(btn.dataset.cost);
+      calcROI();
+    });
+  });
+
+  calcROI();
+
   // ── DEPENDENCY GRAPH ──
   const DEP_NODES = [
     { id: 'FIN',  x: 80,  y: 200, label: 'Finance',   sub: 'Budget approval',        status: 'blocking', team: 'Finance' },
