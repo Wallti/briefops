@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BriefOps — Tier Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--black:#111110;--g1:#2c2c2b;--g2:#6b6b69;--g3:#9a9a97;--g4:#c8c8c4;--g5:#e8e8e4;--g6:#f4f4f0;--white:#fafaf7;--rule:#e2e2de;--accent:#1a3fa3;
+--serif:'Libre Baskerville',Georgia,serif;--sans:'Lato',system-ui,sans-serif;--mono:'DM Mono',monospace;
+--t1:#0f6e56;--t2:#1a3fa3;--t3:#534ab7;--t1bg:#e1f5ee;--t2bg:#e8edf8;--t3bg:#eeedfe;
+--tb:#111110;--tb2:#1a1a18;--tb3:#222220;--tb4:#333330;--tb5:#444442;--tb6:#555553;--tbt:#c8c8c4;
+--green:#5cb85c;--amber:#d4a84b;--red:#c0392b;--blue-t:#6699cc;--purple-t:#c070d0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--black);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;background:var(--white);border-bottom:1px solid var(--rule)}
+.logo{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--black);text-decoration:none}
+.nav-right{display:flex;gap:28px;align-items:center}
+.nav-right a{font-size:13px;color:var(--g2);text-decoration:none;transition:color .15s}
+.nav-right a:hover{color:var(--black)}
+.page-head{padding:72px 48px 64px;border-bottom:1px solid var(--rule);max-width:1280px;margin:0 auto}
+.page-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--g3);margin-bottom:20px}
+h1{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:400;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.page-desc{font-size:17px;font-weight:300;color:var(--g2);line-height:1.75;max-width:600px}
+h2{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:400;line-height:1.15;letter-spacing:-0.02em}
+h2 em{font-style:italic;color:var(--accent)}
+.main-demo{padding:80px 48px;border-bottom:1px solid var(--rule)}
+.main-demo-inner{max-width:1280px;margin:0 auto}
+.demo-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:48px;align-items:end}
+.demo-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--g3);margin-bottom:12px}
+.demo-desc{font-size:15px;font-weight:300;color:var(--g2);line-height:1.75}
+.tier-tabs{display:flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden;width:fit-content;margin-bottom:0}
+.tier-tab{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:11px 22px;cursor:pointer;border:none;background:var(--white);color:var(--g3);border-right:1px solid var(--rule);transition:background .15s,color .15s;display:flex;align-items:center;gap:8px}
+.tier-tab:last-child{border-right:none}
+.tier-tab:hover{background:var(--g6);color:var(--g1)}
+.tier-tab.act-1{background:var(--t1bg);color:var(--t1)}
+.tier-tab.act-2{background:var(--t2bg);color:var(--t2)}
+.tier-tab.act-3{background:var(--t3bg);color:var(--t3)}
+.tdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.td1{background:var(--t1)}.td2{background:var(--t2)}.td3{background:var(--t3)}
+.query-wrap{background:var(--tb);border-radius:6px;overflow:hidden;font-family:var(--mono);margin-top:20px}
+.q-bar{background:var(--tb2);padding:11px 18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--tb3)}
+.q-dots{display:flex;gap:5px}
+.q-dots span{width:9px;height:9px;border-radius:50%;background:var(--tb4)}
+.q-bar-label{font-size:11px;color:var(--tb6);letter-spacing:.06em}
+.q-tier-pill{font-size:10px;margin-left:auto;padding:2px 10px;border-radius:2px;letter-spacing:.08em;font-weight:500}
+.qp-1{background:rgba(15,110,86,.15);color:#5dcaa5}
+.qp-2{background:rgba(26,63,163,.15);color:#85b7eb}
+.qp-3{background:rgba(83,74,183,.15);color:#afa9ec}
+.q-input-row{display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--tb3)}
+.q-prompt{font-size:13px;color:var(--green);white-space:nowrap;padding:14px 10px 14px 0;user-select:none}
+.q-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:13px;color:var(--tbt);padding:14px 10px;caret-color:var(--green)}
+.q-input::placeholder{color:var(--tb4)}
+.q-run{background:transparent;border:1px solid var(--tb4);color:var(--tb6);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;border-radius:3px;cursor:pointer;transition:.15s;white-space:nowrap}
+.q-run:hover{border-color:var(--green);color:var(--green)}
+.q-run:disabled{opacity:.35;cursor:default}
+.q-sugs{display:flex;align-items:center;gap:8px;padding:11px 18px;border-bottom:1px solid var(--tb2);flex-wrap:wrap}
+.q-sug-lbl{font-size:10px;color:var(--tb4);letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+.q-sug{background:transparent;border:1px solid var(--tb3);color:var(--tb5);font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:2px;cursor:pointer;transition:.15s;letter-spacing:.02em}
+.q-sug:hover{border-color:var(--tb5);color:var(--tb6)}
+.q-output{min-height:280px;padding:20px}
+.q-placeholder{display:flex;align-items:center;color:var(--tb6);font-size:13px;gap:8px}
+.q-cursor{display:inline-block;width:8px;height:14px;background:var(--tb4);animation:blink 1.1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.q-loading{color:var(--tb6);font-size:13px;display:flex;align-items:center;gap:8px}
+.q-loading::before{content:'';display:inline-block;width:10px;height:10px;border:1px solid var(--tb4);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.out-section{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--tb4);padding:12px 0 6px;border-top:1px solid var(--tb3);margin-top:6px}
+.out-section:first-child{border-top:none;margin-top:0;padding-top:0}
+.out-row{display:grid;gap:10px;padding:6px 0;border-bottom:1px solid var(--tb2);align-items:start;font-size:12.5px;opacity:0;transform:translateY(5px);transition:opacity .3s,transform .3s}
+.out-row.show{opacity:1;transform:none}
+.out-row:last-child{border-bottom:none}
+.otag{font-size:9px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.ot-team{background:rgba(102,153,204,.15);color:var(--blue-t)}
+.ot-mail{background:rgba(92,184,92,.15);color:var(--green)}
+.ot-cal{background:rgba(212,168,75,.15);color:var(--amber)}
+.ot-doc{background:rgba(180,100,200,.15);color:var(--purple-t)}
+.ot-dep{background:rgba(150,150,130,.15);color:#88886a}
+.ot-blk{background:rgba(192,57,43,.15);color:var(--red)}
+.ot-kb{background:rgba(83,74,183,.15);color:#afa9ec}
+.ot-risk{background:rgba(212,168,75,.2);color:var(--amber)}
+.tc-t{color:var(--tbt)}.tc-m{color:var(--tb6)}.tc-d{color:var(--tb5)}
+.tc-g{color:var(--green)}.tc-a{color:var(--amber)}.tc-r{color:var(--red)}
+.tc-b{color:var(--blue-t)}.tc-p{color:var(--purple-t)}
+.out-callout{margin-top:14px;padding:11px 15px;border-left:2px solid;border-radius:0 3px 3px 0;font-size:12px;line-height:1.65}
+.oc-1{border-color:var(--t1);background:rgba(15,110,86,.06);color:#5dcaa5}
+.oc-2{border-color:var(--t2);background:rgba(26,63,163,.06);color:#85b7eb}
+.oc-3{border-color:var(--t3);background:rgba(83,74,183,.06);color:#afa9ec}
+.locked-row{opacity:.3;position:relative}
+.locked-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tb4);border:1px solid var(--tb3);border-radius:2px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+.table-section{padding:80px 48px;border-bottom:1px solid var(--rule);background:var(--g6)}
+.table-inner{max-width:1280px;margin:0 auto}
+.comp-table{width:100%;border-collapse:collapse;margin-top:40px}
+.comp-table th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:2px solid var(--rule)}
+.comp-table td{padding:13px 16px;font-size:13px;font-weight:300;color:var(--g1);border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table td:first-child{font-weight:400;color:var(--black)}
+.ctick{color:var(--green);font-weight:700}.ccross{color:var(--g4)}.cpart{color:var(--amber)}
+.pricing-section{padding:80px 48px}
+.pricing-inner{max-width:1280px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-top:48px}
+.pc{padding:40px 36px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:8px}
+.pc:last-child{border-right:none}
+.pc.pf{background:var(--black)}
+.pc-tier{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--g3)}
+.pf .pc-tier{color:var(--tb5)}
+.pc-name{font-family:var(--serif);font-size:20px;font-weight:400;letter-spacing:-0.01em}
+.pf .pc-name{color:var(--white)}
+.pc-price{font-family:var(--serif);font-size:38px;font-weight:400;letter-spacing:-0.03em;margin-top:6px}
+.pf .pc-price{color:var(--white)}
+.pc-note{font-family:var(--mono);font-size:11px;color:var(--g3)}
+.pf .pc-note{color:var(--tb5)}
+.pc-cta{display:block;margin-top:20px;padding:11px 0;text-align:center;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:3px;border:1px solid var(--rule);color:var(--black);transition:.15s}
+.pc-cta:hover{border-color:var(--black)}
+.pf .pc-cta{background:var(--white);border-color:transparent}
+.pf .pc-cta:hover{background:#8faee8}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:900px){
+nav{padding:0 20px}
+.page-head,.main-demo,.table-section,.pricing-section{padding:56px 20px}
+.demo-header{grid-template-columns:1fr;gap:20px}
+.pricing-grid{grid-template-columns:1fr}
+.pc{border-right:none;border-bottom:1px solid var(--rule)}
+.pc:last-child{border-bottom:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">BriefOps<sup>Beta</sup></a>
+  <div class="nav-right">
+    <a href="index.html#how">Process</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#demo">Demo</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#contact" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--black);color:var(--white);padding:8px 16px;border-radius:3px;text-decoration:none">Contact</a>
+  </div>
+</nav>
+<div class="page-head">
+  <p class="page-kicker">← <a href="index.html" style="color:var(--g3);text-decoration:none;border-bottom:1px solid var(--rule)">briefops.org</a> · Full tier comparison</p>
+  <h1>Same meeting.<br><em>Three different outputs.</em></h1>
+  <p class="page-desc">Select a tier, enter any meeting type, and see exactly what your team receives. Switch tiers to compare output depth — not feature lists, but actual system output.</p>
+</div>
+<section class="main-demo" id="demo">
+  <div class="main-demo-inner">
+    <div class="demo-header reveal">
+      <div>
+        <p class="demo-kicker">Live output demo</p>
+        <h2>Choose a tier.<br><em>Ask anything.</em></h2>
+      </div>
+      <p class="demo-desc">Enter any meeting type below — or use the suggestions — then switch between tiers to see how the output depth changes. The same meeting, three different levels of intelligence.</p>
+    </div>
+    <div class="tier-tabs" id="tier-tabs">
+      <button class="tier-tab act-1" data-tier="1"><span class="tdot td1"></span>Starter</button>
+      <button class="tier-tab" data-tier="2"><span class="tdot td2"></span>Standard</button>
+      <button class="tier-tab" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+    </div>
+    <div class="query-wrap">
+      <div class="q-bar">
+        <div class="q-dots"><span></span><span></span><span></span></div>
+        <span class="q-bar-label" id="q-bar-label">briefops — starter output</span>
+        <span class="q-tier-pill qp-1" id="q-tier-pill">Starter</span>
+      </div>
+      <div class="q-input-row">
+        <span class="tc-g" style="font-family:var(--mono);font-size:13px;padding:14px 10px 14px 0;user-select:none">briefops analyse</span>
+        <input type="text" id="q-input" class="q-input" placeholder="describe a meeting type..." maxlength="80" autocomplete="off" spellcheck="false">
+        <button class="q-run" id="q-run">Run</button>
+      </div>
+      <div class="q-sugs">
+        <span class="q-sug-lbl">Try:</span>
+        <button class="q-sug" data-val="quarterly budget review">quarterly budget review</button>
+        <button class="q-sug" data-val="product sprint planning">product sprint planning</button>
+        <button class="q-sug" data-val="new client onboarding">new client onboarding</button>
+        <button class="q-sug" data-val="security incident debrief">security incident debrief</button>
+        <button class="q-sug" data-val="marketing campaign kickoff">marketing campaign kickoff</button>
+        <button class="q-sug" data-val="hiring review">hiring review</button>
+      </div>
+      <div class="q-output" id="q-output">
+        <div class="q-placeholder"><span class="q-cursor"></span><span style="color:var(--tb6);font-size:13px;margin-left:8px">Select a tier and enter a meeting type...</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="table-section" id="compare">
+  <div class="table-inner reveal">
+    <p class="demo-kicker">Capability comparison</p>
+    <h2>What each tier<br><em>actually delivers</em></h2>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:260px">Capability</th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:var(--t1bg);color:var(--t1);padding:3px 10px;border-radius:2px">Starter</span></th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:var(--t2bg);color:var(--t2);padding:3px 10px;border-radius:2px">Standard</span></th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:var(--t3bg);color:var(--t3);padding:3px 10px;border-radius:2px">Advanced</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Meeting summarisation + task extraction</td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Email delivery</td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Company knowledge model setup</td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Slack / Teams delivery</td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Jira / Asana integration</td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Calendar scheduling</td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Cross-team dependency detection</td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Sprint assistant (memo to tasks)</td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Story point estimation</td><td><span class="ccross">No</span></td><td><span class="cpart">Basic</span></td><td><span class="ctick">History-based</span></td></tr>
+        <tr><td>Duration and effort estimation</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Capacity and workload risk detection</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Pattern-based risk from team history</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Decision log</td><td><span class="ccross">No</span></td><td><span class="ctick">Structured</span></td><td><span class="ctick">Semantic</span></td></tr>
+        <tr><td>Searchable knowledge base</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">LightRAG</span></td></tr>
+        <tr><td>Document privacy tiers</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">3 levels</span></td></tr>
+        <tr><td>Proactive follow-up agent</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Automatic escalation</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>Executive digest weekly</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Yes</span></td></tr>
+        <tr><td>AES-256 encryption</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">Add-on included</span></td></tr>
+        <tr><td>Full GDPR package</td><td><span class="cpart">DPA template</span></td><td><span class="cpart">DPA template</span></td><td><span class="ctick">DPA + SCCs + notice</span></td></tr>
+        <tr><td>Failover AWS + Vertex AI EU</td><td><span class="ccross">No</span></td><td><span class="cpart">Single provider</span></td><td><span class="ctick">Dual provider</span></td></tr>
+        <tr><td>Post-launch support</td><td><span class="ccross">No</span></td><td><span class="ccross">No</span></td><td><span class="ctick">30 days</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner reveal">
+    <p class="demo-kicker">Pricing</p>
+    <h2>Fixed-price<br><em>implementation</em></h2>
+    <p style="font-size:15px;font-weight:300;color:var(--g2);line-height:1.75;margin-top:12px;max-width:480px">One-time project. No subscriptions. No per-seat fees. You own the code and all its infrastructure.</p>
+    <div class="pricing-grid">
+      <div class="pc">
+        <p class="pc-tier">Starter</p>
+        <p class="pc-name">Meeting Intelligence</p>
+        <div class="pc-price">$2,500</div>
+        <p class="pc-note">7 business days · 1 revision</p>
+        <a href="mailto:hello@briefops.org" class="pc-cta">Contact us</a>
+      </div>
+      <div class="pc pf">
+        <p class="pc-tier">Standard — most popular</p>
+        <p class="pc-name">Meeting + Sprint</p>
+        <div class="pc-price">$6,000</div>
+        <p class="pc-note">14 business days · 2 revisions</p>
+        <a href="mailto:hello@briefops.org" class="pc-cta">Contact us</a>
+      </div>
+      <div class="pc">
+        <p class="pc-tier">Advanced</p>
+        <p class="pc-name">Autonomous Ops</p>
+        <div class="pc-price">$11,000</div>
+        <p class="pc-note">25 business days · 3 revisions</p>
+        <a href="mailto:hello@briefops.org" class="pc-cta">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer style="padding:28px 48px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+  <a href="briefops_v2.html" class="logo" style="font-family:var(--serif);font-size:16px;font-weight:700;color:var(--black);text-decoration:none">BriefOps</a>
+  <span style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.04em">hello@briefops.org</span>
+  <span style="font-family:var(--mono);font-size:11px;color:var(--g4);letter-spacing:.04em">© 2026 BriefOps</span>
+</footer>
+<script>
+const DATA = {
+'quarterly budget review':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report — actuals vs. budget'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised budget assumptions to dept. heads'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation for H2 review'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'All teams'},{c:'tc-t',t:'Confirm updated budget figures by department'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email reply to meeting thread · All attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Calendar scheduling, dependency map, Jira/Slack integration'}]}]}
+],callout:'Starter delivers a clean task list by email. Owners and deadlines assigned. No calendar integration, no dependency tracking, no follow-up.'},
+t2:{summary:'4 tasks · 2 dependencies · 2 meetings scheduled · Jira + Slack',sections:[
+{title:'Tasks — routed by knowledge model',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report — actuals vs. budget'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised budget assumptions'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation for H2 review'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Leadership'},{c:'tc-t',t:'Budget sign-off call — CEO + CFO'},{c:'tc-d',t:'→ Oct 22'}]}
+]},
+{title:'Dependencies detected',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Operations headcount <span class="tc-a">must complete before</span> Finance can finalise cost base'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Finance variance report <span class="tc-a">must complete before</span> Leadership sign-off call'}]}
+]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Budget sign-off — CFO + CEO — first shared free slot'},{c:'tc-d',t:'Oct 22, 10:00'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Finance working session — P&L prep · 90 min'},{c:'tc-d',t:'Oct 17, 09:00'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #finance-team · Jira (3 tickets created) · Calendar invites sent'}]}]}
+],callout:'Standard adds dependency detection, automatic calendar scheduling, and multi-channel delivery. Tasks arrive in Jira and Slack. The system knows Operations must act before Finance can close.'},
+t3:{summary:'4 tasks · duration estimates · 1 risk flagged · KB updated · follow-up scheduled',sections:[
+{title:'Tasks — estimated and capacity-checked',rows:[
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report'},{c:'tc-b',t:'est. 6h · Lisa R.'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised assumptions'},{c:'tc-b',t:'est. 1h · Lisa R.'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation'},{c:'tc-b',t:'est. 3h · Mark T.'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Leadership'},{c:'tc-t',t:'Budget sign-off call — CEO + CFO'},{c:'tc-b',t:'30 min · booked'},{c:'tc-d',t:'Oct 22'}]}
+]},
+{title:'Risk detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-r">Mark T. (Operations) has 3 open tasks this week.</span> Headcount submission may conflict with sprint deadline Oct 19.'}]}]},
+{title:'Knowledge base — 3 entries updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Decision'},{c:'tc-m',t:'Budget revision process confirmed — Q3 actuals via Finance portal'},{c:'tc-d',t:'Oct 12'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Summary'},{c:'tc-m',t:'Q3 Budget Review meeting — decisions and open items archived'},{c:'tc-d',t:'Oct 12'}]}
+]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Automated check-in in <span class="tc-t">3 days</span> · Escalation to CFO if Finance report not submitted by Oct 18 18:00'}]}]}
+],callout:'Advanced adds duration estimates from team history, workload risk detection, permanent knowledge base archiving, and automated escalation before deadlines are missed.'}
+},
+'product sprint planning':{
+t1:{summary:'Sprint planning input received · not processed at Starter tier',sections:[
+{title:'Output',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'Sprint assistant is not available in Starter. Planning memos are not processed — meeting summaries and task extraction only.'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Sprint tasks, story points, critical path, approval flow, Jira sync'}]}]}
+],callout:'Starter does not process planning memos or generate sprint tasks. Upgrade to Standard or Advanced for sprint assistant functionality.'},
+t2:{summary:'6 sprint tasks generated · critical path calculated · Jira sync pending approval',sections:[
+{title:'Sprint tasks — pending team-lead approval',rows:[
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Refactor authentication service — JWT migration'},{c:'tc-b',t:'8 pts'},{c:'tc-d',t:'Oct 21'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver Figma specs for checkout redesign'},{c:'tc-b',t:'5 pts'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Implement checkout redesign — Design handoff required first'},{c:'tc-b',t:'13 pts'},{c:'tc-d',t:'Oct 25'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'QA'},{c:'tc-t',t:'Write acceptance criteria — payment integration'},{c:'tc-b',t:'3 pts'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Product'},{c:'tc-t',t:'Update roadmap priorities in Jira'},{c:'tc-b',t:'2 pts'},{c:'tc-d',t:'Oct 15'}]}
+]},
+{title:'Critical path',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Dep'},{c:'tc-m',t:'Design specs (Oct 18) <span class="tc-a">→</span> Engineering checkout (Oct 25) — 12-day critical path'}]}]},
+{title:'Approval',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Approval request sent to Product Lead (Sarah M.) · Tasks locked in Jira pending sign-off'}]}]}
+],callout:'Standard generates fully structured sprint tasks with story points, detects the critical path, and requires team-lead approval before writing to Jira.'},
+t3:{summary:'6 tasks · 31 pts · 2 risks detected · capacity check complete · KB archived',sections:[
+{title:'Sprint tasks — with estimates and capacity check',rows:[
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Refactor authentication service'},{c:'tc-b',t:'8 pts'},{c:'tc-d',t:'est. 2.5d'},{c:'tc-d',t:'Oct 21'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Figma specs — checkout flow'},{c:'tc-b',t:'5 pts'},{c:'tc-d',t:'est. 1.5d'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Checkout redesign — after Design handoff'},{c:'tc-b',t:'13 pts'},{c:'tc-d',t:'est. 4d'},{c:'tc-d',t:'Oct 25'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'QA'},{c:'tc-t',t:'Acceptance criteria — payment gateway'},{c:'tc-b',t:'3 pts'},{c:'tc-d',t:'est. 0.5d'},{c:'tc-d',t:'Oct 19'}]}
+]},
+{title:'Risks detected',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-r">Engineering at 94% capacity this sprint.</span> Auth refactor + checkout may conflict. Recommendation: defer auth to next sprint.'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-a">Design late in 2 of 3 recent sprints.</span> Checkout spec (Oct 18) is on critical path. Buffer recommended.'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-kb',t:'Sprint'},{c:'tc-m',t:'Sprint 24 plan archived — 6 tasks, 31 pts, full dependency chain documented'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Check-in Oct 19 — Design spec delivered? · Escalation to PM if not by Oct 18 17:00'}]}]}
+],callout:'Advanced adds duration estimates from team history, capacity and pattern-based risk detection, knowledge base archiving, and proactive escalation at dependency deadlines.'}
+},
+'new client onboarding':{
+t1:{summary:'5 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send signed contract and onboarding package to client'},{c:'tc-d',t:'→ Within 24h'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client-facing environment and test credentials'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare onboarding agenda — share 48h before kickoff'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File signed NDA and MSA in document management system'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees · Summary attached'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'External client notification, calendar scheduling, dependency tracking'}]}]}
+],callout:'Starter assigns internal tasks and delivers by email. No client-facing notifications, no calendar scheduling, no dependency tracking.'},
+t2:{summary:'5 tasks · 1 external dependency · 2 meetings scheduled · Slack + calendar',sections:[
+{title:'Tasks — routed internally',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send signed contract and onboarding package'},{c:'tc-d',t:'→ Within 24h'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client-facing environment and credentials'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare kickoff agenda — share with client 48h before'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File signed NDA and MSA in document system'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'External dependency',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'IT provisioning <span class="tc-a">must complete before</span> CS can share credentials in client welcome email — Oct 19 hard deadline'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Client kickoff call — CS lead + AE + client — 60 min'},{c:'tc-d',t:'Oct 20, client tz'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Internal pre-call briefing — Sales + CS — 20 min'},{c:'tc-d',t:'Oct 20, pre-kickoff'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #cs-team · Calendar invites sent to internal team'}]}]}
+],callout:'Standard tracks the IT-to-CS dependency, schedules the kickoff and pre-call automatically, and notifies the CS team in Slack.'},
+t3:{summary:'5 tasks · estimates · documents auto-generated · client brief drafted · KB updated',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send contract and onboarding package'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'24h'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client environment and credentials'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare kickoff agenda and client brief'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File NDA and MSA — version control check required'},{c:'tc-b',t:'est. 20min'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'Documents auto-prepared',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Generated'},{c:'tc-m',t:'Client brief draft — company background, goals, key contacts — based on meeting notes'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Template'},{c:'tc-m',t:'30-60-90 day onboarding checklist — prefilled with agreed milestones from today\'s meeting'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Client'},{c:'tc-m',t:'New client onboarding context archived — contacts, goals, agreed process'},{c:'tc-d',t:'Today'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Check-in Oct 19: IT provisioning confirmed? · CS reminder Oct 17: agenda ready?'}]}]}
+],callout:'Advanced auto-generates the client brief and onboarding checklist, archives the client context in the knowledge base, and schedules check-ins at every critical dependency.'}
+},
+'security incident debrief':{
+t1:{summary:'4 tasks extracted · email delivery · urgent flags included',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Complete root cause analysis — circulate draft report'},{c:'tc-d',t:'→ Oct 16'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch identified vulnerability — confirm deployment'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Assess GDPR notification obligation — 72h window'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Prepare internal incident communication for staff'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees · Urgent flags included in subject line'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Escalation paths, DPO notification routing, GDPR deadline tracking'}]}]}
+],callout:'Starter extracts urgent tasks and delivers by email with urgency flags. No escalation routing, no GDPR deadline tracking, no follow-up agent.'},
+t2:{summary:'5 tasks · 2 escalation paths · DPO notified · 2 meetings scheduled',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Root cause analysis and draft report'},{c:'tc-d',t:'→ Oct 16'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch vulnerability — confirm production deployment'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'GDPR notification assessment — 72h window from detection'},{c:'tc-d',t:'→ Oct 15 EOD'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Internal incident summary for leadership and staff'},{c:'tc-d',t:'→ Today EOD'}]}
+]},
+{title:'Escalation paths',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Escalate'},{c:'tc-m',t:'If patch not confirmed by Oct 15 18:00 → notify CTO immediately'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Escalate'},{c:'tc-m',t:'GDPR window closes Oct 15 EOD — Legal assessment required before then → notify DPO'}]}
+]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'24h follow-up — Security + Engineering — systems stable?'},{c:'tc-d',t:'Oct 15'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Post-incident review — all teams — 5 days after resolution'},{c:'tc-d',t:'Oct 20'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to leadership · Slack #security · DPO notified directly · Calendar invites sent'}]}]}
+],callout:'Standard routes escalation paths, notifies the DPO directly, and schedules the 24h follow-up and post-incident review automatically.'},
+t3:{summary:'5 tasks · GDPR clock tracked · incident report auto-drafted · KB incident log updated',sections:[
+{title:'Tasks — with compliance tracking',rows:[
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Root cause analysis — draft report'},{c:'tc-b',t:'est. 4h'},{c:'tc-d',t:'Oct 16'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch vulnerability — confirm deployment'},{c:'tc-b',t:'est. 2h'},{c:'tc-r',t:'URGENT'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'GDPR notification assessment'},{c:'tc-b',t:'est. 1h'},{c:'tc-r',t:'72h WINDOW'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Internal incident communication'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Today EOD'}]}
+]},
+{title:'Documents auto-drafted',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'Incident report IR-2024-031 — timeline, affected systems, initial assessment — ready for Security review'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'GDPR preliminary notification — Article 33 format — for Legal review before submission'}]}
+]},
+{title:'Knowledge base — incident log updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Incident'},{c:'tc-m',t:'IR-2024-031 archived — timeline, response steps, open items'},{c:'tc-d',t:'Today'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Pattern'},{c:'tc-m',t:'S3 misconfiguration linked to previous incident IR-2023-018 — pattern flagged for Security review'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'GDPR compliance clock',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ 72h notification window: <span class="tc-r">Oct 15 EOD hard deadline</span> · Automated reminder to Legal every 4h until assessment confirmed'}]}]}
+],callout:'Advanced auto-drafts the incident report and GDPR notification, tracks the 72h compliance clock with automated reminders, and links the incident to historical patterns in the knowledge base.'}
+},
+'marketing campaign kickoff':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief — share with agency'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Set up tracking environment and UTM parameters'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver all creative assets in required formats'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation and issue PO to agency'},{c:'tc-d',t:'→ Oct 16'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'IT-Marketing dependency tracking, agency email, calendar, Slack'}]}]}
+],callout:'Starter assigns tasks and delivers by email. No dependency tracking between IT and Marketing, no agency notification, no calendar scheduling.'},
+t2:{summary:'4 tasks · 1 dependency · 3 meetings scheduled · agency notified · Slack',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief — share with agency'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Set up tracking environment and UTM parameters'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver creative assets — all formats'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget and issue PO'},{c:'tc-d',t:'→ Oct 16'}]}
+]},
+{title:'Dependency detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'IT tracking <span class="tc-a">must complete before</span> Marketing can launch — agency cannot go live without confirmed UTMs'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Agency briefing call — Marketing lead + agency — 45 min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Creative review — Marketing + Design — assets sign-off'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Launch day monitoring slot — IT — tracking live from 08:00'},{c:'tc-d',t:'Launch day'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #marketing · Agency email sent with brief + timeline'}]}]}
+],callout:'Standard detects the IT-Marketing dependency, notifies the agency directly, and schedules the briefing, creative review, and launch monitoring slot automatically.'},
+t3:{summary:'4 tasks · estimates · Design risk flagged · campaign brief auto-drafted · KB updated',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Tracking environment + UTM setup'},{c:'tc-b',t:'est. 3h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver all creative assets'},{c:'tc-b',t:'est. 6h'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Budget confirmation and PO issuance'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'Oct 16'}]}
+]},
+{title:'Risk detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-a">Design has 2 other delivery deadlines this week.</span> Creative assets (Oct 20) may be at risk. Confirm capacity with Design lead by Oct 15.'}]}]},
+{title:'Documents auto-drafted',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'Campaign brief — objectives, audience segments, messaging, KPIs — ready for Marketing review'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Checklist'},{c:'tc-m',t:'Creative asset checklist — all required formats, sizes, copy variants — prefilled from meeting notes'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Campaign'},{c:'tc-m',t:'Q3 campaign kickoff archived — goals, team owners, agency contact, timeline'},{c:'tc-d',t:'Today'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Oct 16: Finance PO confirmed? · Oct 18: IT tracking live? · Oct 19: Design assets ready for review?'}]}]}
+],callout:'Advanced drafts the campaign brief and asset checklist from meeting notes, flags Design capacity risk, archives the campaign context in the knowledge base, and schedules milestone check-ins.'}
+},
+'hiring review':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan with approved headcount for Q4'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation for new hires — sign-off required'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post approved roles on careers page and LinkedIn'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Review updated employment contract templates'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to HR team and meeting attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Finance-HR dependency tracking, calendar coordination, decision log'}]}]}
+],callout:'Starter assigns internal tasks and delivers by email. Finance-HR approval dependency is not tracked.'},
+t2:{summary:'4 tasks · 1 dependency · 2 meetings scheduled · Slack + calendar',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan with Q4 approved headcount'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation for new hires'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post approved roles — careers page + LinkedIn'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Review employment contract templates for new roles'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Dependency detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Finance budget confirmation <span class="tc-a">must complete before</span> HR can post roles externally — Oct 17 hard deadline'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Hiring plan review — HR + Finance — 30 min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Contract template review — HR + Legal — 45 min'},{c:'tc-d',t:'Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #hr-team · Calendar invites sent'}]}]}
+],callout:'Standard catches the Finance-HR approval dependency, auto-schedules both follow-up meetings, and delivers to Slack and calendar.'},
+t3:{summary:'4 tasks · estimates · compliance check · KB updated with headcount decisions',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan — Q4 approved headcount'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Budget confirmation for new hires'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post roles externally — after Finance confirmation'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Contract template review'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 21'}]}
+]},
+{title:'Compliance check',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-kb',t:'Check'},{c:'tc-m',t:'Hiring freeze policy checked against knowledge base. <span class="tc-a">Engineering roles exempt with CFO approval.</span> Non-exempt roles require CEO sign-off.'}]}]},
+{title:'Knowledge base — updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Decision'},{c:'tc-m',t:'Q4 headcount approved — 3 Engineering, 1 CS, 2 Marketing — CFO sign-off required for Engineering'},{c:'tc-d',t:'Today'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Policy'},{c:'tc-m',t:'Hiring freeze exemption for Engineering roles — CFO verbal approval recorded'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Oct 17: Finance confirmed? · Oct 20: Roles posted? · Escalation to CFO if Engineering exemption not formally documented by Oct 18'}]}]}
+],callout:'Advanced cross-references the hiring freeze policy from the knowledge base, flags which roles need CFO exemption, records the headcount decision permanently, and escalates if formal approval is missing.'}
+}
+};
+
+function matchQuery(q){
+  const l=q.toLowerCase().trim();
+  for(const k of Object.keys(DATA)){if(l.includes(k)||k.includes(l))return k;}
+  const m={budget:'quarterly budget review',financial:'quarterly budget review',finance:'quarterly budget review',quarterly:'quarterly budget review',
+    sprint:'product sprint planning',product:'product sprint planning',agile:'product sprint planning',backlog:'product sprint planning',
+    onboarding:'new client onboarding',client:'new client onboarding',customer:'new client onboarding',
+    security:'security incident debrief',incident:'security incident debrief',breach:'security incident debrief',gdpr:'security incident debrief',
+    marketing:'marketing campaign kickoff',campaign:'marketing campaign kickoff',launch:'marketing campaign kickoff',
+    hiring:'hiring review',recruit:'hiring review',headcount:'hiring review',hr:'hiring review'};
+  for(const [kw,key] of Object.entries(m)){if(l.includes(kw))return key;}
+  return null;
+}
+
+function renderOutput(key,tier){
+  const out=document.getElementById('q-output');
+  const data=DATA[key][`t${tier}`];
+  out.innerHTML='';
+  const sumEl=document.createElement('p');
+  sumEl.style.cssText='font-family:var(--mono);font-size:11px;color:var(--tb6);padding:0 0 12px;letter-spacing:.04em;border-bottom:1px solid var(--tb3);margin-bottom:4px';
+  sumEl.textContent=data.summary;
+  out.appendChild(sumEl);
+  let delay=0;
+  data.sections.forEach(sec=>{
+    const t=document.createElement('p');
+    t.className='out-section';
+    t.textContent=sec.title;
+    out.appendChild(t);
+    sec.rows.forEach(row=>{
+      const div=document.createElement('div');
+      div.className='out-row'+(sec.locked?' locked-row':'');
+      div.style.gridTemplateColumns=row.cols.join(' ');
+      row.cells.forEach(cell=>{
+        const s=document.createElement('span');
+        s.className=cell.c||'';
+        s.innerHTML=cell.t;
+        div.appendChild(s);
+      });
+      if(sec.locked){
+        const lbl=document.createElement('span');
+        lbl.className='locked-lbl';
+        lbl.textContent=tier===1?'Standard +':'Advanced';
+        div.appendChild(lbl);
+      }
+      out.appendChild(div);
+      const d=delay;setTimeout(()=>div.classList.add('show'),d);
+      delay+=70;
+    });
+  });
+  const cl=document.createElement('div');
+  cl.className=`out-callout oc-${tier}`;
+  cl.style.opacity='0';
+  cl.textContent=data.callout;
+  out.appendChild(cl);
+  setTimeout(()=>{cl.style.transition='opacity .4s';cl.style.opacity='1';},delay+100);
+}
+
+let currentTier=1,currentKey=null;
+
+function run(forceKey){
+  const inp=document.getElementById('q-input');
+  const btn=document.getElementById('q-run');
+  const out=document.getElementById('q-output');
+  const q=forceKey||inp.value.trim();
+  if(!q)return;
+  if(!forceKey)inp.value=q;
+  const key=matchQuery(q);
+  currentKey=key;
+  btn.disabled=true;
+  out.innerHTML='<div class="q-loading">Processing — extracting tasks and routing</div>';
+  setTimeout(()=>{
+    if(key){renderOutput(key,currentTier);}
+    else{out.innerHTML=`<div style="font-family:var(--mono);font-size:13px;color:var(--tb6);padding:8px 0">No match for "<span style="color:var(--tbt)">${q}</span>". Try: quarterly budget review, product sprint planning, new client onboarding, security incident debrief, marketing campaign kickoff, or hiring review.</div>`;}
+    btn.disabled=false;
+  },700);
+}
+
+function setTier(t){
+  currentTier=t;
+  document.querySelectorAll('.tier-tab').forEach(b=>{b.classList.remove('act-1','act-2','act-3');if(parseInt(b.dataset.tier)===t)b.classList.add(`act-${t}`);});
+  const pill=document.getElementById('q-tier-pill');
+  pill.className=`q-tier-pill qp-${t}`;
+  pill.textContent=['','Starter','Standard','Advanced'][t];
+  document.getElementById('q-bar-label').textContent=`briefops — ${['','starter','standard','advanced'][t]} output`;
+  if(currentKey){
+    document.getElementById('q-output').innerHTML='<div class="q-loading">Switching tier...</div>';
+    setTimeout(()=>renderOutput(currentKey,currentTier),400);
+  }
+}
+
+document.querySelectorAll('.tier-tab').forEach(b=>b.addEventListener('click',()=>setTier(parseInt(b.dataset.tier))));
+document.getElementById('q-run').addEventListener('click',()=>run());
+document.getElementById('q-input').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+document.querySelectorAll('.q-sug').forEach(b=>b.addEventListener('click',()=>{document.getElementById('q-input').value=b.dataset.val;run(b.dataset.val);}));
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
