@@ -1,0 +1,3628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BriefOps — From meeting to action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Suisse+Int%27l:wght@300;400;450&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #111110;
+  --gray-1: #2c2c2b;
+  --gray-2: #6b6b69;
+  --gray-3: #9a9a97;
+  --gray-4: #c8c8c4;
+  --gray-5: #e8e8e4;
+  --gray-6: #f4f4f0;
+  --white: #fafaf7;
+  --accent: #1a3fa3;
+  --accent-light: #e8edf8;
+  --rule: #e2e2de;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'Lato', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  height: 60px;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+}
+
+.logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.logo sup {
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  vertical-align: super;
+  margin-left: 3px;
+}
+
+.nav-links {
+  display: flex; gap: 36px; align-items: center;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gray-2);
+  text-decoration: none;
+  letter-spacing: .01em;
+  transition: color .15s;
+}
+
+.nav-links a:hover { color: var(--black); }
+
+.nav-cta {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--white) !important;
+  background: var(--black);
+  padding: 8px 18px;
+  border-radius: 3px;
+  letter-spacing: .02em !important;
+  transition: background .15s !important;
+}
+
+.nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+/* ── HERO ── */
+.hero {
+  padding: 120px 48px 100px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.hero-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(38px, 4.5vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--black);
+  margin-bottom: 28px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-lead {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--gray-1);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-bottom: 40px;
+}
+
+.cta-group { display: flex; gap: 20px; align-items: center; }
+
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 3px;
+  transition: .15s;
+}
+
+.btn-fill {
+  background: var(--black);
+  color: var(--white);
+}
+
+.btn-fill:hover { background: var(--accent); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-2);
+  border: 1px solid var(--rule);
+}
+
+.btn-ghost:hover { border-color: var(--gray-4); color: var(--black); }
+
+/* hero terminal mockup */
+.hero-terminal {
+  font-family: var(--mono);
+  background: var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.terminal-bar {
+  background: #222220;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #333330;
+}
+
+.terminal-dots {
+  display: flex; gap: 6px;
+}
+
+.terminal-dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #444442;
+}
+
+.terminal-label {
+  font-size: 11px;
+  color: #666664;
+  letter-spacing: .06em;
+}
+
+.terminal-body {
+  padding: 24px;
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
+.t-dim { color: #555553; }
+.t-green { color: #5cb85c; }
+.t-blue { color: #6699cc; }
+.t-amber { color: #d4a84b; }
+.t-white { color: #c8c8c4; }
+.t-red { color: #c0392b; }
+
+.terminal-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid #1e1e1c;
+  align-items: center;
+}
+
+.terminal-row:last-child { border-bottom: none; }
+
+.t-tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.t-tag-blue { background: rgba(102,153,204,.15); color: #6699cc; }
+.t-tag-green { background: rgba(92,184,92,.15); color: #5cb85c; }
+.t-tag-amber { background: rgba(212,168,75,.15); color: #d4a84b; }
+
+.t-name { color: #c8c8c4; font-size: 12px; }
+.t-due { color: #555553; font-size: 11px; white-space: nowrap; }
+
+.t-cursor {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: #5cb85c;
+  vertical-align: middle;
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── DIVIDER FULL ── */
+.full-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  width: 100%;
+}
+
+/* ── SECTION BASE ── */
+.section-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── INTEGRATIONS STRIP ── */
+.integrations {
+  border-bottom: 1px solid var(--rule);
+  padding: 24px 48px;
+}
+
+.integrations-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.int-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-4);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.int-divider {
+  width: 1px; height: 20px;
+  background: var(--rule);
+  flex-shrink: 0;
+}
+
+.int-list {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.int-list span {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gray-3);
+  letter-spacing: .01em;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  border-bottom: 1px solid var(--rule);
+  padding: 100px 48px;
+}
+
+.how-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 72px;
+  align-items: end;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h2 em { font-style: italic; color: var(--accent); }
+
+.section-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.75;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.step-item {
+  padding: 40px 32px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+
+.step-item:last-child { border-right: none; }
+
+.step-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gray-4);
+  letter-spacing: .1em;
+  margin-bottom: 24px;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.step-body {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.7;
+}
+
+/* ── FEATURES ── */
+.features-section {
+  border-bottom: 1px solid var(--rule);
+  padding: 100px 48px;
+}
+
+.features-inner { max-width: 1280px; margin: 0 auto; }
+
+.features-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 64px;
+}
+
+.features-table tr {
+  border-bottom: 1px solid var(--rule);
+}
+
+.features-table tr:last-child { border-bottom: none; }
+
+.features-table td {
+  padding: 28px 0;
+  vertical-align: top;
+}
+
+.feat-cat {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  width: 180px;
+  padding-top: 30px;
+}
+
+.feat-name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  padding-right: 48px;
+  width: 280px;
+}
+
+.feat-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.feat-tier {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--gray-4);
+  text-align: right;
+  white-space: nowrap;
+  padding-top: 30px;
+}
+
+/* ── PRIVACY ── */
+.privacy-section {
+  background: var(--black);
+  color: var(--white);
+  padding: 100px 48px;
+}
+
+.privacy-inner { max-width: 1280px; margin: 0 auto; }
+
+.privacy-inner h2 { color: var(--white); }
+.privacy-inner h2 em { color: #8faee8; }
+.privacy-inner .section-desc { color: #666664; }
+
+.privacy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  border: 1px solid #222220;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.privacy-item {
+  padding: 40px 36px;
+  border-right: 1px solid #222220;
+  border-bottom: 1px solid #222220;
+}
+
+.privacy-item:nth-child(3n) { border-right: none; }
+.privacy-item:nth-last-child(-n+3) { border-bottom: none; }
+
+.privacy-kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #8faee8;
+  margin-bottom: 16px;
+}
+
+.privacy-item h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.privacy-item p {
+  font-size: 14px;
+  font-weight: 300;
+  color: #666664;
+  line-height: 1.75;
+}
+
+/* ── PRICING ── */
+.pricing-section {
+  padding: 100px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.pricing-inner { max-width: 1280px; margin: 0 auto; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.price-col {
+  padding: 48px 40px;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+
+.price-col:last-child { border-right: none; }
+.price-col.featured { background: var(--black); color: var(--white); }
+
+.price-tier {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 20px;
+}
+
+.featured .price-tier { color: #555553; }
+
+.price-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.featured .price-name { color: var(--white); }
+
+.price-sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-2);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.featured .price-sub { color: #555553; }
+
+.price-amount {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.featured .price-amount { color: var(--white); }
+
+.price-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gray-3);
+  margin-bottom: 36px;
+  letter-spacing: .04em;
+}
+
+.featured .price-note { color: #555553; }
+
+.price-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 28px;
+}
+
+.featured .price-rule { border-color: #222220; }
+
+.price-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  margin-bottom: 36px;
+}
+
+.price-features li {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-1);
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+}
+
+.price-features li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 1px;
+  background: var(--gray-4);
+}
+
+.featured .price-features li { color: #888886; }
+.featured .price-features li.inc { color: #c8c8c4; }
+.featured .price-features li.inc::before { background: #5cb85c; width: 5px; height: 5px; border-radius: 50%; top: 6px; }
+
+.price-features li.inc { color: var(--black); }
+.price-features li.inc::before { background: var(--accent); width: 5px; height: 5px; border-radius: 50%; top: 6px; }
+
+.price-cta {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  padding: 13px 20px;
+  border-radius: 3px;
+  transition: .15s;
+  border: 1px solid var(--rule);
+  color: var(--black);
+  background: transparent;
+}
+
+.price-cta:hover { border-color: var(--black); }
+.featured .price-cta { background: var(--white); color: var(--black); border-color: transparent; }
+.featured .price-cta:hover { background: #8faee8; }
+
+/* ── ADDONS ── */
+.addons-section {
+  padding: 72px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--gray-6);
+}
+
+.addons-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.addons-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 32px;
+}
+
+.addons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.addon-item {
+  background: var(--white);
+  padding: 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.addon-name {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.4;
+}
+
+.addon-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gray-3);
+  letter-spacing: .04em;
+}
+
+/* ── CTA ── */
+.cta-section {
+  padding: 120px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.cta-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+
+.cta-copy h2 { margin-bottom: 16px; }
+.cta-copy p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.75;
+  margin-bottom: 40px;
+}
+
+.cta-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--black);
+  transition: border-color .15s;
+}
+
+.contact-row:hover { border-color: var(--accent); }
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 4px;
+}
+
+.contact-value {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.contact-arrow {
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--gray-4);
+  transition: color .15s, transform .15s;
+}
+
+.contact-row:hover .contact-arrow { color: var(--accent); transform: translateX(4px); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+}
+
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gray-4);
+  letter-spacing: .04em;
+  display: flex;
+  gap: 24px;
+}
+
+/* ── TIER TABS & BADGES (demo) ── */
+.tier-tabs { display:flex; border:1px solid var(--rule); border-radius:4px; overflow:hidden; width:fit-content; margin-bottom:16px; }
+.tier-tab { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:10px 20px; cursor:pointer; border:none; background:var(--white); color:var(--gray-3); border-right:1px solid var(--rule); transition:background .15s,color .15s; display:flex; align-items:center; gap:8px; }
+.tier-tab:last-child { border-right:none; }
+.tier-tab:hover { background:var(--gray-6); color:var(--gray-1); }
+.tier-tab.act-1 { background:#e1f5ee; color:#0f6e56; }
+.tier-tab.act-2 { background:var(--accent-light); color:var(--accent); }
+.tier-tab.act-3 { background:#eeedfe; color:#534ab7; }
+.tdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.td1 { background:#0f6e56; } .td2 { background:var(--accent); } .td3 { background:#534ab7; }
+.q-tier-pill { font-size:10px; margin-left:auto; padding:2px 10px; border-radius:2px; letter-spacing:.08em; font-weight:500; font-family:var(--mono); }
+.qp-1 { background:rgba(15,110,86,.15); color:#5dcaa5; }
+.qp-2 { background:rgba(26,63,163,.15); color:#85b7eb; }
+.qp-3 { background:rgba(83,74,183,.15); color:#afa9ec; }
+
+/* tier badge for feature demos */
+.feat-tier-badge { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:2px; margin-bottom:12px; }
+.ftb-all { background:var(--gray-6); color:var(--gray-2); }
+.ftb-std { background:var(--accent-light); color:var(--accent); }
+.ftb-adv { background:#eeedfe; color:#534ab7; }
+
+/* output rows for tier demo */
+.out-section { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:#444442; padding:12px 0 6px; border-top:1px solid #1e1e1c; margin-top:6px; }
+.out-section:first-child { border-top:none; margin-top:0; padding-top:0; }
+.out-row { display:grid; gap:10px; padding:6px 0; border-bottom:1px solid #161614; align-items:start; font-size:12.5px; opacity:0; transform:translateY(5px); transition:opacity .3s,transform .3s; }
+.out-row.show { opacity:1; transform:none; }
+.out-row:last-child { border-bottom:none; }
+.otag { font-size:9px; font-weight:500; letter-spacing:.07em; text-transform:uppercase; padding:2px 7px; border-radius:2px; white-space:nowrap; flex-shrink:0; }
+.ot-team { background:rgba(102,153,204,.15); color:#6699cc; }
+.ot-mail { background:rgba(92,184,92,.15); color:#5cb85c; }
+.ot-cal  { background:rgba(212,168,75,.15); color:#d4a84b; }
+.ot-doc  { background:rgba(180,100,200,.15); color:#c070d0; }
+.ot-dep  { background:rgba(150,150,130,.15); color:#88886a; }
+.ot-blk  { background:rgba(192,57,43,.15); color:#c0392b; }
+.ot-kb   { background:rgba(83,74,183,.15); color:#afa9ec; }
+.tc-t  { color:#c8c8c4; } .tc-m  { color:#555553; } .tc-d  { color:#444442; }
+.tc-g  { color:#5cb85c; } .tc-a  { color:#d4a84b; } .tc-r  { color:#c0392b; }
+.tc-b  { color:#6699cc; } .tc-p  { color:#c070d0; }
+.out-callout { margin-top:14px; padding:11px 15px; border-left:2px solid; border-radius:0 3px 3px 0; font-size:12px; line-height:1.65; }
+.oc-1 { border-color:#0f6e56; background:rgba(15,110,86,.06); color:#5dcaa5; }
+.oc-2 { border-color:var(--accent); background:rgba(26,63,163,.06); color:#85b7eb; }
+.oc-3 { border-color:#534ab7; background:rgba(83,74,183,.06); color:#afa9ec; }
+.locked-row { opacity:.3; position:relative; }
+.locked-lbl { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#444442; border:1px solid #333330; border-radius:2px; padding:2px 8px; margin-left:8px; vertical-align:middle; }
+
+/* ── INTERACTIVE DEMO ── */
+.demo-section {
+  padding: 100px 48px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--gray-6);
+}
+
+.demo-inner { max-width: 1280px; margin: 0 auto; }
+
+.demo-header {
+  max-width: 560px;
+  margin-bottom: 56px;
+}
+
+.demo-kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 16px;
+}
+
+.demo-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.75;
+  margin-top: 12px;
+}
+
+.demo-terminal {
+  background: var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: var(--mono);
+}
+
+.demo-bar {
+  background: #1a1a18;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #2a2a28;
+}
+
+.demo-bar-label {
+  font-size: 11px;
+  color: #666664;
+  letter-spacing: .06em;
+}
+
+.demo-bar-hint {
+  font-size: 11px;
+  color: #3a3a38;
+  margin-left: auto;
+  letter-spacing: .04em;
+}
+
+.demo-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 20px;
+  border-bottom: 1px solid #1e1e1c;
+}
+
+.demo-prompt {
+  font-size: 13px;
+  color: #5cb85c;
+  white-space: nowrap;
+  padding: 16px 12px 16px 0;
+  user-select: none;
+}
+
+.demo-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: #c8c8c4;
+  padding: 16px 12px;
+  caret-color: #5cb85c;
+}
+
+.demo-input::placeholder { color: #333330; }
+
+.demo-run {
+  background: transparent;
+  border: 1px solid #333330;
+  color: #666664;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+  white-space: nowrap;
+}
+
+.demo-run:hover { border-color: #5cb85c; color: #5cb85c; }
+.demo-run:disabled { opacity: .4; cursor: default; }
+
+.demo-suggestions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #1a1a18;
+  flex-wrap: wrap;
+}
+
+.demo-sug-label {
+  font-size: 10px;
+  color: #333330;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.demo-sug {
+  background: transparent;
+  border: 1px solid #2a2a28;
+  color: #555553;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+  letter-spacing: .02em;
+}
+
+.demo-sug:hover { border-color: #444442; color: #888886; }
+
+.demo-output {
+  min-height: 240px;
+  padding: 24px 20px;
+}
+
+.demo-placeholder {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.demo-cursor-blink {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: #333330;
+  animation: blink 1.1s step-end infinite;
+  vertical-align: middle;
+}
+
+.demo-loading {
+  color: #555553;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-loading::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  border: 1px solid #333330;
+  border-top-color: #5cb85c;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.demo-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.demo-section-title {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #444442;
+  padding: 16px 0 8px;
+  border-top: 1px solid #1e1e1c;
+  margin-top: 8px;
+}
+
+.demo-section-title:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
+.demo-line {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 16px;
+  padding: 8px 0;
+  align-items: start;
+  border-bottom: 1px solid #161614;
+  font-size: 12.5px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.demo-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.demo-line:last-child { border-bottom: none; }
+
+.d-tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+  display: inline-block;
+  margin-top: 1px;
+}
+
+.d-tag-task { background: rgba(102,153,204,.15); color: #6699cc; }
+.d-tag-mail { background: rgba(92,184,92,.15); color: #5cb85c; }
+.d-tag-cal { background: rgba(212,168,75,.15); color: #d4a84b; }
+.d-tag-doc { background: rgba(180,100,200,.15); color: #c070d0; }
+.d-tag-risk { background: rgba(192,57,43,.15); color: #c0392b; }
+.d-tag-dep { background: rgba(150,150,130,.15); color: #666660; }
+
+.d-text { color: #c8c8c4; }
+.d-meta { color: #444442; font-size: 11px; white-space: nowrap; margin-top: 2px; }
+
+.demo-summary-line {
+  font-size: 12px;
+  color: #555553;
+  padding: 12px 0 4px;
+  letter-spacing: .02em;
+}
+
+/* ── INTERACTIVE FEATURE SECTIONS ── */
+.inter-section {
+  padding: 100px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.inter-alt { background: var(--gray-6); }
+
+.inter-inner { max-width: 1280px; margin: 0 auto; }
+
+.inter-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 56px;
+  align-items: end;
+}
+
+.inter-kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 16px;
+}
+
+.inter-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray-2);
+  line-height: 1.75;
+}
+
+/* ── DEPENDENCY GRAPH ── */
+.dep-canvas-wrap {
+  background: var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dep-legend {
+  display: flex;
+  gap: 24px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #1e1e1c;
+  background: #1a1a18;
+}
+
+.dep-leg-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #555553;
+  letter-spacing: .08em;
+}
+
+.dep-leg-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#dep-svg { display: block; padding: 8px; }
+
+.dep-node { cursor: pointer; transition: opacity .15s; }
+.dep-node:hover { opacity: .85; }
+
+.dep-detail {
+  padding: 16px 20px;
+  border-top: 1px solid #1e1e1c;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.dep-detail-hint {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #333330;
+}
+
+.dep-detail-content {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #888886;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.dep-detail-content strong { color: #c8c8c4; }
+
+/* ── TIMELINE ── */
+.tl-wrap {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.tl-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.tl-control { display: flex; flex-direction: column; gap: 10px; }
+
+.tl-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+}
+
+.tl-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tl-slider-row input[type=range] {
+  flex: 1;
+  accent-color: var(--accent);
+  height: 2px;
+}
+
+.tl-val {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--black);
+  min-width: 80px;
+  text-align: right;
+}
+
+.tl-output {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tl-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tl-metric {
+  background: var(--white);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tl-metric-highlight {
+  background: var(--black);
+}
+
+.tl-metric-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+}
+
+.tl-metric-highlight .tl-metric-label { color: #444442; }
+
+.tl-metric-val {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+
+.tl-metric-highlight .tl-metric-val { color: var(--white); }
+.tl-red { color: #c0392b !important; }
+.tl-green { color: #27ae60 !important; }
+
+.tl-chart-wrap { display: flex; flex-direction: column; gap: 12px; }
+
+.tl-chart-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+}
+
+.tl-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tl-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.tl-row-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gray-2);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-bar-wrap {
+  height: 22px;
+  background: var(--gray-6);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tl-bar {
+  height: 100%;
+  border-radius: 2px;
+  position: absolute;
+  transition: width .4s ease, left .4s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+
+.tl-bar-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── KNOWLEDGE BASE ── */
+.kb-terminal {
+  background: var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: var(--mono);
+}
+
+.kb-output {
+  min-height: 200px;
+  padding: 20px;
+}
+
+.kb-result {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kb-answer {
+  font-size: 14px;
+  color: #c8c8c4;
+  line-height: 1.75;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #1e1e1c;
+}
+
+.kb-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kb-source-label {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #444442;
+  margin-bottom: 4px;
+}
+
+.kb-source-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #1a1a18;
+  border-radius: 3px;
+  border: 1px solid #222220;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.kb-source-item.show { opacity: 1; transform: translateY(0); }
+
+.kb-source-type {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.kbs-meeting { background: rgba(102,153,204,.15); color: #6699cc; }
+.kbs-decision { background: rgba(212,168,75,.15); color: #d4a84b; }
+.kbs-doc { background: rgba(180,100,200,.15); color: #c070d0; }
+.kbs-policy { background: rgba(92,184,92,.15); color: #5cb85c; }
+
+.kb-source-text { font-size: 12px; color: #888886; }
+.kb-source-date { font-size: 11px; color: #444442; white-space: nowrap; }
+
+/* ── CONTACT FORM ── */
+.contact-meta-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 20px;
+}
+.contact-meta-item {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .06em; color: var(--gray-2);
+}
+.contact-meta-dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--gray-4); flex-shrink: 0;
+}
+
+form { display: flex; flex-direction: column; gap: 16px; }
+
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gray-3);
+}
+
+.form-input {
+  font-family: var(--sans); font-size: 14px;
+  font-weight: 300; color: var(--black);
+  background: var(--white);
+  border: 1px solid var(--rule); border-radius: 3px;
+  padding: 10px 14px; outline: none;
+  transition: border-color .15s;
+  width: 100%;
+}
+.form-input:focus { border-color: var(--accent); }
+.form-input::placeholder { color: var(--gray-4); }
+
+.form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9a97' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+.form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+.form-footer {
+  display: flex; align-items: center; gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-submit {
+  font-family: var(--sans); font-size: 12px;
+  font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--white);
+  background: var(--black); border: none;
+  padding: 12px 24px; border-radius: 3px;
+  cursor: pointer; transition: background .15s;
+  white-space: nowrap;
+}
+.form-submit:hover { background: var(--accent); }
+.form-submit:disabled { opacity: .5; cursor: default; }
+
+.form-note {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--gray-3); letter-spacing: .03em;
+}
+.form-note a { color: var(--gray-2); text-decoration: none; border-bottom: 1px solid var(--rule); transition: color .15s; }
+.form-note a:hover { color: var(--black); }
+
+.form-success {
+  padding: 12px 16px; border-radius: 3px;
+  border-left: 2px solid var(--teal);
+  background: var(--teal-light);
+  font-family: var(--mono); font-size: 12px;
+  color: var(--teal); letter-spacing: .03em;
+}
+.form-error {
+  padding: 12px 16px; border-radius: 3px;
+  border-left: 2px solid #c0392b;
+  background: #fcebeb;
+  font-family: var(--mono); font-size: 12px;
+  color: #c0392b; letter-spacing: .03em;
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ── DEMO HINT BAR ── */
+.demo-hint-bar {
+  display:flex; align-items:flex-start; gap:10px;
+  background:var(--gray-6); border:1px solid var(--rule);
+  border-radius:4px; padding:10px 14px;
+  font-family:var(--mono); font-size:11px; color:var(--gray-2);
+  line-height:1.6; margin-bottom:14px;
+}
+.demo-hint-icon { color:var(--gray-4); flex-shrink:0; margin-top:1px; }
+.demo-hint-bar strong { color:var(--black); }
+.demo-hint-badge {
+  display:inline-block; font-size:9px; font-weight:500;
+  letter-spacing:.07em; text-transform:uppercase;
+  padding:1px 7px; border-radius:2px; vertical-align:middle;
+}
+
+/* ── SOURCE TAG POPUP ── */
+.src-tag {
+  cursor:pointer !important;
+  transition:opacity .12s;
+}
+.src-tag:hover { opacity:.75; }
+
+.src-popup {
+  position:fixed; z-index:1001;
+  background:#1a1a18; border:1px solid #333330;
+  border-radius:6px; width:300px;
+  box-shadow:0 8px 32px rgba(0,0,0,.7);
+  font-family:var(--mono); overflow:hidden;
+  animation:popIn .15s ease;
+}
+.sp-head { padding:12px 16px 10px; border-bottom:1px solid #222220; }
+.sp-type { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#555553; margin-bottom:4px; }
+.sp-title { font-size:12px; color:#c8c8c4; line-height:1.5; }
+.sp-body { padding:12px 16px; display:flex; flex-direction:column; gap:8px; }
+.sp-loc-label { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#444442; }
+.sp-loc-path { font-size:11px; color:#888886; margin-top:2px; word-break:break-all; }
+.sp-access { display:inline-flex; align-items:center; gap:5px; font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:2px; }
+.spa-full { background:rgba(92,184,92,.1); color:#5cb85c; }
+.spa-ref  { background:rgba(212,168,75,.1); color:#d4a84b; }
+.sp-actions { padding:0 8px 10px; display:flex; gap:6px; }
+.sp-btn {
+  flex:1; padding:8px 0; border-radius:3px; border:1px solid #333330;
+  background:transparent; font-family:var(--mono); font-size:10px;
+  letter-spacing:.08em; text-transform:uppercase; cursor:pointer;
+  color:#888886; transition:border-color .12s, color .12s;
+}
+.sp-btn:hover { border-color:#6699cc; color:#6699cc; }
+.sp-btn.sp-btn-open { border-color:#534ab7; color:#afa9ec; }
+.sp-btn.sp-btn-open:hover { background:#1e1c2a; }
+.sp-close {
+  position:absolute; top:8px; right:10px;
+  background:transparent; border:none; color:#444442;
+  font-size:16px; cursor:pointer; padding:2px 6px; transition:color .12s;
+}
+.sp-close:hover { color:#888886; }
+
+/* ── OWNER BADGE & POPUP ── */
+.owner-badge {
+  cursor:pointer;
+  transition:background .15s, color .15s;
+  position:relative;
+}
+.owner-badge:hover {
+  background:rgba(102,153,204,.3) !important;
+  color:#aaccee !important;
+}
+
+.owner-popup {
+  position:fixed;
+  z-index:1000;
+  background:#1a1a18;
+  border:1px solid #333330;
+  border-radius:6px;
+  width:280px;
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  font-family:var(--mono);
+  overflow:hidden;
+  animation:popIn .15s ease;
+}
+@keyframes popIn {
+  from { opacity:0; transform:scale(.95) translateY(-4px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+.op-head {
+  padding:14px 16px 10px;
+  border-bottom:1px solid #222220;
+}
+.op-name { font-size:13px; color:#c8c8c4; font-weight:500; }
+.op-task { font-size:10px; color:#555553; margin-top:3px; letter-spacing:.03em; line-height:1.4; }
+.op-deadline { font-size:10px; color:#d4a84b; margin-top:4px; }
+.op-actions { padding:8px; display:flex; flex-direction:column; gap:4px; }
+.op-action {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 12px; border-radius:3px;
+  cursor:pointer; transition:background .12s;
+  border:none; background:transparent; width:100%; text-align:left;
+}
+.op-action:hover { background:#222220; }
+.op-icon { font-size:14px; width:20px; text-align:center; flex-shrink:0; }
+.op-action-text { display:flex; flex-direction:column; gap:1px; }
+.op-action-label { font-size:12px; color:#c8c8c4; letter-spacing:.03em; }
+.op-action-sub { font-size:10px; color:#555553; }
+.op-slots { padding:0 8px 8px; }
+.op-slots-label { font-size:9px; color:#444442; letter-spacing:.1em; text-transform:uppercase; padding:4px 4px 6px; }
+.op-slot {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:7px 10px; border:1px solid #222220; border-radius:3px;
+  margin-bottom:4px; cursor:pointer; transition:border-color .12s, background .12s;
+}
+.op-slot:hover { border-color:#534ab7; background:#1e1c2a; }
+.op-slot-time { font-size:11px; color:#888886; }
+.op-slot-date { font-size:11px; color:#c8c8c4; }
+.op-slot-book { font-size:9px; color:#534ab7; letter-spacing:.08em; text-transform:uppercase; }
+.op-close {
+  position:absolute; top:10px; right:10px;
+  background:transparent; border:none; color:#444442;
+  font-size:16px; cursor:pointer; line-height:1; padding:2px 6px;
+  transition:color .12s;
+}
+.op-close:hover { color:#888886; }
+.op-overlay {
+  position:fixed; inset:0; z-index:999;
+  background:transparent;
+}
+.op-booked {
+  padding:10px 16px 12px;
+  font-size:11px; color:#5cb85c;
+  border-top:1px solid #222220;
+  display:none;
+}
+
+/* ── PROGRESS BAR ── */
+.prog-bar-wrap { margin-bottom:14px; }
+.prog-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; font-family:var(--mono); font-size:11px; }
+.prog-label { color:#888886; }
+.prog-pct { color:#c8c8c4; font-weight:500; margin-left:auto; }
+.prog-eta { color:#6699cc; font-size:10px; }
+.prog-track { height:4px; background:#222220; border-radius:2px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:2px; transition:width .4s ease; }
+.t1-fill { background:#0f6e56; }
+.t2-fill { background:#1a3fa3; }
+.t3-fill { background:#534ab7; }
+
+/* checkbox */
+.task-cb { appearance:none; width:14px; height:14px; border:1px solid #444442; border-radius:2px; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background .15s,border-color .15s; }
+.task-cb:checked { background:#5cb85c; border-color:#5cb85c; }
+.task-cb:checked::after { content:''; display:block; width:8px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg) translate(1px,-1px); margin:2px 0 0 2px; }
+.task-done .task-text { text-decoration:line-through; opacity:.4; }
+
+/* blocker warning */
+.blocker-warn { padding:8px 12px; background:rgba(192,57,43,.1); border-left:2px solid #c0392b; border-radius:0 3px 3px 0; font-family:var(--mono); font-size:11px; color:#c0392b; margin-bottom:10px; line-height:1.5; }
+
+/* gantt */
+.gantt-wrap { margin:8px 0 4px; display:flex; flex-direction:column; gap:5px; }
+.gantt-row { display:grid; grid-template-columns:90px 1fr; gap:10px; align-items:center; }
+.gantt-label { font-family:var(--mono); font-size:10px; color:#555553; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gantt-track { height:20px; background:#1a1a18; border-radius:2px; position:relative; overflow:hidden; }
+.gantt-bar { height:100%; position:absolute; border-radius:2px; background:#333330; display:flex; align-items:center; padding:0 5px; transition:opacity .3s; }
+.gantt-bar.critical { background:rgba(83,74,183,.35); border:1px solid rgba(83,74,183,.5); }
+.gantt-bar.done { background:rgba(92,184,92,.25); border:1px solid rgba(92,184,92,.4); }
+.gantt-bar span { font-family:var(--mono); font-size:9px; color:#888886; white-space:nowrap; }
+.gantt-legend { display:flex; gap:16px; margin-top:6px; padding-top:6px; border-top:1px solid #1e1e1c; }
+.gantt-leg-item { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:9px; color:#444442; }
+.gantt-leg-dot { width:8px; height:8px; border-radius:1px; background:#333330; }
+.gantt-leg-dot.critical-dot { background:rgba(83,74,183,.5); }
+
+/* ── STATIC TIER DEMO TERMINALS ── */
+.terminal { background:var(--black); border-radius:6px; overflow:hidden; font-family:var(--mono); margin-top:16px; }
+.t-bar { background:#1a1a18; padding:11px 18px; display:flex; align-items:center; gap:14px; border-bottom:1px solid #222220; }
+.q-dots { display:flex; gap:5px; }
+.q-dots span { width:9px; height:9px; border-radius:50%; background:#333330; }
+.t-bar-label { font-size:11px; color:#555553; letter-spacing:.06em; }
+.t-body { padding:20px; }
+.ts-btn { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:10px 20px; cursor:pointer; border:none; background:var(--white); color:var(--gray-3); border-right:1px solid var(--rule); transition:background .15s,color .15s; display:flex; align-items:center; gap:8px; }
+.ts-btn:last-child { border-right:none; }
+.ts-btn:hover { background:var(--gray-6); color:var(--gray-1); }
+.ts-act-1 { background:#e1f5ee !important; color:#0f6e56 !important; }
+.ts-act-2 { background:var(--accent-light) !important; color:var(--accent) !important; }
+.ts-act-3 { background:#eeedfe !important; color:#534ab7 !important; }
+
+/* ── CAPABILITY COMPARISON TABLE ── */
+.comp-table { width:100%; border-collapse:collapse; margin-top:40px; }
+.comp-table th { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:12px 16px; text-align:left; border-bottom:2px solid var(--rule); }
+.comp-table td { padding:13px 16px; font-size:13px; font-weight:300; color:var(--gray-1); border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.5; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-table td:first-child { font-weight:400; color:var(--black); }
+.comp-tick { color:#27ae60; font-weight:700; }
+.comp-cross { color:var(--gray-4); }
+.comp-partial { color:#d4a84b; }
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 48px; }
+  .inter-section { padding: 72px 24px; }
+  .inter-header { grid-template-columns: 1fr; gap: 20px; }
+  .tl-wrap { grid-template-columns: 1fr; }
+  .tl-metrics { grid-template-columns: 1fr 1fr; }
+  .dep-legend { flex-wrap: wrap; gap: 12px; }
+  .addons-section { padding: 48px 24px; }
+  .integrations { padding: 20px 24px; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .section-header { grid-template-columns: 1fr; gap: 20px; }
+  .features-table { display: none; }
+  .privacy-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .price-col { border-right: none; border-bottom: 1px solid var(--rule); }
+  .price-col:last-child { border-bottom: none; }
+  .featured .price-col { border-bottom-color: #222220; }
+  .addons-grid { grid-template-columns: 1fr 1fr; }
+  .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-meta { flex-direction: column; gap: 8px; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">BriefOps<sup>Beta</sup></a>
+  <div class="nav-links">
+    <a href="#how">Process</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <p class="hero-kicker">Custom AI implementation · EU-hosted · GDPR-compliant</p>
+    <h1>Every meeting becomes <em>structured work</em></h1>
+    <p class="hero-lead">BriefOps is a custom-built AI system that reads your meetings and memos, extracts real action items, routes them to the right teams, and follows up automatically — configured around your organisation's actual structure.</p>
+    <div class="cta-group">
+      <a href="#contact" class="btn btn-fill">Book a free call</a>
+      <a href="#how" class="btn btn-ghost">See how it works</a>
+    </div>
+  </div>
+  <div>
+    <div class="hero-terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="terminal-label">briefops — output / Q3 Campaign Planning</span>
+      </div>
+      <div class="terminal-body">
+        <div style="margin-bottom:16px">
+          <span class="t-dim">meeting processed </span>
+          <span class="t-green">43 min</span>
+          <span class="t-dim"> · </span>
+          <span class="t-white">4 tasks extracted</span>
+          <span class="t-dim"> · </span>
+          <span class="t-amber">2 dependencies</span>
+        </div>
+        <div style="border-top:1px solid #1e1e1c;padding-top:16px;display:flex;flex-direction:column;gap:2px">
+          <div class="terminal-row">
+            <span class="t-tag t-tag-blue">IT</span>
+            <span class="t-name">Set up staging environment</span>
+            <span class="t-due">→ Oct 15</span>
+          </div>
+          <div class="terminal-row">
+            <span class="t-tag t-tag-amber">blocks</span>
+            <span class="t-dim" style="font-size:11px">Marketing cannot proceed until IT task is complete</span>
+            <span class="t-due"></span>
+          </div>
+          <div class="terminal-row">
+            <span class="t-tag t-tag-green">Marketing</span>
+            <span class="t-name">Deploy campaign assets</span>
+            <span class="t-due">→ Oct 17</span>
+          </div>
+          <div class="terminal-row">
+            <span class="t-tag t-tag-green">Finance</span>
+            <span class="t-name">Approve Q3 budget increase</span>
+            <span class="t-due">→ Oct 14</span>
+          </div>
+          <div class="terminal-row">
+            <span class="t-tag t-tag-blue">IT</span>
+            <span class="t-name">Provision VPN for new contractor</span>
+            <span class="t-due">→ Oct 16</span>
+          </div>
+        </div>
+        <div style="margin-top:16px;border-top:1px solid #1e1e1c;padding-top:12px">
+          <span class="t-dim">delivered to </span>
+          <span class="t-blue">#ops-general</span>
+          <span class="t-dim"> · jira synced · follow-up scheduled </span>
+          <span class="t-cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<div class="integrations">
+  <div class="integrations-inner">
+    <span class="int-label">Works with</span>
+    <div class="int-divider"></div>
+    <div class="int-list">
+      <span>Google Workspace</span>
+      <span>Microsoft 365</span>
+      <span>Slack</span>
+      <span>Microsoft Teams</span>
+      <span>Jira</span>
+      <span>Asana</span>
+      <span>Outlook</span>
+      <span>Google Calendar</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIER COMPARISON DEMO -->
+<section class="demo-section" id="demo">
+  <div class="demo-inner">
+    <div class="demo-header">
+      <p class="demo-kicker">Live tier comparison</p>
+      <h2>Same meeting.<br><em>Three different outputs.</em></h2>
+      <p class="demo-desc">Select a tier, enter any meeting type, and see exactly what your team receives. Switch tiers to compare output depth side by side.</p>
+    </div>
+
+    <!-- TIER TABS -->
+    <div class="tier-tabs" id="tier-tabs">
+      <button class="tier-tab act-1" data-tier="1"><span class="tdot td1"></span>Starter</button>
+      <button class="tier-tab" data-tier="2"><span class="tdot td2"></span>Standard</button>
+      <button class="tier-tab" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+    </div>
+
+    <div class="demo-terminal">
+      <div class="demo-bar">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="demo-bar-label" id="q-bar-label">briefops — starter output</span>
+        <span class="q-tier-pill qp-1" id="q-tier-pill">Starter</span>
+      </div>
+      <div class="demo-input-row">
+        <span class="demo-prompt">briefops analyse</span>
+        <input type="text" id="demo-input" class="demo-input" placeholder="describe a meeting type..." maxlength="80" autocomplete="off" spellcheck="false">
+        <button class="demo-run" id="demo-run">Run</button>
+      </div>
+      <div class="demo-suggestions">
+        <span class="demo-sug-label">Try:</span>
+        <button class="demo-sug" data-val="quarterly budget review">quarterly budget review</button>
+        <button class="demo-sug" data-val="product sprint planning">product sprint planning</button>
+        <button class="demo-sug" data-val="new client onboarding">new client onboarding</button>
+        <button class="demo-sug" data-val="security incident debrief">security incident debrief</button>
+        <button class="demo-sug" data-val="marketing campaign kickoff">marketing campaign kickoff</button>
+        <button class="demo-sug" data-val="hiring review">hiring review</button>
+      </div>
+      <div class="demo-output" id="demo-output">
+        <div class="demo-placeholder">
+          <span class="demo-cursor-blink"></span>
+          <span style="color:#555553;font-size:13px;margin-left:8px">Select a tier and enter a meeting type...</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--gray-3);margin-top:12px;letter-spacing:.04em">
+      Full tier comparison with all six meeting types →
+      <a href="briefops_tiers.html" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-light)">briefops_tiers.html</a>
+    </p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="how-inner">
+    <div class="section-header">
+      <h2>Four steps.<br><em>No manual work.</em></h2>
+      <p class="section-desc">BriefOps is configured to your company's actual org chart. Tasks never go to the wrong team because the system knows your structure — not a generic template.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item reveal">
+        <p class="step-number">01</p>
+        <h3 class="step-title">Input your meeting</h3>
+        <p class="step-body">Upload an audio recording, paste a transcript, or drop in a written memo. BriefOps processes all formats without requiring a dedicated meeting bot.</p>
+      </div>
+      <div class="step-item reveal">
+        <p class="step-number">02</p>
+        <h3 class="step-title">AI extracts tasks and dependencies</h3>
+        <p class="step-body">Claude analyses the content against your company knowledge model — who owns what, which teams are blockers, and what needs to happen first.</p>
+      </div>
+      <div class="step-item reveal">
+        <p class="step-number">03</p>
+        <h3 class="step-title">Tasks are routed and delivered</h3>
+        <p class="step-body">Each action item lands in the right channel — Slack, Teams, email, Jira, or Asana — with owner, deadline, and cross-team context attached.</p>
+      </div>
+      <div class="step-item reveal">
+        <p class="step-number">04</p>
+        <h3 class="step-title">BriefOps follows up</h3>
+        <p class="step-body">Progress is tracked automatically. Blockers are detected. Escalations reach the right person before deadlines are missed, not after.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-inner">
+    <div class="section-header">
+      <h2>What the<br>system does</h2>
+      <p class="section-desc">Every feature is available as a custom implementation. You own the code. There are no recurring platform fees.</p>
+    </div>
+    <table class="features-table">
+      <tbody>
+        <tr class="reveal">
+          <td class="feat-cat">Meetings</td>
+          <td class="feat-name">Meeting intelligence</td>
+          <td class="feat-desc">Automatic summarisation, action item extraction, and decision logging from every meeting — regardless of whether it was recorded or written up by hand.</td>
+          <td class="feat-tier">All tiers</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Pre-meeting briefing</td>
+          <td class="feat-desc">30 minutes before each meeting, participants receive a personalised briefing with open tasks, relevant decisions, and context from past meetings.</td>
+          <td class="feat-tier">Standard +</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat">Coordination</td>
+          <td class="feat-name">Team routing</td>
+          <td class="feat-desc">Tasks are assigned based on your company's actual structure — who is responsible for what, which teams have dependencies on each other. No guesswork.</td>
+          <td class="feat-tier">All tiers</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Cross-team dependency detection</td>
+          <td class="feat-desc">When IT must act before Marketing can proceed, the system knows — and flags the dependency, sends it to both teams, and tracks resolution.</td>
+          <td class="feat-tier">Standard +</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Automated scheduling</td>
+          <td class="feat-desc">Stand-ups and handoff meetings are booked by comparing real availability across team calendars. No manual coordination required.</td>
+          <td class="feat-tier">Standard +</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat">Sprints</td>
+          <td class="feat-name">Sprint assistant</td>
+          <td class="feat-desc">Converts memos and planning documents into sprint-ready tasks with story point estimates, dependency graphs, and a team-lead approval step before anything is written to Jira.</td>
+          <td class="feat-tier">Standard +</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Timeline estimation</td>
+          <td class="feat-desc">Each task receives a duration estimate based on task type, team capacity, and — over time — your organisation's own historical patterns.</td>
+          <td class="feat-tier">Standard +</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Workload balancer</td>
+          <td class="feat-desc">Identifies teams or individuals who are consistently overloaded across sprints and surfaces the data before burnout becomes visible.</td>
+          <td class="feat-tier">Advanced</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat">Knowledge</td>
+          <td class="feat-name">Knowledge base</td>
+          <td class="feat-desc">Meeting summaries, decisions, sprint retrospectives, and company guidelines are stored in a searchable, permission-controlled knowledge graph. Employees query it in plain language.</td>
+          <td class="feat-tier">Advanced</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat"></td>
+          <td class="feat-name">Document privacy tiers</td>
+          <td class="feat-desc">Three access levels per document: full content visible to the AI, reference-only (AI knows it exists and where it is), or invisible. Sensitive files never enter the model context.</td>
+          <td class="feat-tier">Advanced</td>
+        </tr>
+        <tr class="reveal">
+          <td class="feat-cat">Reporting</td>
+          <td class="feat-name">Executive digest</td>
+          <td class="feat-desc">A weekly summary of what is on track, what is at risk, and where management attention is needed — generated automatically from sprint and meeting data.</td>
+          <td class="feat-tier">Advanced</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy-section">
+  <div class="privacy-inner">
+    <div class="section-header">
+      <h2>Built for<br><em>European enterprise</em></h2>
+      <p class="section-desc" style="color:#666664">Every implementation runs on AWS Frankfurt or Google Vertex AI EU. Your data does not leave European infrastructure.</p>
+    </div>
+    <div class="privacy-grid">
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Data residency</p>
+        <h3>EU-only processing</h3>
+        <p>All AI inference runs on AWS eu-central-1 (Frankfurt) or Vertex AI EU. GDPR-compliant by architecture, not by configuration.</p>
+      </div>
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Document privacy</p>
+        <h3>Retrieval without exposure</h3>
+        <p>Sensitive documents can be flagged reference-only or invisible. The AI navigates to them without reading their content.</p>
+      </div>
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Encryption</p>
+        <h3>AES-256 end-to-end</h3>
+        <p>Meeting content is encrypted before leaving your infrastructure. Encryption keys remain with you, not with us.</p>
+      </div>
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Legal agreements</p>
+        <h3>DPA and SCCs included</h3>
+        <p>A Data Processing Agreement and Standard Contractual Clauses are prepared and ready to sign before any go-live date.</p>
+      </div>
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Resilience</p>
+        <h3>Automatic failover</h3>
+        <p>If AWS Bedrock is unreachable, BriefOps routes to Google Vertex AI EU automatically. No meeting data is ever lost in transit.</p>
+      </div>
+      <div class="privacy-item reveal">
+        <p class="privacy-kicker">Access control</p>
+        <h3>Role-based permissions</h3>
+        <p>Granular RBAC per document, per team, and per user. Works Council and Betriebsrat requirements are addressed from the start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPENDENCY GRAPH -->
+<section class="inter-section" id="dep-graph">
+  <div class="inter-inner">
+    <div class="inter-header">
+      <div>
+        <p class="inter-kicker">Feature demo · Dependency detection</p>
+        <span class="feat-tier-badge ftb-std"><span class="tdot td2"></span>Standard +</span>
+        <h2>Which teams are<br><em>blocking each other?</em></h2>
+      </div>
+      <p class="inter-desc">Click any task to see its full dependency chain — which teams must act first, which are waiting, and where the critical path runs.</p>
+    </div>
+    <div class="dep-canvas-wrap">
+      <div class="dep-legend">
+        <span class="dep-leg-item"><span class="dep-leg-dot" style="background:#5cb85c"></span>Ready</span>
+        <span class="dep-leg-item"><span class="dep-leg-dot" style="background:#d4a84b"></span>Waiting</span>
+        <span class="dep-leg-item"><span class="dep-leg-dot" style="background:#c0392b"></span>Blocking</span>
+        <span class="dep-leg-item"><span class="dep-leg-dot" style="background:#6699cc"></span>Selected</span>
+      </div>
+      <svg id="dep-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;font-family:'DM Mono',monospace"></svg>
+      <div class="dep-detail" id="dep-detail">
+        <p class="dep-detail-hint">Click a node to inspect dependencies</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE ESTIMATOR -->
+<section class="inter-section inter-alt" id="timeline">
+  <div class="inter-inner">
+    <div class="inter-header">
+      <div>
+        <p class="inter-kicker">Feature demo · Timeline estimation</p>
+        <span class="feat-tier-badge ftb-std"><span class="tdot td2"></span>Standard +</span>
+        <h2>How long will<br><em>the sprint take?</em></h2>
+      </div>
+      <p class="inter-desc">Adjust team size, meeting frequency, and task complexity. BriefOps estimates sprint duration, flags the critical path, and calculates time saved versus manual coordination.</p>
+    </div>
+    <div class="tl-wrap">
+      <div class="tl-controls">
+        <div class="tl-control">
+          <label class="tl-label">Team size</label>
+          <div class="tl-slider-row">
+            <input type="range" id="tl-team" min="2" max="20" value="6" step="1">
+            <span class="tl-val" id="tl-team-val">6 people</span>
+          </div>
+        </div>
+        <div class="tl-control">
+          <label class="tl-label">Tasks per sprint</label>
+          <div class="tl-slider-row">
+            <input type="range" id="tl-tasks" min="4" max="40" value="14" step="1">
+            <span class="tl-val" id="tl-tasks-val">14 tasks</span>
+          </div>
+        </div>
+        <div class="tl-control">
+          <label class="tl-label">Meetings per week</label>
+          <div class="tl-slider-row">
+            <input type="range" id="tl-meetings" min="1" max="15" value="5" step="1">
+            <span class="tl-val" id="tl-meetings-val">5 meetings</span>
+          </div>
+        </div>
+        <div class="tl-control">
+          <label class="tl-label">Cross-team dependencies</label>
+          <div class="tl-slider-row">
+            <input type="range" id="tl-deps" min="0" max="10" value="3" step="1">
+            <span class="tl-val" id="tl-deps-val">3 dependencies</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-output">
+        <div class="tl-metrics">
+          <div class="tl-metric">
+            <span class="tl-metric-label">Sprint duration</span>
+            <span class="tl-metric-val" id="tl-duration">12 days</span>
+          </div>
+          <div class="tl-metric">
+            <span class="tl-metric-label">Coordination overhead (manual)</span>
+            <span class="tl-metric-val tl-red" id="tl-overhead">8.4 h/week</span>
+          </div>
+          <div class="tl-metric">
+            <span class="tl-metric-label">Coordination overhead (BriefOps)</span>
+            <span class="tl-metric-val tl-green" id="tl-saved">0.6 h/week</span>
+          </div>
+          <div class="tl-metric tl-metric-highlight">
+            <span class="tl-metric-label">Time saved per sprint</span>
+            <span class="tl-metric-val" id="tl-gain">15.6 hours</span>
+          </div>
+        </div>
+        <div class="tl-chart-wrap">
+          <p class="tl-chart-label">Critical path</p>
+          <div class="tl-chart" id="tl-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE BASE SEARCH -->
+<section class="inter-section" id="kb-search">
+  <div class="inter-inner">
+    <div class="inter-header">
+      <div>
+        <p class="inter-kicker">Feature demo · Knowledge base</p>
+        <span class="feat-tier-badge ftb-adv"><span class="tdot td3"></span>Advanced</span>
+        <h2>Ask anything about<br><em>your company's history</em></h2>
+      </div>
+      <p class="inter-desc">The knowledge base holds every decision, meeting summary, and guideline — searchable in plain language. Click any <strong>Meeting</strong>, <strong>Doc</strong> or <strong>Decision</strong> source tag in the results to see the storage location and open the document directly.</p>
+    </div>
+    <div class="kb-terminal">
+      <div class="demo-bar">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="demo-bar-label">briefops knowledge — semantic search</span>
+      </div>
+      <div class="demo-input-row">
+        <span class="demo-prompt">search</span>
+        <input type="text" id="kb-input" class="demo-input" placeholder="ask a question about your organisation..." maxlength="100" autocomplete="off" spellcheck="false">
+        <button class="demo-run" id="kb-run">Search</button>
+      </div>
+      <div class="demo-suggestions">
+        <span class="demo-sug-label">Try:</span>
+        <button class="demo-sug" data-kb="who decided we use AWS">who decided we use AWS</button>
+        <button class="demo-sug" data-kb="what are our Q3 goals">what are our Q3 goals</button>
+        <button class="demo-sug" data-kb="which vendor did we choose for payments">which vendor for payments</button>
+        <button class="demo-sug" data-kb="last security incident">last security incident</button>
+        <button class="demo-sug" data-kb="hiring freeze policy">hiring freeze policy</button>
+      </div>
+      <div class="kb-output" id="kb-output">
+        <div class="demo-placeholder">
+          <span class="demo-cursor-blink"></span>
+          <span style="color:#555553;font-size:13px;margin-left:8px">Waiting for query...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATIC TIER DEMOS -->
+<section class="features-section">
+  <div class="features-inner">
+    <div class="section-header reveal">
+      <p class="demo-kicker">Output comparison</p>
+      <h2>Same meeting.<br><em>Three outputs.</em></h2>
+      <p class="section-desc">The same Q3 budget review processed at each tier. Switch between demos to see what changes.</p>
+    </div>
+
+    <!-- DEMO 1 — Meeting output -->
+    <div style="margin-top:48px" class="reveal">
+      <div class="demo-hint-bar">
+        <span class="demo-hint-icon">↓</span>
+        <span>Switch tiers to compare output depth. In <strong>Advanced</strong>: tick any task to update the progress bar, and click a <span class="demo-hint-badge" style="background:rgba(102,153,204,.15);color:#6699cc">team badge</span> to message, call, or book a meeting with the owner.</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">01 — Meeting output · Q3 Budget Review</p>
+      <div class="tier-tabs" id="sw1">
+        <button class="ts-btn ts-act-1" data-sw="1" data-tier="1"><span class="tdot td1"></span>Starter</button>
+        <button class="ts-btn" data-sw="1" data-tier="2"><span class="tdot td2"></span>Standard</button>
+        <button class="ts-btn" data-sw="1" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+      </div>
+      <div class="terminal" id="sw1-t1">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks extracted</p>
+          <div class="prog-bar-wrap" id="pb-sw1-t1">
+            <div class="prog-header"><span class="prog-label" id="pl-sw1-t1">0 / 4 tasks completed</span><span class="prog-pct" id="pp-sw1-t1">0%</span></div>
+            <div class="prog-track"><div class="prog-fill t1-fill" id="pf-sw1-t1" style="width:0%"></div></div>
+          </div>
+          <p class="out-section">Tasks</p>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t1"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Prepare Q3 variance report — actuals vs. budget</span><span class="tc-d">→ Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t1"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Circulate revised budget assumptions to dept. heads</span><span class="tc-d">→ Oct 19</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t1"><input type="checkbox" class="task-cb"><span class="otag ot-team">Operations</span><span class="tc-t task-text">Submit headcount reconciliation for H2 review</span><span class="tc-d">→ Oct 20</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t1"><input type="checkbox" class="task-cb"><span class="otag ot-team">All teams</span><span class="tc-t task-text">Confirm updated budget figures by department</span><span class="tc-d">→ Oct 21</span></div>
+          <p class="out-section">Delivered via</p>
+          <div class="out-row show" style="grid-template-columns:1fr"><span class="tc-m">→ Email reply to meeting thread · All attendees</span></div>
+          <div class="locked-row out-row show" style="grid-template-columns:1fr;margin-top:10px"><span class="tc-d">Calendar scheduling, dependency map, Jira/Slack<span class="locked-lbl">Standard +</span></span></div>
+          <div class="out-callout oc-1">Starter delivers a clean task list by email. Tick tasks to track progress — no blocker detection or ETA recalculation at this tier.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw1-t2" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks · 2 dependencies · 2 meetings scheduled</p>
+          <div class="prog-bar-wrap" id="pb-sw1-t2">
+            <div class="prog-header"><span class="prog-label" id="pl-sw1-t2">0 / 4 tasks completed</span><span class="prog-pct" id="pp-sw1-t2">0%</span></div>
+            <div class="prog-track"><div class="prog-fill t2-fill" id="pf-sw1-t2" style="width:0%"></div></div>
+          </div>
+          <div class="blocker-warn" id="bw-sw1-t2" style="display:none"></div>
+          <p class="out-section">Tasks — routed by knowledge model</p>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Prepare Q3 variance report — actuals vs. budget</span><span class="tc-d">→ Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Circulate revised budget assumptions</span><span class="tc-d">→ Oct 19</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="fin-variance" data-blocks="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Operations</span><span class="tc-t task-text">Submit headcount reconciliation for H2 review</span><span class="tc-d">→ Oct 20</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-blocks="fin-variance"><input type="checkbox" class="task-cb"><span class="otag ot-team">Leadership</span><span class="tc-t task-text">Budget sign-off call — CEO + CFO</span><span class="tc-d">→ Oct 22</span></div>
+          <p class="out-section">Dependencies detected</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-dep">Blocks</span><span class="tc-m">Operations headcount <span class="tc-a">must complete before</span> Finance can finalise cost base</span></div>
+          <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-dep">Blocks</span><span class="tc-m">Finance variance report <span class="tc-a">must complete before</span> Leadership sign-off call</span></div>
+          <p class="out-section">Calendar — auto-scheduled</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 100px"><span class="otag ot-cal">Booked</span><span class="tc-t">Budget sign-off — CFO + CEO — first shared free slot</span><span class="tc-d">Oct 22, 10:00</span></div>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 100px"><span class="otag ot-cal">Booked</span><span class="tc-t">Finance working session — P&amp;L prep · 90 min</span><span class="tc-d">Oct 17, 09:00</span></div>
+          <div class="out-callout oc-2">Standard tracks dependencies — tick tasks in the wrong order and the system warns you. No ETA recalculation at this tier.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw1-t3" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-3" style="margin-left:auto">Advanced</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks · estimates · 1 risk · KB updated</p>
+          <div class="prog-bar-wrap" id="pb-sw1-t3">
+            <div class="prog-header"><span class="prog-label" id="pl-sw1-t3">0 / 4 tasks completed</span><span class="prog-pct" id="pp-sw1-t3">0%</span><span class="prog-eta" id="pe-sw1-t3">Est. completion: Oct 22</span></div>
+            <div class="prog-track"><div class="prog-fill t3-fill" id="pf-sw1-t3" style="width:0%"></div></div>
+          </div>
+          <div class="blocker-warn" id="bw-sw1-t3" style="display:none"></div>
+          <p class="out-section">Tasks — with estimates</p>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a1" data-est="6" data-deadline="18"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Finance" data-person="Lisa R." data-email="lisa@company.com" data-task="Prepare Q3 variance report" data-deadline="Oct 18">Finance · Lisa R.</span><span class="tc-t task-text">Prepare Q3 variance report</span><span class="tc-b">est. 6h</span><span class="tc-d">Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a2" data-est="1" data-deadline="19" data-blocks="a1"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Finance" data-person="Lisa R." data-email="lisa@company.com" data-task="Circulate revised assumptions" data-deadline="Oct 19">Finance · Lisa R.</span><span class="tc-t task-text">Circulate revised assumptions</span><span class="tc-b">est. 1h</span><span class="tc-d">Oct 19</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a3" data-est="3" data-deadline="20"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Operations" data-person="Mark T." data-email="mark@company.com" data-task="Submit headcount reconciliation" data-deadline="Oct 20">Operations · Mark T.</span><span class="tc-t task-text">Submit headcount reconciliation</span><span class="tc-b">est. 3h</span><span class="tc-d">Oct 20</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a4" data-est="0.5" data-deadline="22" data-blocks="a1 a3"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Leadership" data-person="CEO + CFO" data-email="exec@company.com" data-task="Budget sign-off call" data-deadline="Oct 22">Leadership · Exec</span><span class="tc-t task-text">Budget sign-off call — CEO + CFO</span><span class="tc-b">30 min</span><span class="tc-d">Oct 22</span></div>
+          <p class="out-section">Timeline · critical path</p>
+          <div class="gantt-wrap" id="gantt-sw1-t3">
+            <div class="gantt-row"><span class="gantt-label">Finance report</span><div class="gantt-track"><div class="gantt-bar critical" style="left:0%;width:55%"><span>6h</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Assumptions</span><div class="gantt-track"><div class="gantt-bar" style="left:55%;width:10%"><span>1h</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Headcount</span><div class="gantt-track"><div class="gantt-bar" style="left:20%;width:28%"><span>3h</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Sign-off call</span><div class="gantt-track"><div class="gantt-bar critical" style="left:65%;width:8%"><span>30m</span></div></div></div>
+            <div class="gantt-legend"><span class="gantt-leg-item"><span class="gantt-leg-dot critical-dot"></span>Critical path</span><span class="gantt-leg-item"><span class="gantt-leg-dot"></span>Parallel</span></div>
+          </div>
+          <p class="out-section">Risk detected</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-blk">Risk</span><span class="tc-m"><span class="tc-r">Mark T. (Operations) has 3 open tasks this week.</span> Headcount submission may conflict with sprint deadline Oct 19.</span></div>
+          <div class="out-callout oc-3">Advanced recalculates the estimated completion date as you tick tasks. Try completing tasks out of order — the system warns about blocker violations and adjusts the ETA automatically.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 2 — Sprint output -->
+    <div style="margin-top:56px" class="reveal">
+      <div class="demo-hint-bar">
+        <span class="demo-hint-icon">↓</span>
+        <span><strong>Standard</strong>: tick a task that has an unresolved blocker — the system warns you. <strong>Advanced</strong>: tick tasks to watch the ETA recalculate and the Gantt update in real time. Click any team badge to reach the owner directly.</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">02 — Sprint planning output · Product Roadmap Memo</p>
+      <div class="tier-tabs" id="sw2">
+        <button class="ts-btn" data-sw="2" data-tier="1"><span class="tdot td1"></span>Starter</button>
+        <button class="ts-btn ts-act-2" data-sw="2" data-tier="2"><span class="tdot td2"></span>Standard</button>
+        <button class="ts-btn" data-sw="2" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+      </div>
+      <div class="terminal" id="sw2-t1" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:14px">Input received · Product Roadmap Memo · Oct 14</p>
+          <div class="out-row show" style="grid-template-columns:1fr"><span class="tc-m">Sprint assistant is not available in Starter. Planning memos are not processed — meeting summaries and task extraction only.</span></div>
+          <div class="locked-row out-row show" style="grid-template-columns:1fr;margin-top:10px"><span class="tc-d">Sprint tasks, story points, critical path, approval flow, Jira sync<span class="locked-lbl">Standard +</span></span></div>
+          <div class="out-callout oc-1">Starter does not process planning memos or generate sprint tasks. Upgrade to Standard or Advanced for sprint assistant functionality.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw2-t2">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:10px">Memo processed · 6 sprint tasks generated · awaiting team-lead approval · critical path calculated</p>
+          <div class="prog-bar-wrap" id="pb-sw2-t2">
+            <div class="prog-header"><span class="prog-label" id="pl-sw2-t2">0 / 5 tasks completed</span><span class="prog-pct" id="pp-sw2-t2">0%</span></div>
+            <div class="prog-track"><div class="prog-fill t2-fill" id="pf-sw2-t2" style="width:0%"></div></div>
+          </div>
+          <div class="blocker-warn" id="bw-sw2-t2" style="display:none"></div>
+          <p class="out-section">Sprint tasks — pending approval by Product Lead</p>
+          <div class="out-row show task-row" style="grid-template-columns:20px 100px 1fr 60px 60px" data-pb="sw2-t2" data-id="b1"><input type="checkbox" class="task-cb"><span class="otag ot-team">Engineering</span><span class="tc-t task-text">Refactor authentication service — JWT migration</span><span class="tc-b">8 pts</span><span class="tc-d">Oct 21</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 100px 1fr 60px 60px" data-pb="sw2-t2" data-id="b2"><input type="checkbox" class="task-cb"><span class="otag ot-team">Design</span><span class="tc-t task-text">Deliver Figma specs for new checkout flow</span><span class="tc-b">5 pts</span><span class="tc-d">Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 100px 1fr 60px 60px" data-pb="sw2-t2" data-id="b3" data-blocks="b2"><input type="checkbox" class="task-cb"><span class="otag ot-team">Engineering</span><span class="tc-t task-text">Implement checkout redesign — Design handoff required first</span><span class="tc-b">13 pts</span><span class="tc-d">Oct 25</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 100px 1fr 60px 60px" data-pb="sw2-t2" data-id="b4"><input type="checkbox" class="task-cb"><span class="otag ot-team">QA</span><span class="tc-t task-text">Write acceptance criteria for payment integration</span><span class="tc-b">3 pts</span><span class="tc-d">Oct 19</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 100px 1fr 60px 60px" data-pb="sw2-t2" data-id="b5"><input type="checkbox" class="task-cb"><span class="otag ot-team">Product</span><span class="tc-t task-text">Update roadmap priorities in Jira</span><span class="tc-b">2 pts</span><span class="tc-d">Oct 15</span></div>
+          <p class="out-section">Critical path</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-dep">Dep</span><span class="tc-m">Design specs (Oct 18) <span class="tc-a">→</span> Engineering checkout (Oct 25) — 12-day critical path</span></div>
+          <div class="out-callout oc-2">Try completing the Engineering checkout task before Design specs — Standard detects the blocker violation and warns you immediately.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw2-t3" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-3" style="margin-left:auto">Advanced</span></div>
+        <div class="t-body">
+          <p class="tc-d" style="font-size:12px;margin-bottom:10px">Memo processed · 6 tasks · 31 pts · 2 risks · capacity check complete · KB archived</p>
+          <div class="prog-bar-wrap" id="pb-sw2-t3">
+            <div class="prog-header"><span class="prog-label" id="pl-sw2-t3">0 / 4 tasks completed</span><span class="prog-pct" id="pp-sw2-t3">0%</span><span class="prog-eta" id="pe-sw2-t3">Est. sprint end: Oct 25</span></div>
+            <div class="prog-track"><div class="prog-fill t3-fill" id="pf-sw2-t3" style="width:0%"></div></div>
+          </div>
+          <div class="blocker-warn" id="bw-sw2-t3" style="display:none"></div>
+          <p class="out-section">Sprint tasks — with estimates and capacity check</p>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 70px 60px" data-pb="sw2-t3" data-id="c1" data-est="2.5" data-deadline="21"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Engineering" data-person="Tom H." data-email="tom@company.com" data-task="Refactor authentication service" data-deadline="Oct 21">Engineering</span><span class="tc-t task-text">Refactor authentication service</span><span class="tc-d">est. 2.5d</span><span class="tc-d">Oct 21</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 70px 60px" data-pb="sw2-t3" data-id="c2" data-est="1.5" data-deadline="18"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Design" data-person="Sara L." data-email="sara@company.com" data-task="Figma specs — checkout flow" data-deadline="Oct 18">Design</span><span class="tc-t task-text">Figma specs — checkout flow</span><span class="tc-d">est. 1.5d</span><span class="tc-d">Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 70px 60px" data-pb="sw2-t3" data-id="c3" data-est="4" data-deadline="25" data-blocks="c2"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Engineering" data-person="Tom H." data-email="tom@company.com" data-task="Checkout redesign — after Design handoff" data-deadline="Oct 25">Engineering</span><span class="tc-t task-text">Checkout redesign — after Design handoff</span><span class="tc-d">est. 4d</span><span class="tc-d">Oct 25</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 70px 60px" data-pb="sw2-t3" data-id="c4" data-est="0.5" data-deadline="19"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="QA" data-person="Anna K." data-email="anna@company.com" data-task="Acceptance criteria — payment gateway" data-deadline="Oct 19">QA</span><span class="tc-t task-text">Acceptance criteria — payment gateway</span><span class="tc-d">est. 0.5d</span><span class="tc-d">Oct 19</span></div>
+          <p class="out-section">Timeline · critical path</p>
+          <div class="gantt-wrap" id="gantt-sw2-t3">
+            <div class="gantt-row"><span class="gantt-label">Auth refactor</span><div class="gantt-track"><div class="gantt-bar" style="left:0%;width:22%"><span>2.5d</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Design specs</span><div class="gantt-track"><div class="gantt-bar critical" style="left:0%;width:14%"><span>1.5d</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Checkout impl.</span><div class="gantt-track"><div class="gantt-bar critical" style="left:14%;width:36%"><span>4d</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">QA criteria</span><div class="gantt-track"><div class="gantt-bar" style="left:5%;width:5%"><span>0.5d</span></div></div></div>
+            <div class="gantt-legend"><span class="gantt-leg-item"><span class="gantt-leg-dot critical-dot"></span>Critical path</span><span class="gantt-leg-item"><span class="gantt-leg-dot"></span>Parallel</span></div>
+          </div>
+          <p class="out-section">Risks detected</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-blk">Risk</span><span class="tc-m"><span class="tc-r">Engineering at 94% capacity.</span> Auth refactor + checkout may conflict.</span></div>
+          <div class="out-callout oc-3">Advanced shows the full Gantt with critical path highlighted. Tick tasks — the ETA recalculates and blocker violations trigger warnings with the adjusted sprint end date.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 3 — Knowledge query -->
+    <div style="margin-top:56px" class="reveal">
+      <div class="demo-hint-bar">
+        <span class="demo-hint-icon">↓</span>
+        <span><strong>Advanced</strong>: click any <span class="demo-hint-badge" style="background:rgba(83,74,183,.15);color:#afa9ec">Meeting</span>, <span class="demo-hint-badge" style="background:rgba(180,100,200,.15);color:#c070d0">Doc</span> or <span class="demo-hint-badge" style="background:rgba(212,168,75,.15);color:#d4a84b">Decision</span> source tag to see where the document lives and open it directly.</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">03 — Knowledge query · "Which vendor did we choose for the payment gateway, and why?"</p>
+      <div class="tier-tabs" id="sw3">
+        <button class="ts-btn" data-sw="3" data-tier="1"><span class="tdot td1"></span>Starter</button>
+        <button class="ts-btn" data-sw="3" data-tier="2"><span class="tdot td2"></span>Standard</button>
+        <button class="ts-btn ts-act-3" data-sw="3" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+      </div>
+      <div class="terminal" id="sw3-t1" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — knowledge query</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
+        <div class="t-body">
+          <div style="margin-bottom:12px"><span class="tc-g" style="font-family:var(--mono);font-size:13px">search</span><span class="tc-d"> → </span><span class="tc-t">"which vendor did we choose for the payment gateway and why"</span></div>
+          <div class="out-row show" style="grid-template-columns:1fr"><span class="tc-m">Knowledge base is not available in the Starter tier. Meeting summaries are delivered by email and are not stored or indexed. Past decisions are not searchable.</span></div>
+          <div class="locked-row out-row show" style="grid-template-columns:1fr;margin-top:10px"><span class="tc-d">Semantic search · Decision log · Source attribution<span class="locked-lbl">Advanced</span></span></div>
+          <div class="out-callout oc-1">Starter has no persistent memory. Meeting summaries are delivered once by email and not retained or indexed. Nothing is searchable after the fact.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw3-t2" style="display:none">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — knowledge query</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
+        <div class="t-body">
+          <div style="margin-bottom:12px"><span class="tc-g" style="font-family:var(--mono);font-size:13px">search</span><span class="tc-d"> → </span><span class="tc-t">"which vendor did we choose for the payment gateway and why"</span></div>
+          <p class="out-section">Decision log match</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 80px"><span class="otag ot-team">Decision</span><span class="tc-t">Stripe selected as payment gateway vendor — approved by CTO</span><span class="tc-d">Mar 22, 2024</span></div>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 80px"><span class="otag ot-team">Meeting</span><span class="tc-t">Vendor evaluation debrief — Product + Engineering — Stripe / Adyen / PayPal reviewed</span><span class="tc-d">Mar 20, 2024</span></div>
+          <p class="out-section">Limitation</p>
+          <div class="out-row show" style="grid-template-columns:1fr"><span class="tc-m">Decision log contains the outcome and date. Full reasoning and rejected alternatives are not stored at this tier — only structured decisions extracted from meeting summaries.</span></div>
+          <div class="locked-row out-row show" style="grid-template-columns:1fr;margin-top:6px"><span class="tc-d">Full reasoning · Evaluation documents · Semantic context<span class="locked-lbl">Advanced</span></span></div>
+          <div class="out-callout oc-2">Standard maintains a structured decision log — you can find what was decided and when. The full reasoning and evaluation context are only available in Advanced.</div>
+        </div>
+      </div>
+      <div class="terminal" id="sw3-t3">
+        <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — knowledge query</span><span class="q-tier-pill qp-3" style="margin-left:auto">Advanced</span></div>
+        <div class="t-body">
+          <div style="margin-bottom:12px"><span class="tc-g" style="font-family:var(--mono);font-size:13px">search</span><span class="tc-d"> → </span><span class="tc-t">"which vendor did we choose for the payment gateway and why"</span></div>
+          <p class="out-section">Answer</p>
+          <div style="font-size:13px;color:#c8c8c4;line-height:1.75;padding:8px 0 12px;border-bottom:1px solid #1e1e1c">Stripe was selected as the payment gateway vendor on March 22, 2024, following a three-vendor evaluation. The decision was made by the CTO (David K.) and Head of Product (Sarah M.). Key selection factors were: EU data residency guarantees, developer API quality rated highest in evaluation, and SLA of 99.99% uptime. Adyen was eliminated due to integration complexity. PayPal was eliminated in round two due to fee structure and lack of EU-hosted option.</div>
+          <p class="out-section">Sources — 3 documents referenced</p>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 80px"><span class="otag ot-kb src-tag" data-type="decision" data-text="Stripe selected as payment vendor — CTO sign-off" data-loc="SharePoint / Legal / Vendor Decisions / 2024" data-path="/legal/vendor-decisions/stripe-approval-2024.pdf" data-access="full">Decision ↗</span><span class="tc-m">Stripe selected as payment vendor — CTO sign-off · confidence 0.97</span><span class="tc-d">Mar 22, 2024</span></div>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 80px"><span class="otag ot-kb src-tag" data-type="meeting" data-text="Vendor evaluation debrief — full transcript indexed" data-loc="Confluence / Product / Sprint Notes / Q1 2024" data-path="/confluence/product/vendor-eval-debrief-mar20.html" data-access="full">Meeting ↗</span><span class="tc-m">Vendor evaluation debrief — full transcript indexed · confidence 0.94</span><span class="tc-d">Mar 20, 2024</span></div>
+          <div class="out-row show" style="grid-template-columns:auto 1fr 80px"><span class="otag ot-kb src-tag" data-type="doc" data-text="Payment gateway RFP — Stripe / Adyen / PayPal comparison" data-loc="SharePoint / Finance / RFPs / 2024" data-path="/finance/rfps/payment-gateway-rfp-2024.docx" data-access="reference">Document ↗</span><span class="tc-m">Payment gateway RFP — Stripe / Adyen / PayPal comparison · <span class="tc-p">reference-only</span></span><span class="tc-d">Mar 15, 2024</span></div>
+          <p class="out-section">Document access</p>
+          <div class="out-row show" style="grid-template-columns:1fr"><span class="tc-m">Payment gateway RFP is flagged <span class="tc-p">reference-only</span> — the system confirmed its existence and location without reading its content.</span></div>
+          <div class="out-callout oc-3">Advanced returns a full natural-language answer with source attribution, confidence scores, and access-level transparency. Documents marked reference-only are surfaced without their content being exposed to the AI.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CAPABILITY COMPARISON -->
+<section class="features-section" style="background:var(--gray-6)">
+  <div class="features-inner">
+    <div class="section-header reveal">
+      <h2>Capability<br><em>comparison</em></h2>
+      <p class="section-desc">What each tier actually delivers — across every capability in the system.</p>
+    </div>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:260px">Capability</th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:var(--t1bg,#e1f5ee);color:#0f6e56;padding:3px 10px;border-radius:2px">Starter</span></th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:var(--accent-light);color:var(--accent);padding:3px 10px;border-radius:2px">Standard</span></th>
+          <th><span style="font-family:var(--mono);font-size:10px;background:#eeedfe;color:#534ab7;padding:3px 10px;border-radius:2px">Advanced</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Meeting summarisation + task extraction</td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Email delivery</td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Company knowledge model setup</td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Slack / Teams delivery</td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Jira / Asana integration</td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Calendar scheduling</td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Cross-team dependency detection</td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Sprint assistant (memo to tasks)</td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Story point estimation</td><td><span class="comp-cross">No</span></td><td><span class="comp-partial">Basic</span></td><td><span class="comp-tick">History-based</span></td></tr>
+        <tr><td>Duration and effort estimation</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Capacity and workload risk detection</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Pattern-based risk from team history</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Decision log</td><td><span class="comp-cross">No</span></td><td><span class="comp-partial">Structured</span></td><td><span class="comp-tick">Semantic</span></td></tr>
+        <tr><td>Searchable knowledge base</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">LightRAG</span></td></tr>
+        <tr><td>Document privacy tiers</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">3 levels</span></td></tr>
+        <tr><td>Proactive follow-up agent</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Automatic escalation</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>Executive digest (weekly)</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Yes</span></td></tr>
+        <tr><td>AES-256 encryption</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">Add-on included</span></td></tr>
+        <tr><td>Full GDPR package</td><td><span class="comp-partial">DPA template</span></td><td><span class="comp-partial">DPA template</span></td><td><span class="comp-tick">DPA + SCCs + notice</span></td></tr>
+        <tr><td>Failover (AWS + Vertex AI EU)</td><td><span class="comp-cross">No</span></td><td><span class="comp-partial">Single provider</span></td><td><span class="comp-tick">Dual provider</span></td></tr>
+        <tr><td>Post-launch support</td><td><span class="comp-cross">No</span></td><td><span class="comp-cross">No</span></td><td><span class="comp-tick">30 days</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-header">
+      <h2>Fixed-price<br><em>implementation</em></h2>
+      <p class="section-desc">One-time project cost. No subscriptions. No per-seat fees. You own the system and all its code.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-col reveal">
+        <p class="price-tier">Starter</p>
+        <h3 class="price-name">Meeting Intelligence</h3>
+        <p class="price-sub">For teams that want structure from every meeting</p>
+        <div class="price-amount">$2,500</div>
+        <p class="price-note">Fixed price · 7 business days · 1 revision</p>
+        <hr class="price-rule">
+        <ul class="price-features">
+          <li class="inc">Meeting summarisation and action item extraction</li>
+          <li class="inc">AI task extraction with owner assignment</li>
+          <li class="inc">Company knowledge model setup</li>
+          <li class="inc">Email delivery into existing threads</li>
+          <li class="inc">Basic RBAC · AWS EU hosting · GDPR DPA template</li>
+          <li>Calendar integration</li>
+          <li>Sprint and Jira routing</li>
+          <li>Knowledge base</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get started</a>
+      </div>
+      <div class="price-col featured reveal">
+        <p class="price-tier">Standard — Most popular</p>
+        <h3 class="price-name">Meeting and Sprint</h3>
+        <p class="price-sub">For agile teams that need full cross-team coordination</p>
+        <div class="price-amount">$6,000</div>
+        <p class="price-note">Fixed price · 14 business days · 2 revisions</p>
+        <hr class="price-rule" style="border-color:#222220">
+        <ul class="price-features">
+          <li class="inc">Everything in Starter</li>
+          <li class="inc">Google Calendar and Outlook integration</li>
+          <li class="inc">Cross-team dependency detection and graph</li>
+          <li class="inc">Sprint assistant with approval flow</li>
+          <li class="inc">Timeline estimation and story points</li>
+          <li class="inc">Jira or Asana integration</li>
+          <li class="inc">Slack or Teams delivery · Admin UI</li>
+          <li>Knowledge base (RAG)</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get started</a>
+      </div>
+      <div class="price-col reveal">
+        <p class="price-tier">Advanced</p>
+        <h3 class="price-name">Autonomous Ops</h3>
+        <p class="price-sub">Full platform with knowledge base and compliance</p>
+        <div class="price-amount">$11,000</div>
+        <p class="price-note">Fixed price · 25 business days · 3 revisions</p>
+        <hr class="price-rule">
+        <ul class="price-features">
+          <li class="inc">Everything in Standard</li>
+          <li class="inc">LightRAG knowledge base (EU-hosted)</li>
+          <li class="inc">Three-tier document privacy model</li>
+          <li class="inc">AES-256 end-to-end encryption</li>
+          <li class="inc">Proactive follow-up and escalation agent</li>
+          <li class="inc">Full GDPR package (DPA, SCCs, privacy notice)</li>
+          <li class="inc">Vertex AI failover · 30-day post-launch support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<div class="addons-section">
+  <div class="addons-inner">
+    <p class="addons-label">Available add-ons</p>
+    <div class="addons-grid">
+      <div class="addon-item">
+        <span class="addon-name">Extra revision round</span>
+        <span class="addon-meta">$200 · +2 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Express delivery</span>
+        <span class="addon-meta">$400 · delivery time −30%</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">GDPR compliance package</span>
+        <span class="addon-meta">$500 · +3 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">AES-256 encryption</span>
+        <span class="addon-meta">$600 · +4 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Second Jira or Asana integration</span>
+        <span class="addon-meta">$500 · +4 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Knowledge model update</span>
+        <span class="addon-meta">$250 · +2 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Budget tracking integration</span>
+        <span class="addon-meta">$700 · +5 days</span>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Custom reporting dashboard</span>
+        <span class="addon-meta">$800 · +6 days</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div class="cta-copy">
+      <h2>Ready to scope<br><em>your implementation?</em></h2>
+      <p>Send a message below. We will get back within 24 hours to assess which tier fits your team and answer any technical or compliance questions before any commitment is made.</p>
+      <div class="contact-meta-row">
+        <span class="contact-meta-item">Within 24 hours</span>
+        <span class="contact-meta-dot"></span>
+        <span class="contact-meta-item">Remote</span>
+        <span class="contact-meta-dot"></span>
+        <span class="contact-meta-item">EU time zone</span>
+      </div>
+    </div>
+    <div class="cta-contact">
+      <form
+        id="contact-form"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" class="form-input" placeholder="Your name" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" class="form-input" placeholder="your@company.com" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-tier">Tier of interest</label>
+          <select id="cf-tier" name="tier" class="form-input form-select">
+            <option value="">Not sure yet</option>
+            <option value="Starter — $2,500">Starter — $2,500</option>
+            <option value="Standard — $6,000">Standard — $6,000</option>
+            <option value="Advanced — $11,000">Advanced — $11,000</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Tell us about your team size, tools you use, and what you want to automate..." required rows="4"></textarea>
+        </div>
+        <div class="form-footer">
+          <button type="submit" class="form-submit" id="cf-submit">Send message</button>
+          <p class="form-note">Or email directly: <a href="mailto:hello@briefops.org">hello@briefops.org</a></p>
+        </div>
+        <div id="form-success" class="form-success" style="display:none">
+          <p>Message sent. We will be in touch within 24 hours.</p>
+        </div>
+        <div id="form-error" class="form-error" style="display:none">
+          <p>Something went wrong. Please email us directly at hello@briefops.org</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">BriefOps</a>
+  <div class="footer-meta">
+    <span>Built on Claude AI</span>
+    <span>Hosted on AWS EU</span>
+    <span>GDPR compliant</span>
+    <span>briefops.org</span>
+  </div>
+  <p style="font-family:var(--mono);font-size:11px;color:var(--gray-4);letter-spacing:.04em">© 2026 BriefOps</p>
+</footer>
+
+<script>
+  // ── DEPENDENCY GRAPH ──
+  const DEP_NODES = [
+    { id: 'FIN',  x: 80,  y: 200, label: 'Finance',   sub: 'Budget approval',        status: 'blocking', team: 'Finance' },
+    { id: 'LEGAL',x: 80,  y: 320, label: 'Legal',     sub: 'Contract review',         status: 'blocking', team: 'Legal' },
+    { id: 'IT',   x: 300, y: 140, label: 'IT',        sub: 'Environment setup',       status: 'waiting',  team: 'IT Support' },
+    { id: 'MKT',  x: 300, y: 280, label: 'Marketing', sub: 'Campaign brief',          status: 'waiting',  team: 'Marketing' },
+    { id: 'OPS',  x: 520, y: 200, label: 'Operations',sub: 'Vendor onboarding',       status: 'waiting',  team: 'Operations' },
+    { id: 'PM',   x: 520, y: 320, label: 'Product',   sub: 'Roadmap update',          status: 'ready',    team: 'Product' },
+    { id: 'EXEC', x: 730, y: 260, label: 'Executive', sub: 'Final sign-off',          status: 'waiting',  team: 'Leadership' },
+  ];
+
+  const DEP_EDGES = [
+    { from: 'FIN',  to: 'IT' },
+    { from: 'FIN',  to: 'OPS' },
+    { from: 'LEGAL',to: 'MKT' },
+    { from: 'LEGAL',to: 'OPS' },
+    { from: 'IT',   to: 'OPS' },
+    { from: 'MKT',  to: 'EXEC' },
+    { from: 'OPS',  to: 'EXEC' },
+    { from: 'PM',   to: 'EXEC' },
+  ];
+
+  const DEP_DETAILS = {
+    FIN:   { blocks: ['IT', 'OPS'], blockedBy: [], note: 'Finance must approve the budget before IT can begin provisioning and Operations can onboard the vendor.' },
+    LEGAL: { blocks: ['MKT', 'OPS'], blockedBy: [], note: 'Legal contract review must complete before Marketing can launch and Operations can proceed with vendor.' },
+    IT:    { blocks: ['OPS'], blockedBy: ['FIN'], note: 'IT is waiting on Finance budget approval. Once received, IT can provision the environment.' },
+    MKT:   { blocks: ['EXEC'], blockedBy: ['LEGAL'], note: 'Marketing is blocked by Legal review. Once cleared, output feeds Executive sign-off.' },
+    OPS:   { blocks: ['EXEC'], blockedBy: ['FIN', 'LEGAL', 'IT'], note: 'Operations has three blockers. All must resolve before vendor onboarding can proceed.' },
+    PM:    { blocks: ['EXEC'], blockedBy: [], note: 'Product can update the roadmap independently. No blockers.' },
+    EXEC:  { blocks: [], blockedBy: ['MKT', 'OPS', 'PM'], note: 'Executive sign-off is the final step. Waiting on Marketing, Operations, and Product.' },
+  };
+
+  const STATUS_COLORS = { blocking: '#c0392b', waiting: '#d4a84b', ready: '#5cb85c', selected: '#6699cc' };
+  const W = 80; const H = 48;
+
+  function drawGraph(selectedId = null) {
+    const svg = document.getElementById('dep-svg');
+    svg.innerHTML = '';
+
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    marker.setAttribute('id', 'arr'); marker.setAttribute('viewBox', '0 0 10 10');
+    marker.setAttribute('refX', '9'); marker.setAttribute('refY', '5');
+    marker.setAttribute('markerWidth', '6'); marker.setAttribute('markerHeight', '6');
+    marker.setAttribute('orient', 'auto-start-reverse');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M1 2L8 5L1 8'); path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', '#333330'); path.setAttribute('stroke-width', '1.5');
+    marker.appendChild(path); defs.appendChild(marker); svg.appendChild(defs);
+
+    const highlighted = selectedId ? new Set([selectedId,
+      ...DEP_EDGES.filter(e => e.from === selectedId).map(e => e.to),
+      ...DEP_EDGES.filter(e => e.to === selectedId).map(e => e.from)
+    ]) : null;
+
+    DEP_EDGES.forEach(edge => {
+      const from = DEP_NODES.find(n => n.id === edge.from);
+      const to   = DEP_NODES.find(n => n.id === edge.to);
+      const isActive = highlighted && (highlighted.has(edge.from) && highlighted.has(edge.to));
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', from.x + W); line.setAttribute('y1', from.y + H/2);
+      line.setAttribute('x2', to.x);       line.setAttribute('y2', to.y + H/2);
+      line.setAttribute('stroke', isActive ? '#6699cc' : '#222220');
+      line.setAttribute('stroke-width', isActive ? '1.5' : '1');
+      line.setAttribute('marker-end', 'url(#arr)');
+      svg.appendChild(line);
+    });
+
+    DEP_NODES.forEach(node => {
+      const isSelected = node.id === selectedId;
+      const isDim = highlighted && !highlighted.has(node.id);
+      const color = isSelected ? STATUS_COLORS.selected : STATUS_COLORS[node.status];
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'dep-node');
+      g.style.opacity = isDim ? '0.25' : '1';
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', node.x); rect.setAttribute('y', node.y);
+      rect.setAttribute('width', W); rect.setAttribute('height', H);
+      rect.setAttribute('rx', '3');
+      rect.setAttribute('fill', '#1a1a18');
+      rect.setAttribute('stroke', color);
+      rect.setAttribute('stroke-width', isSelected ? '1.5' : '1');
+      g.appendChild(rect);
+
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', node.x + 10); dot.setAttribute('cy', node.y + 12);
+      dot.setAttribute('r', '3'); dot.setAttribute('fill', color);
+      g.appendChild(dot);
+
+      const t1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t1.setAttribute('x', node.x + 10); t1.setAttribute('y', node.y + 26);
+      t1.setAttribute('fill', '#c8c8c4'); t1.setAttribute('font-size', '11');
+      t1.setAttribute('font-weight', '500'); t1.textContent = node.label;
+      g.appendChild(t1);
+
+      const t2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t2.setAttribute('x', node.x + 10); t2.setAttribute('y', node.y + 39);
+      t2.setAttribute('fill', '#555553'); t2.setAttribute('font-size', '9');
+      t2.textContent = node.sub;
+      g.appendChild(t2);
+
+      g.addEventListener('click', () => {
+        const sel = selectedId === node.id ? null : node.id;
+        drawGraph(sel);
+        updateDepDetail(sel);
+      });
+      svg.appendChild(g);
+    });
+  }
+
+  function updateDepDetail(id) {
+    const el = document.getElementById('dep-detail');
+    if (!id) { el.innerHTML = '<p class="dep-detail-hint">Click a node to inspect dependencies</p>'; return; }
+    const node = DEP_NODES.find(n => n.id === id);
+    const d = DEP_DETAILS[id];
+    el.innerHTML = `<div class="dep-detail-content">
+      <span><strong>${node.label}</strong> — ${node.sub}</span>
+      <span>Blocks: <strong>${d.blocks.length ? d.blocks.join(', ') : 'none'}</strong></span>
+      <span>Blocked by: <strong>${d.blockedBy.length ? d.blockedBy.join(', ') : 'none'}</strong></span>
+      <span style="color:#666660;font-size:11px;width:100%">${d.note}</span>
+    </div>`;
+  }
+
+  drawGraph();
+
+  // ── TIMELINE ESTIMATOR ──
+  const TEAM_COLORS = ['#6699cc','#5cb85c','#d4a84b','#c070d0','#e67e22','#c0392b'];
+
+  function calcTimeline() {
+    const team     = parseInt(document.getElementById('tl-team').value);
+    const tasks    = parseInt(document.getElementById('tl-tasks').value);
+    const meetings = parseInt(document.getElementById('tl-meetings').value);
+    const deps     = parseInt(document.getElementById('tl-deps').value);
+
+    document.getElementById('tl-team-val').textContent     = `${team} people`;
+    document.getElementById('tl-tasks-val').textContent    = `${tasks} tasks`;
+    document.getElementById('tl-meetings-val').textContent = `${meetings} meetings`;
+    document.getElementById('tl-deps-val').textContent     = `${deps} dependencies`;
+
+    const tasksPerPerson = tasks / Math.max(team, 1);
+    const baseDays       = Math.round(tasksPerPerson * 1.4 + deps * 0.8 + 2);
+    const duration       = Math.max(5, Math.min(30, baseDays));
+    const overhead       = Math.round((meetings * 0.6 + deps * 0.4 + team * 0.1) * 10) / 10;
+    const saved          = Math.round(overhead * 0.93 * 10) / 10;
+    const gain           = Math.round((overhead - (overhead - saved)) * (duration / 5) * 10) / 10;
+
+    document.getElementById('tl-duration').textContent = `${duration} days`;
+    document.getElementById('tl-overhead').textContent = `${overhead} h/week`;
+    document.getElementById('tl-saved').textContent    = `${Math.round((overhead - saved) * 10) / 10} h/week`;
+    document.getElementById('tl-gain').textContent     = `${gain} hours`;
+
+    const chart = document.getElementById('tl-chart');
+    chart.innerHTML = '';
+
+    const phases = [
+      { label: 'Discovery',   start: 0,                      width: Math.round(duration * 0.15), color: TEAM_COLORS[0] },
+      { label: 'Planning',    start: Math.round(duration * 0.12), width: Math.round(duration * 0.2), color: TEAM_COLORS[1] },
+      { label: 'Development', start: Math.round(duration * 0.25), width: Math.round(duration * 0.45), color: TEAM_COLORS[2] },
+      { label: 'QA',          start: Math.round(duration * 0.55), width: Math.round(duration * 0.28), color: TEAM_COLORS[3] },
+      { label: 'Review',      start: Math.round(duration * 0.75), width: Math.round(duration * 0.2), color: TEAM_COLORS[4] },
+      { label: deps > 0 ? 'Dep. resolution' : 'Buffer', start: Math.round(duration * 0.7), width: Math.round(duration * 0.15 + deps * 0.3), color: TEAM_COLORS[5] },
+    ];
+
+    phases.forEach(phase => {
+      const row = document.createElement('div');
+      row.className = 'tl-row';
+      const lbl = document.createElement('span');
+      lbl.className = 'tl-row-label';
+      lbl.textContent = phase.label;
+      const wrap = document.createElement('div');
+      wrap.className = 'tl-bar-wrap';
+      const bar = document.createElement('div');
+      bar.className = 'tl-bar';
+      bar.style.background = phase.color + '33';
+      bar.style.border = `1px solid ${phase.color}55`;
+      bar.style.left  = `${Math.round(phase.start / duration * 100)}%`;
+      bar.style.width = `${Math.min(Math.round(phase.width / duration * 100), 100 - Math.round(phase.start / duration * 100))}%`;
+      const txt = document.createElement('span');
+      txt.className = 'tl-bar-text';
+      txt.textContent = `${phase.width}d`;
+      bar.appendChild(txt);
+      wrap.appendChild(bar);
+      row.appendChild(lbl); row.appendChild(wrap);
+      chart.appendChild(row);
+    });
+  }
+
+  ['tl-team','tl-tasks','tl-meetings','tl-deps'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcTimeline);
+  });
+  calcTimeline();
+
+  // ── KNOWLEDGE BASE SEARCH ──
+  const KB_DATA = {
+    'aws': {
+      answer: 'The decision to use AWS as the primary cloud provider was made in the Q2 2023 infrastructure review meeting. The CTO and Head of Engineering approved the move, citing cost savings and existing team expertise. Azure was evaluated but ruled out due to licensing complexity.',
+      sources: [
+        { type: 'decision', label: 'kbs-decision', text: 'Infrastructure strategy decision — AWS adoption approved', date: 'Jun 14, 2023' },
+        { type: 'meeting',  label: 'kbs-meeting',  text: 'Q2 Infrastructure Review — CTO + Engineering leads', date: 'Jun 12, 2023' },
+        { type: 'doc',      label: 'kbs-doc',       text: 'Cloud provider evaluation report — AWS vs Azure vs GCP', date: 'Jun 8, 2023' },
+      ]
+    },
+    'q3': {
+      answer: 'The Q3 objectives were set during the July planning session. The three primary goals are: (1) reduce infrastructure costs by 18%, (2) launch the new client portal by August 31, and (3) complete the SOC 2 Type II audit. All goals were confirmed by the leadership team on July 3.',
+      sources: [
+        { type: 'meeting',  label: 'kbs-meeting',  text: 'Q3 Planning Session — All department heads', date: 'Jul 3, 2024' },
+        { type: 'doc',      label: 'kbs-doc',       text: 'Q3 OKR document — final version', date: 'Jul 4, 2024' },
+        { type: 'decision', label: 'kbs-decision',  text: 'Cost reduction target confirmed at 18% — CFO approval', date: 'Jul 3, 2024' },
+      ]
+    },
+    'vendor': {
+      answer: 'Stripe was selected as the payment gateway vendor following a three-vendor evaluation in March 2024. The decision was made by the CTO and Head of Product. Key factors were developer API quality, EU data residency, and SLA guarantees. Adyen and PayPal were eliminated in round two.',
+      sources: [
+        { type: 'decision', label: 'kbs-decision', text: 'Stripe selected as payment vendor — CTO sign-off', date: 'Mar 22, 2024' },
+        { type: 'meeting',  label: 'kbs-meeting',  text: 'Vendor evaluation debrief — Product + Engineering', date: 'Mar 20, 2024' },
+        { type: 'doc',      label: 'kbs-doc',       text: 'Payment gateway RFP — Stripe / Adyen / PayPal comparison', date: 'Mar 15, 2024' },
+      ]
+    },
+    'security': {
+      answer: 'The last recorded security incident occurred on October 8, 2024. A misconfigured S3 bucket was identified by the automated monitoring system at 14:32. The Engineering team patched and locked the bucket within 4 hours. No customer data was accessed. A post-incident review was completed on October 14.',
+      sources: [
+        { type: 'meeting',  label: 'kbs-meeting',  text: 'Security incident debrief — Engineering + Security', date: 'Oct 14, 2024' },
+        { type: 'doc',      label: 'kbs-doc',       text: 'Incident report IR-2024-031 — S3 misconfiguration', date: 'Oct 9, 2024' },
+        { type: 'decision', label: 'kbs-decision',  text: 'Remediation confirmed — automated S3 policy enforcement approved', date: 'Oct 14, 2024' },
+      ]
+    },
+    'hiring': {
+      answer: 'A hiring freeze was implemented on September 1, 2024, covering all non-critical positions. The policy was approved by the CEO and CFO in response to Q3 cost targets. Engineering and Customer Success roles are exempt with individual CFO approval. The freeze is scheduled for review in Q1 2025.',
+      sources: [
+        { type: 'policy',   label: 'kbs-policy',   text: 'Hiring freeze policy — effective Sep 1, 2024', date: 'Aug 29, 2024' },
+        { type: 'decision', label: 'kbs-decision',  text: 'Hiring freeze approved — CEO + CFO', date: 'Aug 28, 2024' },
+        { type: 'meeting',  label: 'kbs-meeting',  text: 'Q3 cost review — leadership team', date: 'Aug 27, 2024' },
+      ]
+    },
+  };
+
+  function matchKB(q) {
+    const lower = q.toLowerCase();
+    const map = {
+      aws: 'aws', cloud: 'aws', amazon: 'aws', infrastructure: 'aws',
+      q3: 'q3', goal: 'q3', objective: 'q3', okr: 'q3', quarter: 'q3',
+      vendor: 'vendor', payment: 'vendor', stripe: 'vendor', gateway: 'vendor',
+      security: 'security', incident: 'security', breach: 'security', attack: 'security',
+      hiring: 'hiring', freeze: 'hiring', recruit: 'hiring', headcount: 'hiring',
+    };
+    for (const [kw, key] of Object.entries(map)) {
+      if (lower.includes(kw)) return KB_DATA[key];
+    }
+    return null;
+  }
+
+  function runKB() {
+    const input = document.getElementById('kb-input');
+    const btn   = document.getElementById('kb-run');
+    const out   = document.getElementById('kb-output');
+    const q = input.value.trim();
+    if (!q) return;
+
+    btn.disabled = true;
+    out.innerHTML = '<div class="demo-loading">Searching knowledge graph...</div>';
+
+    setTimeout(() => {
+      const data = matchKB(q);
+      if (!data) {
+        out.innerHTML = `<div style="font-family:var(--mono);font-size:13px;color:#555553;padding:8px 0">
+          No direct match found for "<span style="color:#888886">${q}</span>" in the knowledge base.<br>
+          <span style="color:#333330;font-size:11px;margin-top:6px;display:block">The knowledge base grows with every meeting processed. Try: "AWS", "Q3 goals", "payment vendor", "security incident", or "hiring freeze".</span>
+        </div>`;
+        btn.disabled = false;
+        return;
+      }
+
+      const wrap = document.createElement('div');
+      wrap.className = 'kb-result';
+
+      const ans = document.createElement('p');
+      ans.className = 'kb-answer';
+      ans.textContent = data.answer;
+      wrap.appendChild(ans);
+
+      const srcLabel = document.createElement('p');
+      srcLabel.className = 'kb-source-label';
+      srcLabel.textContent = 'Sources';
+      wrap.appendChild(srcLabel);
+
+      const srcs = document.createElement('div');
+      srcs.className = 'kb-sources';
+
+      const SRC_LOCS = {
+        meeting:  { loc: 'Confluence / Meeting Notes', path: '/confluence/meetings/', access: 'full' },
+        decision: { loc: 'SharePoint / Legal / Decisions', path: '/legal/decisions/', access: 'full' },
+        doc:      { loc: 'SharePoint / Documents', path: '/documents/', access: 'reference' },
+        policy:   { loc: 'SharePoint / HR / Policies', path: '/hr/policies/', access: 'full' },
+      };
+
+      data.sources.forEach((src, i) => {
+        const item = document.createElement('div');
+        item.className = 'kb-source-item';
+        const meta = SRC_LOCS[src.type] || SRC_LOCS.doc;
+        item.innerHTML = `
+          <span class="kb-source-type ${src.label} src-tag" style="cursor:pointer" data-type="${src.type}" data-text="${src.text}" data-loc="${meta.loc}" data-path="${meta.path}${src.text.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}" data-access="${meta.access}">${src.type} ↗</span>
+          <span class="kb-source-text">${src.text}</span>
+          <span class="kb-source-date">${src.date}</span>
+        `;
+        srcs.appendChild(item);
+        setTimeout(() => {
+          item.classList.add('show');
+          item.querySelectorAll('.src-tag').forEach(t => t.addEventListener('click', (e) => { e.stopPropagation(); openSrcPopup(t, e); }));
+        }, i * 100);
+      });
+      wrap.appendChild(srcs);
+      out.innerHTML = '';
+      out.appendChild(wrap);
+      btn.disabled = false;
+    }, 700);
+  }
+
+  document.getElementById('kb-run').addEventListener('click', runKB);
+  document.getElementById('kb-input').addEventListener('keydown', e => { if (e.key === 'Enter') runKB(); });
+  document.querySelectorAll('[data-kb]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('kb-input').value = btn.dataset.kb;
+      runKB();
+    });
+  });
+
+  // ── Contact form ──
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('cf-submit');
+      const success = document.getElementById('form-success');
+      const error = document.getElementById('form-error');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      success.style.display = 'none';
+      error.style.display = 'none';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          success.style.display = 'block';
+          btn.textContent = 'Send message';
+          btn.disabled = false;
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        error.style.display = 'block';
+        btn.textContent = 'Send message';
+        btn.disabled = false;
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+  // ── Source tag popup ──
+  const TYPE_COLORS = {
+    meeting:  { bg:'rgba(102,153,204,.15)', color:'#6699cc' },
+    decision: { bg:'rgba(212,168,75,.15)',  color:'#d4a84b' },
+    doc:      { bg:'rgba(180,100,200,.15)', color:'#c070d0' },
+    policy:   { bg:'rgba(92,184,92,.15)',   color:'#5cb85c' },
+  };
+
+  let currentSrcPopup = null;
+
+  function closeSrcPopup() {
+    if (currentSrcPopup) { currentSrcPopup.remove(); currentSrcPopup = null; }
+    const ov = document.getElementById('sp-overlay');
+    if (ov) ov.remove();
+  }
+
+  function openSrcPopup(tag, e) {
+    e.stopPropagation();
+    closeSrcPopup();
+    closePopup();
+
+    const type   = tag.dataset.type || 'doc';
+    const text   = tag.dataset.text || '';
+    const loc    = tag.dataset.loc  || 'SharePoint / Documents';
+    const path   = tag.dataset.path || '/documents/';
+    const access = tag.dataset.access || 'full';
+    const col    = TYPE_COLORS[type] || TYPE_COLORS.doc;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'op-overlay';
+    overlay.id = 'sp-overlay';
+    overlay.addEventListener('click', closeSrcPopup);
+    document.body.appendChild(overlay);
+
+    const popup = document.createElement('div');
+    popup.className = 'src-popup';
+    popup.innerHTML = `
+      <button class="sp-close" id="sp-close">×</button>
+      <div class="sp-head">
+        <p class="sp-type" style="color:${col.color}">${type}</p>
+        <p class="sp-title">${text}</p>
+      </div>
+      <div class="sp-body">
+        <div>
+          <p class="sp-loc-label">Storage location</p>
+          <p class="sp-loc-path">${loc}</p>
+        </div>
+        <div>
+          <p class="sp-loc-label">File path</p>
+          <p class="sp-loc-path" style="color:#534ab7">${path}</p>
+        </div>
+        <span class="sp-access ${access === 'full' ? 'spa-full' : 'spa-ref'}">
+          ${access === 'full' ? '● Full access — AI can read content' : '◐ Reference-only — AI knows location, not content'}
+        </span>
+      </div>
+      <div class="sp-actions">
+        <button class="sp-btn sp-btn-open" id="sp-open">Open document ↗</button>
+        <button class="sp-btn" id="sp-copy">Copy path</button>
+      </div>
+    `;
+
+    const rect = tag.getBoundingClientRect();
+    const top  = Math.min(rect.bottom + 6, window.innerHeight - 280);
+    const left = Math.min(rect.left, window.innerWidth - 316);
+    popup.style.top  = top  + 'px';
+    popup.style.left = left + 'px';
+
+    document.body.appendChild(popup);
+    currentSrcPopup = popup;
+
+    document.getElementById('sp-close').addEventListener('click', closeSrcPopup);
+    document.getElementById('sp-open').addEventListener('click', () => {
+      document.getElementById('sp-open').textContent = '✓ Opening...';
+      setTimeout(closeSrcPopup, 1200);
+    });
+    document.getElementById('sp-copy').addEventListener('click', () => {
+      navigator.clipboard.writeText(path).catch(() => {});
+      document.getElementById('sp-copy').textContent = '✓ Copied';
+      setTimeout(() => { if (document.getElementById('sp-copy')) document.getElementById('sp-copy').textContent = 'Copy path'; }, 1500);
+    });
+  }
+
+  // Wire static src-tags (sw3-t3)
+  document.querySelectorAll('.src-tag').forEach(tag => {
+    tag.addEventListener('click', (e) => openSrcPopup(tag, e));
+  });
+
+  // ── Owner popup ──
+  const OWNER_SLOTS = {
+    'Lisa R.':    [['Oct 16','09:00–09:30'],['Oct 17','14:00–14:30'],['Oct 18','10:00–10:30']],
+    'Mark T.':    [['Oct 16','11:00–11:30'],['Oct 17','16:00–16:30'],['Oct 19','09:00–09:30']],
+    'CEO + CFO':  [['Oct 21','10:00–10:30'],['Oct 22','09:00–09:30'],['Oct 22','15:00–15:30']],
+    'Tom H.':     [['Oct 16','14:00–14:30'],['Oct 17','11:00–11:30'],['Oct 20','09:00–09:30']],
+    'Sara L.':    [['Oct 15','10:00–10:30'],['Oct 16','15:00–15:30'],['Oct 17','13:00–13:30']],
+    'Anna K.':    [['Oct 16','09:30–10:00'],['Oct 17','14:30–15:00'],['Oct 18','11:00–11:30']],
+  };
+
+  let currentPopup = null;
+
+  function closePopup() {
+    if (currentPopup) { currentPopup.remove(); currentPopup = null; }
+    const ov = document.getElementById('op-overlay');
+    if (ov) ov.remove();
+  }
+
+  function openOwnerPopup(badge, e) {
+    e.stopPropagation();
+    closePopup();
+
+    const person   = badge.dataset.person;
+    const task     = badge.dataset.task;
+    const deadline = badge.dataset.deadline;
+    const email    = badge.dataset.email;
+    const slots    = OWNER_SLOTS[person] || [['Oct 16','09:00–09:30'],['Oct 17','10:00–10:30'],['Oct 18','11:00–11:30']];
+
+    const overlay = document.createElement('div');
+    overlay.className = 'op-overlay';
+    overlay.id = 'op-overlay';
+    overlay.addEventListener('click', closePopup);
+    document.body.appendChild(overlay);
+
+    const popup = document.createElement('div');
+    popup.className = 'owner-popup';
+    popup.innerHTML = `
+      <button class="op-close" id="op-close">×</button>
+      <div class="op-head">
+        <p class="op-name">${person}</p>
+        <p class="op-task">${task}</p>
+        <p class="op-deadline">Deadline: ${deadline}</p>
+      </div>
+      <div class="op-actions">
+        <button class="op-action" id="op-msg">
+          <span class="op-icon">✉</span>
+          <span class="op-action-text">
+            <span class="op-action-label">Send message</span>
+            <span class="op-action-sub">${email}</span>
+          </span>
+        </button>
+        <button class="op-action" id="op-call">
+          <span class="op-icon">📞</span>
+          <span class="op-action-text">
+            <span class="op-action-label">Start call</span>
+            <span class="op-action-sub">Open in Teams / Slack</span>
+          </span>
+        </button>
+      </div>
+      <div class="op-slots">
+        <p class="op-slots-label">Book a meeting — available slots</p>
+        ${slots.map((s,i) => `
+          <div class="op-slot" data-slot="${i}">
+            <span class="op-slot-date">${s[0]}</span>
+            <span class="op-slot-time">${s[1]}</span>
+            <span class="op-slot-book">Book →</span>
+          </div>`).join('')}
+      </div>
+      <div class="op-booked" id="op-booked">✓ Meeting booked and calendar invite sent.</div>
+    `;
+
+    // Position near badge
+    const rect = badge.getBoundingClientRect();
+    const top  = Math.min(rect.bottom + 6, window.innerHeight - 340);
+    const left = Math.min(rect.left, window.innerWidth - 296);
+    popup.style.top  = top  + 'px';
+    popup.style.left = left + 'px';
+
+    document.body.appendChild(popup);
+    currentPopup = popup;
+
+    document.getElementById('op-close').addEventListener('click', closePopup);
+    document.getElementById('op-msg').addEventListener('click', () => {
+      window.location.href = 'mailto:' + email + '?subject=Re: ' + encodeURIComponent(task);
+    });
+    document.getElementById('op-call').addEventListener('click', () => {
+      const booked = document.getElementById('op-booked');
+      booked.textContent = '📞 Opening call with ' + person + '...';
+      booked.style.display = 'block';
+      setTimeout(closePopup, 1800);
+    });
+    popup.querySelectorAll('.op-slot').forEach(slot => {
+      slot.addEventListener('click', () => {
+        const idx = parseInt(slot.dataset.slot);
+        const s = slots[idx];
+        const booked = document.getElementById('op-booked');
+        booked.textContent = '✓ Meeting booked: ' + s[0] + ' · ' + s[1] + ' · Calendar invite sent to ' + person + '.';
+        booked.style.display = 'block';
+        popup.querySelectorAll('.op-slot').forEach(sl => sl.style.opacity = sl === slot ? '1' : '.3');
+        setTimeout(closePopup, 2200);
+      });
+    });
+  }
+
+  document.querySelectorAll('.owner-badge').forEach(badge => {
+    badge.addEventListener('click', (e) => openOwnerPopup(badge, e));
+  });
+
+
+  const ETA_DATES = {
+    sw1t3: ['Oct 18','Oct 19','Oct 20','Oct 22','Oct 23','Oct 24'],
+    sw2t3: ['Oct 25','Oct 24','Oct 23','Oct 22','Oct 21'],
+  };
+
+  function updateProgress(pbId) {
+    const terminal = document.getElementById(pbId.replace('pb-',''));
+    if (!terminal) return;
+    const rows = terminal.querySelectorAll('.task-row');
+    const total = rows.length;
+    const done  = Array.from(rows).filter(r => r.querySelector('.task-cb').checked).length;
+    const pct   = total ? Math.round(done / total * 100) : 0;
+
+    const fill  = document.getElementById('pf-' + pbId.replace('pb-',''));
+    const label = document.getElementById('pl-' + pbId.replace('pb-',''));
+    const pctEl = document.getElementById('pp-' + pbId.replace('pb-',''));
+    const etaEl = document.getElementById('pe-' + pbId.replace('pb-',''));
+
+    if (fill)  fill.style.width  = pct + '%';
+    if (label) label.textContent = done + ' / ' + total + ' tasks completed';
+    if (pctEl) pctEl.textContent = pct + '%';
+
+    // ETA recalc (Advanced tiers only)
+    if (etaEl) {
+      const key = pbId.replace('pb-','').replace('-','').replace('-','').replace(/-/g,'');
+      const etaKey = key.replace('sw','sw').replace('t','t');
+      const etaArr = ETA_DATES[etaKey] || ETA_DATES['sw1t3'];
+      const idx = Math.min(done, etaArr.length - 1);
+      etaEl.textContent = 'Est. completion: ' + etaArr[idx];
+      etaEl.style.color = done >= total ? '#5cb85c' : '#6699cc';
+    }
+
+    // Update gantt bars to show done state
+    const ganttId = pbId.replace('pb-','gantt-');
+    const gantt = document.getElementById(ganttId);
+    if (gantt) {
+      const bars = gantt.querySelectorAll('.gantt-bar');
+      bars.forEach((bar, i) => {
+        if (i < done) bar.classList.add('done');
+        else bar.classList.remove('done');
+      });
+    }
+  }
+
+  function checkBlockers(row, pbId) {
+    const blocksAttr = row.dataset.blocks;
+    if (!blocksAttr) return false;
+    const terminal = document.getElementById(pbId.replace('pb-',''));
+    if (!terminal) return false;
+    const blockerIds = blocksAttr.split(' ');
+    const unfinished = blockerIds.filter(bid => {
+      const blockerRow = terminal.querySelector('[data-id="' + bid + '"]');
+      return blockerRow && !blockerRow.querySelector('.task-cb').checked;
+    });
+    return unfinished;
+  }
+
+  function showBlockerWarn(bwId, blockerIds, terminal) {
+    const el = document.getElementById(bwId);
+    if (!el) return;
+    if (!blockerIds || blockerIds.length === 0) {
+      el.style.display = 'none';
+      return;
+    }
+    const names = blockerIds.map(bid => {
+      const row = terminal.querySelector('[data-id="' + bid + '"]');
+      return row ? row.querySelector('.task-text').textContent.split('—')[0].trim() : bid;
+    });
+    el.style.display = 'block';
+    el.textContent = '⚠ Blocker: "' + names.join('", "') + '" must complete first before this task can proceed.';
+  }
+
+  document.querySelectorAll('.task-cb').forEach(cb => {
+    cb.addEventListener('change', function() {
+      const row = this.closest('.task-row');
+      const pbId = 'pb-' + row.dataset.pb;
+      const bwId = 'bw-' + row.dataset.pb;
+      const terminal = document.getElementById(row.dataset.pb);
+
+      if (this.checked) {
+        // Check if blockers are done
+        const unfinished = checkBlockers(row, pbId);
+        if (unfinished && unfinished.length > 0) {
+          this.checked = false;
+          showBlockerWarn(bwId, unfinished, terminal);
+          return;
+        } else {
+          showBlockerWarn(bwId, [], terminal);
+        }
+        row.classList.add('task-done');
+      } else {
+        row.classList.remove('task-done');
+        showBlockerWarn(bwId, [], terminal);
+      }
+      updateProgress(pbId);
+    });
+  });
+
+
+  document.querySelectorAll('.ts-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sw = btn.dataset.sw;
+      const tier = parseInt(btn.dataset.tier);
+      [1,2,3].forEach(t => {
+        const el = document.getElementById(`sw${sw}-t${t}`);
+        if (el) el.style.display = t === tier ? 'block' : 'none';
+      });
+      document.querySelectorAll(`#sw${sw} .ts-btn`).forEach(b => {
+        b.classList.remove('ts-act-1','ts-act-2','ts-act-3');
+        if (parseInt(b.dataset.tier) === tier) b.classList.add(`ts-act-${tier}`);
+      });
+    });
+  });
+
+
+const DATA = {
+'quarterly budget review':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report — actuals vs. budget'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised budget assumptions to dept. heads'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation for H2 review'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'All teams'},{c:'tc-t',t:'Confirm updated budget figures by department'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email reply to meeting thread · All attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Calendar scheduling, dependency map, Jira/Slack integration'}]}]}
+],callout:'Starter delivers a clean task list by email. Owners and deadlines assigned. No calendar integration, no dependency tracking, no follow-up.'},
+t2:{summary:'4 tasks · 2 dependencies · 2 meetings scheduled · Jira + Slack',sections:[
+{title:'Tasks — routed by knowledge model',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report — actuals vs. budget'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised budget assumptions'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation for H2 review'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Leadership'},{c:'tc-t',t:'Budget sign-off call — CEO + CFO'},{c:'tc-d',t:'→ Oct 22'}]}
+]},
+{title:'Dependencies detected',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Operations headcount <span class="tc-a">must complete before</span> Finance can finalise cost base'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Finance variance report <span class="tc-a">must complete before</span> Leadership sign-off call'}]}
+]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Budget sign-off — CFO + CEO — first shared free slot'},{c:'tc-d',t:'Oct 22, 10:00'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Finance working session — P&L prep · 90 min'},{c:'tc-d',t:'Oct 17, 09:00'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #finance-team · Jira (3 tickets created) · Calendar invites sent'}]}]}
+],callout:'Standard adds dependency detection, automatic calendar scheduling, and multi-channel delivery. Tasks arrive in Jira and Slack. The system knows Operations must act before Finance can close.'},
+t3:{summary:'4 tasks · duration estimates · 1 risk flagged · KB updated · follow-up scheduled',sections:[
+{title:'Tasks — estimated and capacity-checked',rows:[
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Prepare Q3 variance report'},{c:'tc-b',t:'est. 6h · Lisa R.'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Circulate revised assumptions'},{c:'tc-b',t:'est. 1h · Lisa R.'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Operations'},{c:'tc-t',t:'Submit headcount reconciliation'},{c:'tc-b',t:'est. 3h · Mark T.'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Leadership'},{c:'tc-t',t:'Budget sign-off call — CEO + CFO'},{c:'tc-b',t:'30 min · booked'},{c:'tc-d',t:'Oct 22'}]}
+]},
+{title:'Risk detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-r">Mark T. (Operations) has 3 open tasks this week.</span> Headcount submission may conflict with sprint deadline Oct 19.'}]}]},
+{title:'Knowledge base — 3 entries updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Decision'},{c:'tc-m',t:'Budget revision process confirmed — Q3 actuals via Finance portal'},{c:'tc-d',t:'Oct 12'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Summary'},{c:'tc-m',t:'Q3 Budget Review meeting — decisions and open items archived'},{c:'tc-d',t:'Oct 12'}]}
+]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Automated check-in in <span class="tc-t">3 days</span> · Escalation to CFO if Finance report not submitted by Oct 18 18:00'}]}]}
+],callout:'Advanced adds duration estimates from team history, workload risk detection, permanent knowledge base archiving, and automated escalation before deadlines are missed.'}
+},
+'product sprint planning':{
+t1:{summary:'Sprint planning input received · not processed at Starter tier',sections:[
+{title:'Output',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'Sprint assistant is not available in Starter. Planning memos are not processed — meeting summaries and task extraction only.'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Sprint tasks, story points, critical path, approval flow, Jira sync'}]}]}
+],callout:'Starter does not process planning memos or generate sprint tasks. Upgrade to Standard or Advanced for sprint assistant functionality.'},
+t2:{summary:'6 sprint tasks generated · critical path calculated · Jira sync pending approval',sections:[
+{title:'Sprint tasks — pending team-lead approval',rows:[
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Refactor authentication service — JWT migration'},{c:'tc-b',t:'8 pts'},{c:'tc-d',t:'Oct 21'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver Figma specs for checkout redesign'},{c:'tc-b',t:'5 pts'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Implement checkout redesign — Design handoff required first'},{c:'tc-b',t:'13 pts'},{c:'tc-d',t:'Oct 25'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'QA'},{c:'tc-t',t:'Write acceptance criteria — payment integration'},{c:'tc-b',t:'3 pts'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['100px','1fr','60px','60px'],cells:[{c:'otag ot-team',t:'Product'},{c:'tc-t',t:'Update roadmap priorities in Jira'},{c:'tc-b',t:'2 pts'},{c:'tc-d',t:'Oct 15'}]}
+]},
+{title:'Critical path',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Dep'},{c:'tc-m',t:'Design specs (Oct 18) <span class="tc-a">→</span> Engineering checkout (Oct 25) — 12-day critical path'}]}]},
+{title:'Approval',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Approval request sent to Product Lead (Sarah M.) · Tasks locked in Jira pending sign-off'}]}]}
+],callout:'Standard generates fully structured sprint tasks with story points, detects the critical path, and requires team-lead approval before writing to Jira.'},
+t3:{summary:'6 tasks · 31 pts · 2 risks detected · capacity check complete · KB archived',sections:[
+{title:'Sprint tasks — with estimates and capacity check',rows:[
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Refactor authentication service'},{c:'tc-b',t:'8 pts'},{c:'tc-d',t:'est. 2.5d'},{c:'tc-d',t:'Oct 21'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Figma specs — checkout flow'},{c:'tc-b',t:'5 pts'},{c:'tc-d',t:'est. 1.5d'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Checkout redesign — after Design handoff'},{c:'tc-b',t:'13 pts'},{c:'tc-d',t:'est. 4d'},{c:'tc-d',t:'Oct 25'}]},
+{cols:['100px','1fr','60px','70px','60px'],cells:[{c:'otag ot-team',t:'QA'},{c:'tc-t',t:'Acceptance criteria — payment gateway'},{c:'tc-b',t:'3 pts'},{c:'tc-d',t:'est. 0.5d'},{c:'tc-d',t:'Oct 19'}]}
+]},
+{title:'Risks detected',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-r">Engineering at 94% capacity this sprint.</span> Auth refactor + checkout may conflict. Recommendation: defer auth to next sprint.'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-a">Design late in 2 of 3 recent sprints.</span> Checkout spec (Oct 18) is on critical path. Buffer recommended.'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-kb',t:'Sprint'},{c:'tc-m',t:'Sprint 24 plan archived — 6 tasks, 31 pts, full dependency chain documented'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Check-in Oct 19 — Design spec delivered? · Escalation to PM if not by Oct 18 17:00'}]}]}
+],callout:'Advanced adds duration estimates from team history, capacity and pattern-based risk detection, knowledge base archiving, and proactive escalation at dependency deadlines.'}
+},
+'new client onboarding':{
+t1:{summary:'5 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send signed contract and onboarding package to client'},{c:'tc-d',t:'→ Within 24h'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client-facing environment and test credentials'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare onboarding agenda — share 48h before kickoff'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File signed NDA and MSA in document management system'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees · Summary attached'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'External client notification, calendar scheduling, dependency tracking'}]}]}
+],callout:'Starter assigns internal tasks and delivers by email. No client-facing notifications, no calendar scheduling, no dependency tracking.'},
+t2:{summary:'5 tasks · 1 external dependency · 2 meetings scheduled · Slack + calendar',sections:[
+{title:'Tasks — routed internally',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send signed contract and onboarding package'},{c:'tc-d',t:'→ Within 24h'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client-facing environment and credentials'},{c:'tc-d',t:'→ Oct 19'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare kickoff agenda — share with client 48h before'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File signed NDA and MSA in document system'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'External dependency',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'IT provisioning <span class="tc-a">must complete before</span> CS can share credentials in client welcome email — Oct 19 hard deadline'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Client kickoff call — CS lead + AE + client — 60 min'},{c:'tc-d',t:'Oct 20, client tz'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Internal pre-call briefing — Sales + CS — 20 min'},{c:'tc-d',t:'Oct 20, pre-kickoff'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #cs-team · Calendar invites sent to internal team'}]}]}
+],callout:'Standard tracks the IT-to-CS dependency, schedules the kickoff and pre-call automatically, and notifies the CS team in Slack.'},
+t3:{summary:'5 tasks · estimates · documents auto-generated · client brief drafted · KB updated',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Sales'},{c:'tc-t',t:'Send contract and onboarding package'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'24h'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Provision client environment and credentials'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'CS'},{c:'tc-t',t:'Prepare kickoff agenda and client brief'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'File NDA and MSA — version control check required'},{c:'tc-b',t:'est. 20min'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'Documents auto-prepared',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Generated'},{c:'tc-m',t:'Client brief draft — company background, goals, key contacts — based on meeting notes'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Template'},{c:'tc-m',t:'30-60-90 day onboarding checklist — prefilled with agreed milestones from today\'s meeting'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Client'},{c:'tc-m',t:'New client onboarding context archived — contacts, goals, agreed process'},{c:'tc-d',t:'Today'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Check-in Oct 19: IT provisioning confirmed? · CS reminder Oct 17: agenda ready?'}]}]}
+],callout:'Advanced auto-generates the client brief and onboarding checklist, archives the client context in the knowledge base, and schedules check-ins at every critical dependency.'}
+},
+'security incident debrief':{
+t1:{summary:'4 tasks extracted · email delivery · urgent flags included',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Complete root cause analysis — circulate draft report'},{c:'tc-d',t:'→ Oct 16'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch identified vulnerability — confirm deployment'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Assess GDPR notification obligation — 72h window'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Prepare internal incident communication for staff'},{c:'tc-d',t:'→ Today'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees · Urgent flags included in subject line'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Escalation paths, DPO notification routing, GDPR deadline tracking'}]}]}
+],callout:'Starter extracts urgent tasks and delivers by email with urgency flags. No escalation routing, no GDPR deadline tracking, no follow-up agent.'},
+t2:{summary:'5 tasks · 2 escalation paths · DPO notified · 2 meetings scheduled',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Root cause analysis and draft report'},{c:'tc-d',t:'→ Oct 16'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch vulnerability — confirm production deployment'},{c:'tc-d',t:'→ Oct 15 urgent'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'GDPR notification assessment — 72h window from detection'},{c:'tc-d',t:'→ Oct 15 EOD'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Internal incident summary for leadership and staff'},{c:'tc-d',t:'→ Today EOD'}]}
+]},
+{title:'Escalation paths',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Escalate'},{c:'tc-m',t:'If patch not confirmed by Oct 15 18:00 → notify CTO immediately'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Escalate'},{c:'tc-m',t:'GDPR window closes Oct 15 EOD — Legal assessment required before then → notify DPO'}]}
+]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'24h follow-up — Security + Engineering — systems stable?'},{c:'tc-d',t:'Oct 15'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Post-incident review — all teams — 5 days after resolution'},{c:'tc-d',t:'Oct 20'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to leadership · Slack #security · DPO notified directly · Calendar invites sent'}]}]}
+],callout:'Standard routes escalation paths, notifies the DPO directly, and schedules the 24h follow-up and post-incident review automatically.'},
+t3:{summary:'5 tasks · GDPR clock tracked · incident report auto-drafted · KB incident log updated',sections:[
+{title:'Tasks — with compliance tracking',rows:[
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Security'},{c:'tc-t',t:'Root cause analysis — draft report'},{c:'tc-b',t:'est. 4h'},{c:'tc-d',t:'Oct 16'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Engineering'},{c:'tc-t',t:'Patch vulnerability — confirm deployment'},{c:'tc-b',t:'est. 2h'},{c:'tc-r',t:'URGENT'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'GDPR notification assessment'},{c:'tc-b',t:'est. 1h'},{c:'tc-r',t:'72h WINDOW'}]},
+{cols:['90px','1fr','80px','70px'],cells:[{c:'otag ot-team',t:'Comms'},{c:'tc-t',t:'Internal incident communication'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Today EOD'}]}
+]},
+{title:'Documents auto-drafted',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'Incident report IR-2024-031 — timeline, affected systems, initial assessment — ready for Security review'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'GDPR preliminary notification — Article 33 format — for Legal review before submission'}]}
+]},
+{title:'Knowledge base — incident log updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Incident'},{c:'tc-m',t:'IR-2024-031 archived — timeline, response steps, open items'},{c:'tc-d',t:'Today'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Pattern'},{c:'tc-m',t:'S3 misconfiguration linked to previous incident IR-2023-018 — pattern flagged for Security review'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'GDPR compliance clock',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ 72h notification window: <span class="tc-r">Oct 15 EOD hard deadline</span> · Automated reminder to Legal every 4h until assessment confirmed'}]}]}
+],callout:'Advanced auto-drafts the incident report and GDPR notification, tracks the 72h compliance clock with automated reminders, and links the incident to historical patterns in the knowledge base.'}
+},
+'marketing campaign kickoff':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief — share with agency'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Set up tracking environment and UTM parameters'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver all creative assets in required formats'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation and issue PO to agency'},{c:'tc-d',t:'→ Oct 16'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to all attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'IT-Marketing dependency tracking, agency email, calendar, Slack'}]}]}
+],callout:'Starter assigns tasks and delivers by email. No dependency tracking between IT and Marketing, no agency notification, no calendar scheduling.'},
+t2:{summary:'4 tasks · 1 dependency · 3 meetings scheduled · agency notified · Slack',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief — share with agency'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Set up tracking environment and UTM parameters'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver creative assets — all formats'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget and issue PO'},{c:'tc-d',t:'→ Oct 16'}]}
+]},
+{title:'Dependency detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'IT tracking <span class="tc-a">must complete before</span> Marketing can launch — agency cannot go live without confirmed UTMs'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Agency briefing call — Marketing lead + agency — 45 min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Creative review — Marketing + Design — assets sign-off'},{c:'tc-d',t:'Oct 19'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Launch day monitoring slot — IT — tracking live from 08:00'},{c:'tc-d',t:'Launch day'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #marketing · Agency email sent with brief + timeline'}]}]}
+],callout:'Standard detects the IT-Marketing dependency, notifies the agency directly, and schedules the briefing, creative review, and launch monitoring slot automatically.'},
+t3:{summary:'4 tasks · estimates · Design risk flagged · campaign brief auto-drafted · KB updated',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Marketing'},{c:'tc-t',t:'Finalise campaign brief'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'IT'},{c:'tc-t',t:'Tracking environment + UTM setup'},{c:'tc-b',t:'est. 3h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Design'},{c:'tc-t',t:'Deliver all creative assets'},{c:'tc-b',t:'est. 6h'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Budget confirmation and PO issuance'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'Oct 16'}]}
+]},
+{title:'Risk detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-blk',t:'Risk'},{c:'tc-m',t:'<span class="tc-a">Design has 2 other delivery deadlines this week.</span> Creative assets (Oct 20) may be at risk. Confirm capacity with Design lead by Oct 15.'}]}]},
+{title:'Documents auto-drafted',rows:[
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Draft'},{c:'tc-m',t:'Campaign brief — objectives, audience segments, messaging, KPIs — ready for Marketing review'}]},
+{cols:['auto','1fr'],cells:[{c:'otag ot-doc',t:'Checklist'},{c:'tc-m',t:'Creative asset checklist — all required formats, sizes, copy variants — prefilled from meeting notes'}]}
+]},
+{title:'Knowledge base — updated',rows:[{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Campaign'},{c:'tc-m',t:'Q3 campaign kickoff archived — goals, team owners, agency contact, timeline'},{c:'tc-d',t:'Today'}]}]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Oct 16: Finance PO confirmed? · Oct 18: IT tracking live? · Oct 19: Design assets ready for review?'}]}]}
+],callout:'Advanced drafts the campaign brief and asset checklist from meeting notes, flags Design capacity risk, archives the campaign context in the knowledge base, and schedules milestone check-ins.'}
+},
+'hiring review':{
+t1:{summary:'4 tasks extracted · email delivery',sections:[
+{title:'Tasks',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan with approved headcount for Q4'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation for new hires — sign-off required'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post approved roles on careers page and LinkedIn'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Review updated employment contract templates'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email to HR team and meeting attendees'}]}]},
+{title:'Not available in Starter',locked:true,rows:[{cols:['1fr'],cells:[{c:'tc-d',t:'Finance-HR dependency tracking, calendar coordination, decision log'}]}]}
+],callout:'Starter assigns internal tasks and delivers by email. Finance-HR approval dependency is not tracked.'},
+t2:{summary:'4 tasks · 1 dependency · 2 meetings scheduled · Slack + calendar',sections:[
+{title:'Tasks — routed to correct teams',rows:[
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan with Q4 approved headcount'},{c:'tc-d',t:'→ Oct 18'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Confirm budget allocation for new hires'},{c:'tc-d',t:'→ Oct 17'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post approved roles — careers page + LinkedIn'},{c:'tc-d',t:'→ Oct 20'}]},
+{cols:['90px','1fr','80px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Review employment contract templates for new roles'},{c:'tc-d',t:'→ Oct 21'}]}
+]},
+{title:'Dependency detected',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-dep',t:'Blocks'},{c:'tc-m',t:'Finance budget confirmation <span class="tc-a">must complete before</span> HR can post roles externally — Oct 17 hard deadline'}]}]},
+{title:'Calendar — auto-scheduled',rows:[
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Hiring plan review — HR + Finance — 30 min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['auto','1fr','100px'],cells:[{c:'otag ot-cal',t:'Booked'},{c:'tc-t',t:'Contract template review — HR + Legal — 45 min'},{c:'tc-d',t:'Oct 21'}]}
+]},
+{title:'Delivered via',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Email · Slack #hr-team · Calendar invites sent'}]}]}
+],callout:'Standard catches the Finance-HR approval dependency, auto-schedules both follow-up meetings, and delivers to Slack and calendar.'},
+t3:{summary:'4 tasks · estimates · compliance check · KB updated with headcount decisions',sections:[
+{title:'Tasks — with estimates',rows:[
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Update hiring plan — Q4 approved headcount'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 18'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Finance'},{c:'tc-t',t:'Budget confirmation for new hires'},{c:'tc-b',t:'est. 30min'},{c:'tc-d',t:'Oct 17'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'HR'},{c:'tc-t',t:'Post roles externally — after Finance confirmation'},{c:'tc-b',t:'est. 1h'},{c:'tc-d',t:'Oct 20'}]},
+{cols:['90px','1fr','80px','60px'],cells:[{c:'otag ot-team',t:'Legal'},{c:'tc-t',t:'Contract template review'},{c:'tc-b',t:'est. 2h'},{c:'tc-d',t:'Oct 21'}]}
+]},
+{title:'Compliance check',rows:[{cols:['auto','1fr'],cells:[{c:'otag ot-kb',t:'Check'},{c:'tc-m',t:'Hiring freeze policy checked against knowledge base. <span class="tc-a">Engineering roles exempt with CFO approval.</span> Non-exempt roles require CEO sign-off.'}]}]},
+{title:'Knowledge base — updated',rows:[
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Decision'},{c:'tc-m',t:'Q4 headcount approved — 3 Engineering, 1 CS, 2 Marketing — CFO sign-off required for Engineering'},{c:'tc-d',t:'Today'}]},
+{cols:['auto','1fr','70px'],cells:[{c:'otag ot-kb',t:'Policy'},{c:'tc-m',t:'Hiring freeze exemption for Engineering roles — CFO verbal approval recorded'},{c:'tc-d',t:'Today'}]}
+]},
+{title:'Follow-up',rows:[{cols:['1fr'],cells:[{c:'tc-m',t:'→ Oct 17: Finance confirmed? · Oct 20: Roles posted? · Escalation to CFO if Engineering exemption not formally documented by Oct 18'}]}]}
+],callout:'Advanced cross-references the hiring freeze policy from the knowledge base, flags which roles need CFO exemption, records the headcount decision permanently, and escalates if formal approval is missing.'}
+}
+};
+
+function matchQuery(q){
+  const l=q.toLowerCase().trim();
+  for(const k of Object.keys(DATA)){if(l.includes(k)||k.includes(l))return k;}
+  const m={budget:'quarterly budget review',financial:'quarterly budget review',finance:'quarterly budget review',quarterly:'quarterly budget review',
+    sprint:'product sprint planning',product:'product sprint planning',agile:'product sprint planning',backlog:'product sprint planning',
+    onboarding:'new client onboarding',client:'new client onboarding',customer:'new client onboarding',
+    security:'security incident debrief',incident:'security incident debrief',breach:'security incident debrief',gdpr:'security incident debrief',
+    marketing:'marketing campaign kickoff',campaign:'marketing campaign kickoff',launch:'marketing campaign kickoff',
+    hiring:'hiring review',recruit:'hiring review',headcount:'hiring review',hr:'hiring review'};
+  for(const [kw,key] of Object.entries(m)){if(l.includes(kw))return key;}
+  return null;
+}
+
+function renderOutput(key,tier){
+  const out=document.getElementById('demo-output');
+  const data=DATA[key][`t${tier}`];
+  out.innerHTML='';
+  const sumEl=document.createElement('p');
+  sumEl.style.cssText='font-family:var(--mono);font-size:11px;color:var(--tb6);padding:0 0 12px;letter-spacing:.04em;border-bottom:1px solid var(--tb3);margin-bottom:4px';
+  sumEl.textContent=data.summary;
+  out.appendChild(sumEl);
+  let delay=0;
+  data.sections.forEach(sec=>{
+    const t=document.createElement('p');
+    t.className='out-section';
+    t.textContent=sec.title;
+    out.appendChild(t);
+    sec.rows.forEach(row=>{
+      const div=document.createElement('div');
+      div.className='out-row'+(sec.locked?' locked-row':'');
+      div.style.gridTemplateColumns=row.cols.join(' ');
+      row.cells.forEach(cell=>{
+        const s=document.createElement('span');
+        s.className=cell.c||'';
+        s.innerHTML=cell.t;
+        div.appendChild(s);
+      });
+      if(sec.locked){
+        const lbl=document.createElement('span');
+        lbl.className='locked-lbl';
+        lbl.textContent=tier===1?'Standard +':'Advanced';
+        div.appendChild(lbl);
+      }
+      out.appendChild(div);
+      const d=delay;setTimeout(()=>div.classList.add('show'),d);
+      delay+=70;
+    });
+  });
+  const cl=document.createElement('div');
+  cl.className=`out-callout oc-${tier}`;
+  cl.style.opacity='0';
+  cl.textContent=data.callout;
+  out.appendChild(cl);
+  setTimeout(()=>{cl.style.transition='opacity .4s';cl.style.opacity='1';},delay+100);
+}
+
+let currentTier=1,currentKey=null;
+
+function run(forceKey){
+  const inp=document.getElementById('demo-input');
+  const btn=document.getElementById('demo-run');
+  const out=document.getElementById('demo-output');
+  const q=forceKey||inp.value.trim();
+  if(!q)return;
+  if(!forceKey)inp.value=q;
+  const key=matchQuery(q);
+  currentKey=key;
+  btn.disabled=true;
+  out.innerHTML='<div class="q-loading">Processing — extracting tasks and routing</div>';
+  setTimeout(()=>{
+    if(key){renderOutput(key,currentTier);}
+    else{out.innerHTML=`<div style="font-family:var(--mono);font-size:13px;color:var(--tb6);padding:8px 0">No match for "<span style="color:var(--tbt)">${q}</span>". Try: quarterly budget review, product sprint planning, new client onboarding, security incident debrief, marketing campaign kickoff, or hiring review.</div>`;}
+    btn.disabled=false;
+  },700);
+}
+
+function setTier(t){
+  currentTier=t;
+  document.querySelectorAll('.tier-tab').forEach(b=>{b.classList.remove('act-1','act-2','act-3');if(parseInt(b.dataset.tier)===t)b.classList.add(`act-${t}`);});
+  const pill=document.getElementById('q-tier-pill');
+  pill.className=`q-tier-pill qp-${t}`;
+  pill.textContent=['','Starter','Standard','Advanced'][t];
+  document.getElementById('q-bar-label').textContent=`briefops — ${['','starter','standard','advanced'][t]} output`;
+  if(currentKey){
+    document.getElementById('demo-output').innerHTML='<div class="q-loading">Switching tier...</div>';
+    setTimeout(()=>renderOutput(currentKey,currentTier),400);
+  }
+}
+
+document.querySelectorAll('.tier-tab').forEach(b=>b.addEventListener('click',()=>setTier(parseInt(b.dataset.tier))));
+document.getElementById('demo-run').addEventListener('click',()=>run());
+document.getElementById('demo-input').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+document.querySelectorAll('.demo-sug').forEach(b=>b.addEventListener('click',()=>{document.getElementById('demo-input').value=b.dataset.val;run(b.dataset.val);}));
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
