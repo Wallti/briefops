@@ -1525,15 +1525,18 @@ form { display: flex; flex-direction: column; gap: 16px; }
 /* ── SOURCE TAG POPUP ── */
 .src-tag {
   cursor:pointer !important;
-  transition:opacity .12s;
+  transition:opacity .12s, box-shadow .12s;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.1);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.src-tag:hover { opacity:.75; }
+.src-tag:hover { opacity:.8; box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
 
 .src-popup {
-  position:fixed; z-index:1001;
-  background:var(--tb2); border:1px solid var(--tb4);
+  position:absolute; z-index:1001;
+  background:var(--black); border:1px solid #333330;
   border-radius:6px; width:300px;
-  box-shadow:0 8px 32px rgba(0,0,0,.7);
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
   font-family:var(--mono); overflow:hidden;
   animation:popIn .15s ease;
 }
@@ -1566,24 +1569,22 @@ form { display: flex; flex-direction: column; gap: 16px; }
 /* ── OWNER BADGE & POPUP ── */
 .owner-badge {
   cursor:pointer;
-  transition:background .15s, color .15s;
+  transition:background .15s, color .15s, box-shadow .15s;
   position:relative;
+  box-shadow: 0 0 0 1px rgba(102,153,204,.4);
 }
 .owner-badge:hover {
   background:rgba(102,153,204,.3) !important;
   color:#aaccee !important;
+  box-shadow: 0 0 0 2px rgba(102,153,204,.6);
 }
 
-{
-  position:fixed;
-  z-index:1000;
-  background:var(--tb2);
-  border:1px solid var(--tb4);
-  border-radius:6px;
-  width:280px;
-  box-shadow:0 8px 32px rgba(0,0,0,.6);
-  font-family:var(--mono);
-  overflow:hidden;
+.owner-popup {
+  position:absolute; z-index:1000;
+  background:var(--black); border:1px solid #333330;
+  border-radius:6px; width:280px;
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
+  font-family:var(--mono); overflow:hidden;
   animation:popIn .15s ease;
 }
 @keyframes popIn {
@@ -1629,7 +1630,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
 .op-close:hover { color:#888886; }
 .op-overlay {
   position:fixed; inset:0; z-index:999;
-  background:transparent;
+  background:transparent; pointer-events:auto;
 }
 .op-booked {
   padding:10px 16px 12px;
@@ -2506,15 +2507,15 @@ form { display: flex; flex-direction: column; gap: 16px; }
     <div style="margin-top:48px" class="reveal">
       <div class="demo-hint-bar">
         <span class="demo-hint-icon">↓</span>
-        <span>Switch tiers to compare output depth. In <strong>Advanced</strong>: tick any task to update the progress bar, and click a <span class="demo-hint-badge" style="background:rgba(102,153,204,.15);color:#6699cc">team badge</span> to message, call, or book a meeting with the owner.</span>
+        <span>Showing <strong>Advanced</strong> tier by default. Switch tiers to compare output depth. Click any <span class="demo-hint-badge" style="background:rgba(102,153,204,.15);color:#6699cc;box-shadow:0 0 0 1px rgba(102,153,204,.4)">Finance · Lisa R.</span> team badge to message, call, or book a meeting with the owner.</span>
       </div>
       <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">01 — Meeting output · Q3 Budget Review</p>
       <div class="tier-tabs" id="sw1">
-        <button class="ts-btn ts-act-1" data-sw="1" data-tier="1"><span class="tdot td1"></span>Starter</button>
+        <button class="ts-btn" data-sw="1" data-tier="1"><span class="tdot td1"></span>Starter</button>
         <button class="ts-btn" data-sw="1" data-tier="2"><span class="tdot td2"></span>Standard</button>
-        <button class="ts-btn" data-sw="1" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+        <button class="ts-btn ts-act-3" data-sw="1" data-tier="3"><span class="tdot td3"></span>Advanced</button>
       </div>
-      <div class="terminal" id="sw1-t1">
+      <div class="terminal" id="sw1-t1" style="display:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks extracted</p>
@@ -2556,7 +2557,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-callout oc-2">Standard tracks dependencies — tick tasks in the wrong order and the system warns you. No ETA recalculation at this tier.</div>
         </div>
       </div>
-      <div class="terminal" id="sw1-t3" style="display:none">
+      <div class="terminal" id="sw1-t3">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-3" style="margin-left:auto">Advanced</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks · estimates · 1 risk · KB updated</p>
@@ -2589,13 +2590,13 @@ form { display: flex; flex-direction: column; gap: 16px; }
     <div style="margin-top:56px" class="reveal">
       <div class="demo-hint-bar">
         <span class="demo-hint-icon">↓</span>
-        <span><strong>Standard</strong>: tick a task that has an unresolved blocker — the system warns you. <strong>Advanced</strong>: tick tasks to watch the ETA recalculate and the Gantt update in real time. Click any team badge to reach the owner directly.</span>
+        <span>Showing <strong>Advanced</strong> tier by default. Tick tasks to watch the ETA recalculate and Gantt update. Click any underlined <span class="demo-hint-badge" style="background:rgba(102,153,204,.15);color:#6699cc;box-shadow:0 0 0 1px rgba(102,153,204,.4)">team badge</span> to reach the owner directly. Switch to Standard to see blocker warnings.</span>
       </div>
       <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">02 — Sprint planning output · Product Roadmap Memo</p>
       <div class="tier-tabs" id="sw2">
         <button class="ts-btn" data-sw="2" data-tier="1"><span class="tdot td1"></span>Starter</button>
-        <button class="ts-btn ts-act-2" data-sw="2" data-tier="2"><span class="tdot td2"></span>Standard</button>
-        <button class="ts-btn" data-sw="2" data-tier="3"><span class="tdot td3"></span>Advanced</button>
+        <button class="ts-btn" data-sw="2" data-tier="2"><span class="tdot td2"></span>Standard</button>
+        <button class="ts-btn ts-act-3" data-sw="2" data-tier="3"><span class="tdot td3"></span>Advanced</button>
       </div>
       <div class="terminal" id="sw2-t1" style="display:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
@@ -2606,7 +2607,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-callout oc-1">Starter does not process planning memos or generate sprint tasks. Upgrade to Standard or Advanced for sprint assistant functionality.</div>
         </div>
       </div>
-      <div class="terminal" id="sw2-t2">
+      <div class="terminal" id="sw2-t2" style="display:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Memo processed · 6 sprint tasks generated · awaiting team-lead approval · critical path calculated</p>
@@ -2626,7 +2627,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-callout oc-2">Try completing the Engineering checkout task before Design specs — Standard detects the blocker violation and warns you immediately.</div>
         </div>
       </div>
-      <div class="terminal" id="sw2-t3" style="display:none">
+      <div class="terminal" id="sw2-t3">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-3" style="margin-left:auto">Advanced</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Memo processed · 6 tasks · 31 pts · 2 risks · capacity check complete · KB archived</p>
@@ -2659,7 +2660,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
     <div style="margin-top:56px" class="reveal">
       <div class="demo-hint-bar">
         <span class="demo-hint-icon">↓</span>
-        <span><strong>Advanced</strong>: click any <span class="demo-hint-badge" style="background:rgba(83,74,183,.15);color:#afa9ec">Meeting</span>, <span class="demo-hint-badge" style="background:rgba(180,100,200,.15);color:#c070d0">Doc</span> or <span class="demo-hint-badge" style="background:rgba(212,168,75,.15);color:#d4a84b">Decision</span> source tag to see where the document lives and open it directly.</span>
+        <span>Showing <strong>Advanced</strong> tier. Click any underlined <span class="demo-hint-badge" style="background:rgba(83,74,183,.15);color:#afa9ec;text-decoration:underline;text-underline-offset:2px">Decision ↗</span>, <span class="demo-hint-badge" style="background:rgba(102,153,204,.15);color:#6699cc;text-decoration:underline;text-underline-offset:2px">Meeting ↗</span> or <span class="demo-hint-badge" style="background:rgba(180,100,200,.15);color:#c070d0;text-decoration:underline;text-underline-offset:2px">Document ↗</span> tag to see the storage location and open it directly.</span>
       </div>
       <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:12px">03 — Knowledge query · "Which vendor did we choose for the payment gateway, and why?"</p>
       <div class="tier-tabs" id="sw3">
@@ -3727,7 +3728,6 @@ form { display: flex; flex-direction: column; gap: 16px; }
   }
 
   function openSrcPopup(tag, e) {
-    e.stopPropagation();
     closeSrcPopup();
     closePopup();
 
@@ -3772,8 +3772,10 @@ form { display: flex; flex-direction: column; gap: 16px; }
     `;
 
     const rect = tag.getBoundingClientRect();
-    const top  = Math.min(rect.bottom + 6, window.innerHeight - 280);
-    const left = Math.min(rect.left, window.innerWidth - 316);
+    const scrollY = window.scrollY || window.pageYOffset;
+    const scrollX = window.scrollX || window.pageXOffset;
+    const top  = Math.min(rect.bottom + scrollY + 6, scrollY + window.innerHeight - 290);
+    const left = Math.min(rect.left  + scrollX,     scrollX + window.innerWidth  - 316);
     popup.style.top  = top  + 'px';
     popup.style.left = left + 'px';
 
@@ -3791,16 +3793,6 @@ form { display: flex; flex-direction: column; gap: 16px; }
       setTimeout(() => { if (document.getElementById('sp-copy')) document.getElementById('sp-copy').textContent = 'Copy path'; }, 1500);
     });
   }
-
-  // ── Event delegation for src-tags and owner-badges ──
-  // Catches both static elements and dynamically generated KB results
-  document.addEventListener('click', (e) => {
-    const srcTag = e.target.closest('.src-tag');
-    if (srcTag) { openSrcPopup(srcTag, e); return; }
-
-    const ownerBadge = e.target.closest('.owner-badge');
-    if (ownerBadge) { openOwnerPopup(ownerBadge, e); return; }
-  });
 
   // ── Owner popup ──
   const OWNER_SLOTS = {
@@ -3821,7 +3813,6 @@ form { display: flex; flex-direction: column; gap: 16px; }
   }
 
   function openOwnerPopup(badge, e) {
-    e.stopPropagation();
     closePopup();
 
     const person   = badge.dataset.person;
@@ -3873,10 +3864,11 @@ form { display: flex; flex-direction: column; gap: 16px; }
       <div class="op-booked" id="op-booked">✓ Meeting booked and calendar invite sent.</div>
     `;
 
-    // Position near badge
     const rect = badge.getBoundingClientRect();
-    const top  = Math.min(rect.bottom + 6, window.innerHeight - 340);
-    const left = Math.min(rect.left, window.innerWidth - 296);
+    const scrollY = window.scrollY || window.pageYOffset;
+    const scrollX = window.scrollX || window.pageXOffset;
+    const top  = Math.min(rect.bottom + scrollY + 6, scrollY + window.innerHeight - 360);
+    const left = Math.min(rect.left  + scrollX,     scrollX + window.innerWidth  - 296);
     popup.style.top  = top  + 'px';
     popup.style.left = left + 'px';
 
@@ -3906,7 +3898,22 @@ form { display: flex; flex-direction: column; gap: 16px; }
     });
   }
 
+  // ── Event delegation — works for static + dynamic elements ──
+  document.addEventListener('click', function(e) {
+    const srcTag     = e.target.closest('.src-tag');
+    const ownerBadge = e.target.closest('.owner-badge');
+    const inPopup    = e.target.closest('.owner-popup') || e.target.closest('.src-popup');
 
+    // Open popup first — before any close logic
+    if (srcTag)     { openSrcPopup(srcTag, e);       return; }
+    if (ownerBadge) { openOwnerPopup(ownerBadge, e); return; }
+
+    // Close only if click landed outside all popups
+    if (!inPopup) {
+      closePopup();
+      closeSrcPopup();
+    }
+  });
 
   const ETA_DATES = {
     sw1t3: ['Oct 18','Oct 19','Oct 20','Oct 22','Oct 23','Oct 24'],
