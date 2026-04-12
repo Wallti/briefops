@@ -3792,9 +3792,14 @@ form { display: flex; flex-direction: column; gap: 16px; }
     });
   }
 
-  // Wire static src-tags (sw3-t3)
-  document.querySelectorAll('.src-tag').forEach(tag => {
-    tag.addEventListener('click', (e) => openSrcPopup(tag, e));
+  // ── Event delegation for src-tags and owner-badges ──
+  // Catches both static elements and dynamically generated KB results
+  document.addEventListener('click', (e) => {
+    const srcTag = e.target.closest('.src-tag');
+    if (srcTag) { openSrcPopup(srcTag, e); return; }
+
+    const ownerBadge = e.target.closest('.owner-badge');
+    if (ownerBadge) { openOwnerPopup(ownerBadge, e); return; }
   });
 
   // ── Owner popup ──
@@ -3901,9 +3906,6 @@ form { display: flex; flex-direction: column; gap: 16px; }
     });
   }
 
-  document.querySelectorAll('.owner-badge').forEach(badge => {
-    badge.addEventListener('click', (e) => openOwnerPopup(badge, e));
-  });
 
 
   const ETA_DATES = {
