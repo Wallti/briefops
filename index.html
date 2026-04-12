@@ -1721,7 +1721,13 @@ form { display: flex; flex-direction: column; gap: 16px; }
 .jira-run:hover { background:var(--accent); }
 .jira-run:disabled { opacity:.45; cursor:default; }
 
-.jira-output-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.jira-output-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:10px; }
+
+.platform-switcher { display:flex; border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+.platform-btn { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border:none; background:var(--white); color:var(--gray-3); cursor:pointer; border-right:1px solid var(--rule); transition:.12s; }
+.platform-btn:last-child { border-right:none; }
+.platform-btn:hover { background:var(--gray-6); color:var(--black); }
+.platform-btn.platform-act { background:var(--black); color:var(--white); }
 .jira-status { font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--gray-3); }
 
 .jira-board { display:flex; flex-direction:column; gap:8px; min-height:200px; }
@@ -2005,8 +2011,12 @@ form { display: flex; flex-direction: column; gap: 16px; }
       <span>Microsoft Teams</span>
       <span>Jira</span>
       <span>Asana</span>
+      <span>Monday.com</span>
+      <span>Linear</span>
+      <span>ClickUp</span>
       <span>Outlook</span>
       <span>Google Calendar</span>
+      <span>Notion</span>
     </div>
   </div>
 </div>
@@ -2164,23 +2174,29 @@ form { display: flex; flex-direction: column; gap: 16px; }
         </button>
       </div>
 
-      <!-- RIGHT: Jira output -->
+      <!-- RIGHT: output -->
       <div class="jira-output-col">
         <div class="jira-output-header">
-          <p class="jira-col-label">Output — Jira tickets</p>
-          <span class="jira-status" id="jira-status"></span>
+          <p class="jira-col-label">Output — task board</p>
+          <div class="platform-switcher" id="platform-switcher">
+            <button class="platform-btn platform-act" data-platform="jira">Jira</button>
+            <button class="platform-btn" data-platform="monday">Monday</button>
+            <button class="platform-btn" data-platform="linear">Linear</button>
+            <button class="platform-btn" data-platform="clickup">ClickUp</button>
+          </div>
         </div>
+        <span class="jira-status" id="jira-status" style="display:block;margin-bottom:8px"></span>
         <div class="jira-board" id="jira-board">
           <div class="jira-placeholder">
             <span class="jira-placeholder-text">Tickets will appear here after processing</span>
           </div>
         </div>
         <div class="jira-approval" id="jira-approval" style="display:none">
-          <span class="jira-approval-label">Awaiting product lead approval before Jira sync</span>
-          <button class="jira-approve-btn" id="jira-approve">Approve all &amp; sync to Jira</button>
+          <span class="jira-approval-label" id="jira-approval-label">Awaiting product lead approval before sync</span>
+          <button class="jira-approve-btn" id="jira-approve">Approve all &amp; sync</button>
         </div>
         <div class="jira-synced" id="jira-synced" style="display:none">
-          <span class="jira-synced-text">Synced to Jira · Sprint 24 · 3 tickets created</span>
+          <span class="jira-synced-text" id="jira-synced-text">Synced · 3 tickets created</span>
         </div>
       </div>
 
@@ -3121,84 +3137,94 @@ form { display: flex; flex-direction: column; gap: 16px; }
 </footer>
 
 <script>
-  // ── Memo to Jira Demo ──
+  // ── Memo to Platform Demo ──
   const JIRA_PRESETS = {
     checkout: {
-      memo: 'We need to redesign the checkout flow by end of sprint. Sara (Design) should start with the Figma specs by Oct 18 — this blocks Tom\'s implementation work. Tom (Engineering) picks up the frontend implementation once specs are done, targeting Oct 25. Anna (QA) writes acceptance criteria for payment integration independently by Oct 19. Complexity is high for the implementation, medium for specs and QA. All tickets need to be reviewed by the product lead before syncing to Jira.',
+      memo: "We need to redesign the checkout flow by end of sprint. Sara (Design) should start with the Figma specs by Oct 18 — this blocks Tom's implementation work. Tom (Engineering) picks up the frontend implementation once specs are done, targeting Oct 25. Anna (QA) writes acceptance criteria for payment integration independently by Oct 19. Complexity is high for the implementation, medium for specs and QA. All tickets need to be reviewed by the product lead before syncing.",
       tickets: [
         { key:'BRF-241', type:'story', typelabel:'Story', priority:'medium', prioritylabel:'Medium', title:'Design: Figma specs for checkout redesign', assignee:'Sara L.', points:5, est:'1.5d', deadline:'Oct 18', dep:null },
         { key:'BRF-242', type:'story', typelabel:'Story', priority:'high', prioritylabel:'High', title:'Engineering: Implement checkout redesign — frontend', assignee:'Tom H.', points:13, est:'4d', deadline:'Oct 25', dep:'Blocked by BRF-241' },
-        { key:'BRF-243', type:'task', typelabel:'Task', priority:'medium', prioritylabel:'Medium', title:'QA: Acceptance criteria — payment integration', assignee:'Anna K.', points:3, est:'0.5d', deadline:'Oct 19', dep:null },
-      ],
-      jiraLabel: 'Sprint 24 · 3 tickets created'
+        { key:'BRF-243', type:'task', typelabel:'Task', priority:'medium', prioritylabel:'Medium', title:'QA: Acceptance criteria — payment integration', assignee:'Anna K.', points:3, est:'0.5d', deadline:'Oct 19', dep:null }
+      ]
     },
     auth: {
-      memo: 'We need to migrate our authentication service from sessions to JWT tokens. Max (Backend) leads the refactor — estimated 3 days, high complexity, due Oct 21. Frontend (Tom) needs to update token handling after backend is done, medium complexity, 1 day, due Oct 22. Security review by Lisa before any deployment — she needs the backend branch to be ready first. Target: staging by Oct 23.',
+      memo: "We need to migrate our authentication service from sessions to JWT tokens. Max (Backend) leads the refactor — estimated 3 days, high complexity, due Oct 21. Frontend (Tom) needs to update token handling after backend is done, medium complexity, 1 day, due Oct 22. Security review by Lisa before any deployment — she needs the backend branch to be ready first. Target: staging by Oct 23.",
       tickets: [
         { key:'BRF-251', type:'story', typelabel:'Story', priority:'high', prioritylabel:'High', title:'Backend: JWT authentication refactor', assignee:'Max B.', points:8, est:'3d', deadline:'Oct 21', dep:null },
         { key:'BRF-252', type:'task', typelabel:'Task', priority:'medium', prioritylabel:'Medium', title:'Frontend: Update token handling for JWT', assignee:'Tom H.', points:3, est:'1d', deadline:'Oct 22', dep:'Blocked by BRF-251' },
-        { key:'BRF-253', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'Security: Review JWT implementation before deployment', assignee:'Lisa R.', points:2, est:'0.5d', deadline:'Oct 23', dep:'Blocked by BRF-251' },
-      ],
-      jiraLabel: 'Sprint 24 · 3 tickets created'
+        { key:'BRF-253', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'Security: Review JWT implementation before deployment', assignee:'Lisa R.', points:2, est:'0.5d', deadline:'Oct 23', dep:'Blocked by BRF-251' }
+      ]
     },
     onboarding: {
-      memo: 'New client Meridian GmbH starts onboarding next week. Sales (Jan) sends the signed contract and welcome pack by Monday. IT (Klaus) provisions the client environment by Wednesday — this must happen before CS can schedule the kickoff. Customer Success (Maria) prepares the kickoff agenda and sends it to the client 48h before the call on Friday. Legal (Hans) files the NDA by end of day today.',
+      memo: "New client Meridian GmbH starts onboarding next week. Sales (Jan) sends the signed contract and welcome pack by Monday. IT (Klaus) provisions the client environment by Wednesday — this must happen before CS can schedule the kickoff. Customer Success (Maria) prepares the kickoff agenda and sends it to the client 48h before the call on Friday. Legal (Hans) files the NDA by end of day today.",
       tickets: [
         { key:'BRF-261', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'Sales: Send signed contract and welcome pack to Meridian GmbH', assignee:'Jan K.', points:1, est:'30min', deadline:'Monday', dep:null },
         { key:'BRF-262', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'IT: Provision client environment — Meridian GmbH', assignee:'Klaus M.', points:3, est:'2h', deadline:'Wednesday', dep:null },
         { key:'BRF-263', type:'task', typelabel:'Task', priority:'medium', prioritylabel:'Medium', title:'CS: Prepare and send kickoff agenda to client', assignee:'Maria S.', points:2, est:'1h', deadline:'Thursday', dep:'Blocked by BRF-262' },
-        { key:'BRF-264', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'Legal: File NDA — Meridian GmbH', assignee:'Hans B.', points:1, est:'20min', deadline:'Today EOD', dep:null },
-      ],
-      jiraLabel: 'Sprint 24 · 4 tickets created'
+        { key:'BRF-264', type:'task', typelabel:'Task', priority:'high', prioritylabel:'High', title:'Legal: File NDA — Meridian GmbH', assignee:'Hans B.', points:1, est:'20min', deadline:'Today EOD', dep:null }
+      ]
     }
   };
 
+  const PLATFORM_META = {
+    jira:    { label:'Jira',       field1:'Story points', syncLabel:'Synced to Jira',    prefix:'BRF' },
+    monday:  { label:'Monday.com', field1:'Effort',       syncLabel:'Synced to Monday',  prefix:'MON' },
+    linear:  { label:'Linear',     field1:'Points',       syncLabel:'Synced to Linear',  prefix:'LNR' },
+    clickup: { label:'ClickUp',    field1:'Story points', syncLabel:'Synced to ClickUp', prefix:'CLK' }
+  };
+
   let currentPreset = 'checkout';
+  let currentPlatform = 'jira';
 
-  function renderJiraTickets(preset) {
-    const board = document.getElementById('jira-board');
+  function buildTicketHTML(t, platform) {
+    const pm = PLATFORM_META[platform];
+    const key = t.key.replace('BRF', pm.prefix);
+    const dep = t.dep ? t.dep.replace('BRF', pm.prefix) : null;
+    return '<div class="jira-ticket">' +
+      '<div class="jira-ticket-top">' +
+        '<span class="jira-ticket-key">' + key + '</span>' +
+        '<span class="jira-ticket-type jt-' + t.type + '">' + t.typelabel + '</span>' +
+        '<span class="jira-ticket-priority jp-' + t.priority + '">' + t.prioritylabel + '</span>' +
+      '</div>' +
+      '<p class="jira-ticket-title">' + t.title + '</p>' +
+      '<div class="jira-ticket-meta">' +
+        '<span>Assignee: <strong>' + t.assignee + '</strong></span>' +
+        '<span>' + pm.field1 + ': <strong>' + t.points + '</strong></span>' +
+        '<span>Est: <strong>' + t.est + '</strong></span>' +
+        '<span>Due: <strong>' + t.deadline + '</strong></span>' +
+      '</div>' +
+      (dep ? '<div class="jira-ticket-dep">' + dep + '</div>' : '') +
+    '</div>';
+  }
+
+  function renderJiraTickets(preset, platform) {
+    const board    = document.getElementById('jira-board');
     const approval = document.getElementById('jira-approval');
-    const synced = document.getElementById('jira-synced');
-    const status = document.getElementById('jira-status');
-    const btn = document.getElementById('jira-run');
-
-    btn.disabled = true;
+    const synced   = document.getElementById('jira-synced');
+    const status   = document.getElementById('jira-status');
+    const btn      = document.getElementById('jira-run');
+    const pm       = PLATFORM_META[platform];
+    btn.disabled   = true;
     document.getElementById('jira-run-label').textContent = 'Processing memo...';
     approval.style.display = 'none';
-    synced.style.display = 'none';
+    synced.style.display   = 'none';
     board.innerHTML = '';
     status.textContent = 'Analysing...';
-
+    document.getElementById('jira-approval-label').textContent = 'Awaiting approval before ' + pm.label + ' sync';
     const data = JIRA_PRESETS[preset];
-
-    data.tickets.forEach((t, i) => {
-      setTimeout(() => {
-        status.textContent = `Extracting ticket ${i+1} of ${data.tickets.length}...`;
-        const ticket = document.createElement('div');
-        ticket.className = 'jira-ticket';
-        ticket.innerHTML = `
-          <div class="jira-ticket-top">
-            <span class="jira-ticket-key">${t.key}</span>
-            <span class="jira-ticket-type jt-${t.type}">${t.typelabel}</span>
-            <span class="jira-ticket-priority jp-${t.priority}">${t.prioritylabel}</span>
-          </div>
-          <p class="jira-ticket-title">${t.title}</p>
-          <div class="jira-ticket-meta">
-            <span>Assignee: <strong>${t.assignee}</strong></span>
-            <span>Points: <strong>${t.points}</strong></span>
-            <span>Est: <strong>${t.est}</strong></span>
-            <span>Due: <strong>${t.deadline}</strong></span>
-          </div>
-          ${t.dep ? `<div class="jira-ticket-dep">${t.dep}</div>` : ''}
-        `;
+    data.tickets.forEach(function(t, i) {
+      setTimeout(function() {
+        status.textContent = 'Extracting ticket ' + (i+1) + ' of ' + data.tickets.length + '...';
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = buildTicketHTML(t, platform);
+        var ticket = wrapper.firstElementChild;
         board.appendChild(ticket);
-        requestAnimationFrame(() => { requestAnimationFrame(() => { ticket.classList.add('show'); }); });
-
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ ticket.classList.add('show'); }); });
         if (i === data.tickets.length - 1) {
-          setTimeout(() => {
-            status.textContent = `${data.tickets.length} tickets extracted`;
+          setTimeout(function() {
+            status.textContent = data.tickets.length + ' tickets extracted';
             approval.style.display = 'flex';
-            document.getElementById('jira-run-label').textContent = 'Generate Jira tickets';
+            document.getElementById('jira-run-label').textContent = 'Generate tickets';
             btn.disabled = false;
           }, 400);
         }
@@ -3206,33 +3232,65 @@ form { display: flex; flex-direction: column; gap: 16px; }
     });
   }
 
-  document.getElementById('jira-run').addEventListener('click', () => {
-    renderJiraTickets(currentPreset);
+  function rerenderCurrentTickets(platform) {
+    var board = document.getElementById('jira-board');
+    if (board.querySelector('.jira-placeholder')) return;
+    var tickets = JIRA_PRESETS[currentPreset].tickets;
+    board.innerHTML = '';
+    tickets.forEach(function(t) {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = buildTicketHTML(t, platform);
+      var ticket = wrapper.firstElementChild;
+      ticket.classList.add('show');
+      board.appendChild(ticket);
+    });
+    var pm = PLATFORM_META[platform];
+    document.getElementById('jira-approval-label').textContent = 'Awaiting approval before ' + pm.label + ' sync';
+    var syncedEl = document.getElementById('jira-synced');
+    if (syncedEl.style.display !== 'none') {
+      document.getElementById('jira-synced-text').textContent = pm.syncLabel + ' · ' + tickets.length + ' items created';
+    }
+  }
+
+  document.getElementById('jira-run').addEventListener('click', function() {
+    renderJiraTickets(currentPreset, currentPlatform);
   });
 
-  document.querySelectorAll('.jira-preset').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.jira-preset').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.jira-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.jira-preset').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       currentPreset = btn.dataset.preset;
       document.getElementById('jira-memo').textContent = JIRA_PRESETS[currentPreset].memo;
       document.getElementById('jira-board').innerHTML = '<div class="jira-placeholder"><span class="jira-placeholder-text">Tickets will appear here after processing</span></div>';
       document.getElementById('jira-approval').style.display = 'none';
-      document.getElementById('jira-synced').style.display = 'none';
-      document.getElementById('jira-status').textContent = '';
+      document.getElementById('jira-synced').style.display   = 'none';
+      document.getElementById('jira-status').textContent     = '';
+    });
+  });
+
+  document.querySelectorAll('.platform-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.platform-btn').forEach(function(b){ b.classList.remove('platform-act'); });
+      btn.classList.add('platform-act');
+      currentPlatform = btn.dataset.platform;
+      rerenderCurrentTickets(currentPlatform);
     });
   });
 
   document.getElementById('jira-approve').addEventListener('click', function() {
     this.textContent = 'Syncing...';
     this.disabled = true;
-    setTimeout(() => {
+    var self = this;
+    setTimeout(function() {
       document.getElementById('jira-approval').style.display = 'none';
-      const synced = document.getElementById('jira-synced');
-      synced.querySelector('.jira-synced-text').textContent = JIRA_PRESETS[currentPreset].jiraLabel + ' — board updated';
+      var pm    = PLATFORM_META[currentPlatform];
+      var count = JIRA_PRESETS[currentPreset].tickets.length;
+      var synced = document.getElementById('jira-synced');
+      document.getElementById('jira-synced-text').textContent = pm.syncLabel + ' · ' + count + ' items created';
       synced.style.display = 'block';
-      this.disabled = false;
-      this.textContent = 'Approve all & sync to Jira';
+      self.disabled = false;
+      self.textContent = 'Approve all & sync';
     }, 900);
   });
 
