@@ -1653,6 +1653,8 @@ form { display: flex; flex-direction: column; gap: 16px; }
 .t3-fill { background:#534ab7; }
 
 /* checkbox */
+.terminal { display: block; }
+.terminal[style*="display:none"] { pointer-events: none; }
 .task-cb { appearance:none; width:14px; height:14px; border:1px solid #444442; border-radius:2px; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background .15s,border-color .15s; }
 .task-cb:checked { background:#5cb85c; border-color:#5cb85c; }
 .task-cb:checked::after { content:''; display:block; width:8px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg) translate(1px,-1px); margin:2px 0 0 2px; }
@@ -2637,7 +2639,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
         <button class="ts-btn" data-sw="1" data-tier="2"><span class="tdot td2"></span>Standard</button>
         <button class="ts-btn ts-act-3" data-sw="1" data-tier="3"><span class="tdot td3"></span>Advanced</button>
       </div>
-      <div class="terminal" id="sw1-t1" style="display:none">
+      <div class="terminal" id="sw1-t1" style="display:none;pointer-events:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks extracted</p>
@@ -2656,7 +2658,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-callout oc-1">Starter delivers a clean task list by email. Tick tasks to track progress — no blocker detection or ETA recalculation at this tier.</div>
         </div>
       </div>
-      <div class="terminal" id="sw1-t2" style="display:none">
+      <div class="terminal" id="sw1-t2" style="display:none;pointer-events:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — meeting output / Q3 Budget Review</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Meeting processed · Oct 12 · 43 min · 4 tasks · 2 dependencies · 2 meetings scheduled</p>
@@ -2720,7 +2722,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
         <button class="ts-btn" data-sw="2" data-tier="2"><span class="tdot td2"></span>Standard</button>
         <button class="ts-btn ts-act-3" data-sw="2" data-tier="3"><span class="tdot td3"></span>Advanced</button>
       </div>
-      <div class="terminal" id="sw2-t1" style="display:none">
+      <div class="terminal" id="sw2-t1" style="display:none;pointer-events:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-1" style="margin-left:auto">Starter</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:14px">Input received · Product Roadmap Memo · Oct 14</p>
@@ -2729,7 +2731,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-callout oc-1">Starter does not process planning memos or generate sprint tasks. Upgrade to Standard or Advanced for sprint assistant functionality.</div>
         </div>
       </div>
-      <div class="terminal" id="sw2-t2" style="display:none">
+      <div class="terminal" id="sw2-t2" style="display:none;pointer-events:none">
         <div class="t-bar"><div class="q-dots"><span></span><span></span><span></span></div><span class="t-bar-label">briefops — sprint planning / Product Roadmap Memo</span><span class="q-tier-pill qp-2" style="margin-left:auto">Standard</span></div>
         <div class="t-body">
           <p class="tc-d" style="font-size:12px;margin-bottom:10px">Memo processed · 6 sprint tasks generated · awaiting team-lead approval · critical path calculated</p>
@@ -4119,30 +4121,39 @@ form { display: flex; flex-direction: column; gap: 16px; }
     el.textContent = '⚠ Blocker: "' + names.join('", "') + '" must complete first before this task can proceed.';
   }
 
-  document.querySelectorAll('.task-cb').forEach(cb => {
-    cb.addEventListener('change', function() {
-      const row = this.closest('.task-row');
-      const pbId = 'pb-' + row.dataset.pb;
-      const bwId = 'bw-' + row.dataset.pb;
-      const terminal = document.getElementById(row.dataset.pb);
+  // ── Task checkbox — event delegation (prevents cross-terminal conflicts) ──
+  document.addEventListener('change', function(e) {
+    if (!e.target.classList.contains('task-cb')) return;
+    const cb  = e.target;
+    const row = cb.closest('.task-row');
+    if (!row) return;
 
-      if (this.checked) {
-        // Check if blockers are done
-        const unfinished = checkBlockers(row, pbId);
-        if (unfinished && unfinished.length > 0) {
-          this.checked = false;
-          showBlockerWarn(bwId, unfinished, terminal);
-          return;
-        } else {
-          showBlockerWarn(bwId, [], terminal);
-        }
-        row.classList.add('task-done');
+    // Only process if the row's terminal is actually visible
+    const terminalId = row.dataset.pb;
+    const terminal   = document.getElementById(terminalId);
+    if (!terminal || terminal.style.display === 'none') {
+      cb.checked = !cb.checked; // revert
+      return;
+    }
+
+    const pbId = 'pb-' + terminalId;
+    const bwId = 'bw-' + terminalId;
+
+    if (cb.checked) {
+      const unfinished = checkBlockers(row, pbId);
+      if (unfinished && unfinished.length > 0) {
+        cb.checked = false;
+        showBlockerWarn(bwId, unfinished, terminal);
+        return;
       } else {
-        row.classList.remove('task-done');
         showBlockerWarn(bwId, [], terminal);
       }
-      updateProgress(pbId);
-    });
+      row.classList.add('task-done');
+    } else {
+      row.classList.remove('task-done');
+      showBlockerWarn(bwId, [], terminal);
+    }
+    updateProgress(pbId);
   });
 
 
@@ -4152,7 +4163,10 @@ form { display: flex; flex-direction: column; gap: 16px; }
       const tier = parseInt(btn.dataset.tier);
       [1,2,3].forEach(t => {
         const el = document.getElementById(`sw${sw}-t${t}`);
-        if (el) el.style.display = t === tier ? 'block' : 'none';
+        if (el) {
+          el.style.display = t === tier ? 'block' : 'none';
+          el.style.pointerEvents = t === tier ? '' : 'none';
+        }
       });
       document.querySelectorAll(`#sw${sw} .ts-btn`).forEach(b => {
         b.classList.remove('ts-act-1','ts-act-2','ts-act-3');
