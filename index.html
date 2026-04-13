@@ -11,12 +11,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --black: #111110;
-  --gray-1: #2c2c2b;
-  --gray-2: #6b6b69;
-  --gray-3: #9a9a97;
-  --gray-4: #c8c8c4;
-  --gray-5: #e8e8e4;
+  --black: #0d0d0c;
+  --gray-1: #1e1e1d;
+  --gray-2: #4a4a48;
+  --gray-3: #808080;
+  --gray-4: #b8b8b4;
+  --gray-5: #e2e2de;
   --gray-6: #f4f4f0;
   --white: #fafaf7;
   --accent: #1a3fa3;
@@ -41,10 +41,11 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--sans);
-  background: rgba(250,250,247,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: var(--white);
   color: var(--black);
   font-size: 16px;
-  line-height: 1.65;
+  font-weight: 400;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1701,6 +1702,37 @@ form { display: flex; flex-direction: column; gap: 16px; }
 .t2-badge { background:var(--accent-light); color:var(--accent); }
 .t3-badge { background:#eeedfe; color:#534ab7; }
 
+/* ── LOCAL LLM SECTION ── */
+.llm-section { padding:100px 48px; border-bottom:1px solid var(--rule); background:var(--white); }
+.llm-inner { max-width:1280px; margin:0 auto; }
+.llm-header { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:48px; align-items:end; }
+.llm-intro { font-size:15px; font-weight:300; color:var(--gray-2); line-height:1.75; }
+.llm-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:48px; }
+.llm-tier-col { border:1px solid var(--rule); border-radius:4px; padding:24px; background:var(--gray-6); }
+.llm-featured { background:var(--white); border-color:var(--black); }
+.llm-tier-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.llm-tier-badge { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:2px; }
+.ltd1 { background:#e8edf8; color:#1a3fa3; }
+.ltd2 { background:#111110; color:#fafaf7; }
+.ltd3 { background:#534ab7; color:#fafaf7; }
+.llm-tier-name { font-size:13px; font-weight:500; color:var(--black); }
+.llm-tier-desc { font-size:13px; font-weight:300; color:var(--gray-2); line-height:1.65; margin-bottom:16px; }
+.llm-rows { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.llm-row { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--gray-1); }
+.llm-fallback { opacity:.6; }
+.llm-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.ldot-cloud { background:#1a3fa3; }
+.ldot-local { background:#0f6e56; }
+.ldot-fallback { background:#d4a84b; }
+.llm-privacy-note { display:flex; align-items:flex-start; gap:8px; padding:10px 12px; border-radius:3px; background:rgba(0,0,0,.03); font-size:12px; font-weight:300; color:var(--gray-2); line-height:1.6; }
+.llm-privacy-good { background:rgba(15,110,86,.06); color:#0a4a3a; }
+.llm-privacy-best { background:rgba(83,74,183,.06); color:#3c3489; }
+.llm-privacy-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+.llm-footnote { display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; padding-top:32px; border-top:1px solid var(--rule); }
+.llm-fn-label { font-size:11px; font-weight:600; letter-spacing:.04em; color:var(--black); margin-bottom:6px; }
+.llm-fn-text { font-size:13px; font-weight:300; color:var(--gray-2); line-height:1.7; }
+@media(max-width:960px){.llm-header,.llm-grid,.llm-footnote{grid-template-columns:1fr;gap:20px}.llm-section{padding:72px 24px;}}
+
 /* ── MEMO TO JIRA ── */
 .jira-section { padding:100px 48px; border-bottom:1px solid var(--rule); background:var(--gray-6); }
 .jira-inner { max-width:1280px; margin:0 auto; }
@@ -1920,19 +1952,21 @@ form { display: flex; flex-direction: column; gap: 16px; }
   .footer-meta { flex-direction: column; gap: 8px; align-items: center; }
 }
 </style>
+<!-- Analytics — DSGVO-konform, keine Cookies -->
+<script defer data-domain="briefops.org" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">BriefOps<sup>Beta</sup></a>
+  <a href="index.html" class="logo">BriefOps<sup>Beta</sup></a>
   <div class="nav-links">
-    <a href="#how">Process</a>
-    <a href="#features">Features</a>
-    <a href="#demo">Demo</a>
-    <a href="briefops_tiers.html">Compare</a>
+    <a href="demo.html">App demo</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="onboarding.html">Onboarding</a>
     <a href="#pricing">Pricing</a>
-    <a href="#contact" class="nav-cta">Contact</a>
+    <a href="briefops_tiers.html">Compare tiers</a>
+    <a href="#contact" class="nav-cta">Demo buchen →</a>
   </div>
 </nav>
 
@@ -2201,6 +2235,94 @@ form { display: flex; flex-direction: column; gap: 16px; }
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- LOCAL LLM OPTION -->
+<section class="llm-section" id="local-llm">
+  <div class="llm-inner">
+    <div class="llm-header reveal">
+      <div>
+        <p class="section-kicker">Optional · Standard + Advanced</p>
+        <h2>Run it on your<br><em>own infrastructure.</em></h2>
+      </div>
+      <p class="llm-intro">BriefOps is designed for a hybrid model: a local open-source LLM handles routine tasks on your own servers, while Claude processes the complex reasoning work in the cloud. For teams with strict data sovereignty requirements, a fully local setup is available.</p>
+    </div>
+    <div class="llm-grid reveal">
+
+      <div class="llm-tier-col">
+        <div class="llm-tier-head">
+          <span class="llm-tier-badge ltd1">Starter</span>
+          <p class="llm-tier-name">Cloud only</p>
+        </div>
+        <p class="llm-tier-desc">All processing via Claude on AWS Frankfurt (EU). Standard DPA + SCCs. No local infrastructure required.</p>
+        <div class="llm-rows">
+          <div class="llm-row"><span class="llm-dot ldot-cloud"></span><span>Meeting summarisation — Claude Sonnet</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-cloud"></span><span>Task extraction — Claude Sonnet</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-cloud"></span><span>Delivery formatting — Claude Sonnet</span></div>
+        </div>
+        <div class="llm-privacy-note">
+          <span class="llm-privacy-icon">○</span>
+          <span>Meeting content leaves your network. Suitable for teams without strict data sovereignty requirements.</span>
+        </div>
+      </div>
+
+      <div class="llm-tier-col llm-featured">
+        <div class="llm-tier-head">
+          <span class="llm-tier-badge ltd2">Standard</span>
+          <p class="llm-tier-name">Hybrid — recommended</p>
+        </div>
+        <p class="llm-tier-desc">Routine tasks run on a local Mistral 7B instance on your server. Only dependency analysis and sprint building use Claude.</p>
+        <div class="llm-rows">
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Meeting summarisation — Mistral 7B local</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Task extraction — Mistral 7B local</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Delivery formatting — Mistral 7B local</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-cloud"></span><span>Dependency analysis — Claude Sonnet</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-cloud"></span><span>Sprint builder — Claude Sonnet</span></div>
+          <div class="llm-row llm-fallback"><span class="llm-dot ldot-fallback"></span><span>Automatic fallback to Claude if local model unavailable</span></div>
+        </div>
+        <div class="llm-privacy-note llm-privacy-good">
+          <span class="llm-privacy-icon">◕</span>
+          <span>~80% of processing stays on-premise. Only complex reasoning tasks reach the cloud. Suitable for finance, agencies, and product teams.</span>
+        </div>
+      </div>
+
+      <div class="llm-tier-col">
+        <div class="llm-tier-head">
+          <span class="llm-tier-badge ltd3">Advanced</span>
+          <p class="llm-tier-name">Fully local option</p>
+        </div>
+        <p class="llm-tier-desc">All processing on your infrastructure using Llama 3.3 70B. Zero cloud calls. Required for legal, healthcare, and public sector clients.</p>
+        <div class="llm-rows">
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Meeting summarisation — Llama 3.3 70B</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Task extraction — Llama 3.3 70B</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Dependency analysis — Llama 3.3 70B</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Sprint builder — Llama 3.3 70B</span></div>
+          <div class="llm-row"><span class="llm-dot ldot-local"></span><span>Executive digest — Llama 3.3 70B</span></div>
+          <div class="llm-row llm-fallback"><span class="llm-dot ldot-fallback"></span><span>Optional cloud escalation for critical reasoning tasks</span></div>
+        </div>
+        <div class="llm-privacy-note llm-privacy-best">
+          <span class="llm-privacy-icon">●</span>
+          <span>100% on-premise. No data leaves your network. Required for §203 StGB professions, healthcare (Art. 9 DSGVO), and BSI IT-Grundschutz environments.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="llm-footnote reveal">
+      <div class="llm-fn-item">
+        <p class="llm-fn-label">Why Mistral 7B?</p>
+        <p class="llm-fn-text">Mistral AI is a French company. The model is fully open-source, Apache 2.0 licensed, and subject to no US export controls — a meaningful argument for European procurement teams.</p>
+      </div>
+      <div class="llm-fn-item">
+        <p class="llm-fn-label">Automatic fallback</p>
+        <p class="llm-fn-text">If the local model is unavailable, BriefOps falls back to Claude automatically and logs the event. No meeting is lost. No manual intervention required.</p>
+      </div>
+      <div class="llm-fn-item">
+        <p class="llm-fn-label">API cost reduction</p>
+        <p class="llm-fn-text">Hybrid setup reduces Claude API costs by approximately 70–80% compared to a cloud-only deployment — from ~€100/month per client to under €15.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2573,10 +2695,10 @@ form { display: flex; flex-direction: column; gap: 16px; }
           <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a4" data-est="0.5" data-deadline="22" data-blocks="a1 a3"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Leadership" data-person="CEO + CFO" data-email="exec@company.com" data-task="Budget sign-off call" data-deadline="Oct 22">Leadership · Exec</span><span class="tc-t task-text">Budget sign-off call — CEO + CFO</span><span class="tc-b">30 min</span><span class="tc-d">Oct 22</span></div>
           <p class="out-section">Timeline · critical path</p>
           <div class="gantt-wrap" id="gantt-sw1-t3">
-            <div class="gantt-row"><span class="gantt-label">Finance report</span><div class="gantt-track"><div class="gantt-bar critical" style="left:0%;width:55%"><span>6h</span></div></div></div>
-            <div class="gantt-row"><span class="gantt-label">Assumptions</span><div class="gantt-track"><div class="gantt-bar" style="left:55%;width:10%"><span>1h</span></div></div></div>
-            <div class="gantt-row"><span class="gantt-label">Headcount</span><div class="gantt-track"><div class="gantt-bar" style="left:20%;width:28%"><span>3h</span></div></div></div>
-            <div class="gantt-row"><span class="gantt-label">Sign-off call</span><div class="gantt-track"><div class="gantt-bar critical" style="left:65%;width:8%"><span>30m</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Finance report</span><div class="gantt-track"><div class="gantt-bar critical" style="left:30%;width:55%"><span>6h</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Assumptions</span><div class="gantt-track"><div class="gantt-bar" style="left:85%;width:10%"><span>1h</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Headcount</span><div class="gantt-track"><div class="gantt-bar critical" style="left:0%;width:28%"><span>3h · blocks Finance</span></div></div></div>
+            <div class="gantt-row"><span class="gantt-label">Sign-off call</span><div class="gantt-track"><div class="gantt-bar critical" style="left:95%;width:5%"><span>30m</span></div></div></div>
             <div class="gantt-legend"><span class="gantt-leg-item"><span class="gantt-leg-dot critical-dot"></span>Critical path</span><span class="gantt-leg-item"><span class="gantt-leg-dot"></span>Parallel</span></div>
           </div>
           <p class="out-section">Risk detected</p>
@@ -3947,14 +4069,24 @@ form { display: flex; flex-direction: column; gap: 16px; }
       etaEl.style.color = done >= total ? '#5cb85c' : '#6699cc';
     }
 
-    // Update gantt bars to show done state
+    // Update gantt bars to show done state — mapped by task order in terminal
     const ganttId = pbId.replace('pb-','gantt-');
     const gantt = document.getElementById(ganttId);
     if (gantt) {
+      // Map task rows to gantt bars by data-id order
+      const taskRows = Array.from(terminal.querySelectorAll('.task-row'));
       const bars = gantt.querySelectorAll('.gantt-bar');
-      bars.forEach((bar, i) => {
-        if (i < done) bar.classList.add('done');
-        else bar.classList.remove('done');
+      // For sw1-t3: explicit mapping — headcount (a3) triggers its own bar (index 2)
+      //             finance (a1) triggers bar index 0, assumptions (a2) index 1
+      const idToBar = { 'a1': 0, 'a2': 1, 'a3': 2, 'a4': 3,
+                        'c1': 0, 'c2': 0, 'c3': 1, 'c4': 2 };
+      taskRows.forEach((row) => {
+        const taskId = row.dataset.id;
+        const barIdx = idToBar[taskId];
+        if (barIdx !== undefined && bars[barIdx]) {
+          if (row.querySelector('.task-cb').checked) bars[barIdx].classList.add('done');
+          else bars[barIdx].classList.remove('done');
+        }
       });
     }
   }
@@ -4371,6 +4503,17 @@ document.querySelectorAll('.demo-sug').forEach(b=>b.addEventListener('click',()=
 
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.07});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fafaf7;border-top:1px solid #e2e2de;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;font-family:'Lato',sans-serif;font-size:13px;color:#4a4a48">
+  <p style="margin:0;line-height:1.6;max-width:700px">Diese Website verwendet <strong>keine Cookies</strong> und kein Tracking. Analytics laufen über Plausible — cookiefrei, DSGVO-konform, keine Weitergabe an Dritte. <a href="legal.html#datenschutz" style="color:#1a3fa3;text-decoration:underline">Datenschutzerklärung</a></p>
+  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('briefops-cookie-ok','1')" style="flex-shrink:0;padding:8px 20px;background:#111110;color:#fafaf7;border:none;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;text-transform:uppercase">Verstanden</button>
+</div>
+<script>
+if(!localStorage.getItem('briefops-cookie-ok')){
+  document.getElementById('cookie-banner').style.display='flex';
+}
 </script>
 </body>
 </html>
