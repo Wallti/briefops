@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BriefOps — Live Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<script defer data-domain="briefops.org" src="https://plausible.io/js/script.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0d0d0c; --gray-1: #1e1e1d; --gray-2: #4a4a48; --gray-3: #808080;
+  --gray-4: #b8b8b4; --gray-5: #e2e2de; --gray-6: #f4f4f0; --white: #fafaf7;
+  --accent: #1a3fa3; --accent-light: #e8edf8; --rule: #e2e2de;
+  --teal: #0f6e56; --teal-light: #e1f5ee;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'Lato', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 15px; font-weight: 400; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: sticky; top: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 54px; background: rgba(250,250,247,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.logo { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: -0.01em; }
+.logo sup { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); vertical-align: super; margin-left: 3px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 13px; color: var(--gray-2); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--black); }
+.nav-links a.active { color: var(--black); font-weight: 700; }
+.nav-cta { font-size: 13px !important; font-weight: 700 !important; color: var(--white) !important; background: var(--black); padding: 8px 18px; border-radius: 3px; transition: background .15s !important; }
+.nav-cta:hover { background: var(--accent) !important; }
+
+/* PAGE HEADER */
+.demo-header { padding: 56px 48px 48px; border-bottom: 1px solid var(--rule); }
+.demo-header-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+.page-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 12px; }
+h1 { font-family: var(--serif); font-size: 40px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 0; }
+h1 em { font-style: italic; color: var(--gray-2); }
+.page-lead { font-size: 15px; font-weight: 300; color: var(--gray-2); line-height: 1.75; }
+
+/* DEMO TABS */
+.demo-tabs-bar { max-width: 1400px; margin: 0 auto; padding: 0 48px; display: flex; gap: 0; border-bottom: 1px solid var(--rule); }
+.demo-tab { padding: 16px 24px; font-size: 13px; font-weight: 400; color: var(--gray-3); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s; background: none; border-left: none; border-right: none; border-top: none; }
+.demo-tab:hover { color: var(--black); }
+.demo-tab.active { color: var(--black); font-weight: 700; border-bottom-color: var(--black); }
+
+/* APP DEMO WRAPPER */
+.app-demo-section { padding: 48px; background: var(--gray-6); display: none; }
+.app-demo-section.visible { display: block; }
+.app-demo-inner { max-width: 1400px; margin: 0 auto; }
+.demo-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.demo-controls-label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); }
+.tier-btns { display: flex; gap: 0; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; background: var(--white); }
+.tier-btn { padding: 7px 18px; font-size: 12px; font-weight: 400; color: var(--gray-2); border: none; background: none; cursor: pointer; transition: background .12s, color .12s; border-right: 1px solid var(--rule); }
+.tier-btn:last-child { border-right: none; }
+.tier-btn:hover { background: var(--gray-6); color: var(--black); }
+.tier-btn.active { background: var(--black); color: var(--white); font-weight: 700; }
+.demo-hint { font-size: 12px; font-weight: 300; color: var(--gray-3); font-family: var(--mono); }
+
+/* APP SHELL */
+.app-shell { display: grid; grid-template-columns: 240px 1fr 300px; height: 640px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+
+/* SIDEBAR */
+.sb { background: var(--gray-6); border-right: 1px solid var(--rule); display: flex; flex-direction: column; overflow: hidden; }
+.sb-logo { padding: 14px 16px 12px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.sb-logo-mark { font-size: 13px; font-weight: 700; color: var(--black); font-family: var(--serif); }
+.sb-logo-badge { font-size: 9px; background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 2px; font-family: var(--mono); }
+.sb-user { padding: 10px 14px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.sb-av { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+.sb-uname { font-size: 12px; font-weight: 700; }
+.sb-urole { font-size: 11px; color: var(--gray-3); font-weight: 300; }
+.sb-cta { margin: 10px; padding: 9px 12px; background: var(--black); color: #fafaf7; border-radius: 3px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; flex-shrink: 0; transition: background .15s; border: none; width: calc(100% - 20px); }
+.sb-cta:hover { background: var(--accent); }
+.sb-section { padding: 10px 14px 4px; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-4); flex-shrink: 0; }
+.sb-item { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 3px; cursor: pointer; margin: 1px 6px; transition: background .12s; flex-shrink: 0; border: none; background: none; width: calc(100% - 12px); text-align: left; }
+.sb-item:hover { background: var(--white); }
+.sb-item.active { background: var(--white); border: 0.5px solid var(--rule); }
+.sb-icon { width: 18px; height: 18px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sb-label { font-size: 12px; color: var(--black); font-weight: 400; flex: 1; }
+.sb-badge { font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 700; flex-shrink: 0; }
+.sb-badge-red { background: #fde8e8; color: #c0392b; }
+.sb-badge-amb { background: #fdf3e0; color: #d4a84b; }
+.sb-badge-grn { background: var(--teal-light); color: var(--teal); }
+.sb-mini-cal { margin: 8px 10px 4px; padding: 10px 12px; background: var(--white); border: 0.5px solid var(--rule); border-radius: 3px; flex-shrink: 0; }
+.sb-cal-label { font-size: 10px; color: var(--gray-3); font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.sb-cal-item { display: flex; align-items: center; gap: 7px; padding: 4px 0; border-bottom: 0.5px solid var(--rule); }
+.sb-cal-item:last-child { border-bottom: none; }
+.sb-cal-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.sb-cal-time { font-size: 10px; font-family: var(--mono); color: var(--gray-3); width: 34px; flex-shrink: 0; }
+.sb-cal-title { font-size: 11px; color: var(--black); }
+.sb-bottom { margin-top: auto; padding: 6px; border-top: 1px solid var(--rule); flex-shrink: 0; }
+
+/* MAIN */
+.main { display: flex; flex-direction: column; overflow: hidden; }
+.main-header { padding: 12px 18px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 12px; flex-shrink: 0; background: var(--white); }
+.main-title { font-size: 14px; font-weight: 700; flex: 1; }
+.main-meta { font-size: 11px; color: var(--gray-3); font-family: var(--mono); }
+.main-content { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+
+/* TASK CARDS */
+.task-card { background: var(--gray-6); border: 0.5px solid var(--rule); border-radius: 4px; padding: 12px 14px; cursor: default; transition: border-color .15s; }
+.task-card:hover { border-color: var(--gray-4); }
+.tc-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+.tc-title { font-size: 13px; font-weight: 700; color: var(--black); flex: 1; min-width: 0; }
+.tc-tag { font-size: 10px; padding: 2px 8px; border-radius: 2px; font-family: var(--mono); white-space: nowrap; flex-shrink: 0; }
+.tag-open     { background: var(--accent-light); color: var(--accent); }
+.tag-approval { background: #fdf3e0; color: #d4a84b; }
+.tag-done     { background: var(--teal-light); color: var(--teal); }
+.tag-blocked  { background: #fde8e8; color: #c0392b; }
+.tc-meta { font-size: 11px; font-weight: 300; color: var(--gray-3); line-height: 1.5; }
+.tc-owner { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-family: var(--mono); background: rgba(102,153,204,.12); color: #1a3fa3; padding: 2px 8px; border-radius: 2px; cursor: pointer; border: 1px solid rgba(102,153,204,.3); transition: background .12s; margin-top: 6px; }
+.tc-owner:hover { background: rgba(102,153,204,.22); }
+
+.alert-card { background: #fdf3e0; border: 0.5px solid #f0c060; border-radius: 4px; padding: 10px 14px; }
+.alert-title { font-size: 12px; font-weight: 700; color: #a07010; margin-bottom: 3px; }
+.alert-text  { font-size: 11px; font-weight: 300; color: #a07010; }
+
+/* CONTEXT PANEL */
+.ctx { border-left: 1px solid var(--rule); display: flex; flex-direction: column; overflow: hidden; background: var(--gray-6); }
+.ctx-header { padding: 12px 16px; border-bottom: 1px solid var(--rule); font-size: 13px; font-weight: 700; flex-shrink: 0; background: var(--white); }
+.ctx-section { padding: 12px 14px; border-bottom: 1px solid var(--rule); flex-shrink: 0; }
+.ctx-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 8px; font-family: var(--mono); }
+.ctx-item { display: flex; align-items: center; gap: 7px; padding: 4px 0; font-size: 12px; color: var(--black); }
+.ctx-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.dot-idle { background: var(--gray-4); }
+.dot-active { background: var(--accent); }
+.dot-done   { background: var(--teal); }
+.dot-warn   { background: #d4a84b; }
+.ctx-person { display: flex; align-items: center; gap: 7px; padding: 5px 0; font-size: 12px; cursor: pointer; border-radius: 3px; padding: 5px 6px; transition: background .12s; border: none; background: none; width: 100%; text-align: left; }
+.ctx-person:hover { background: var(--white); }
+.ctx-pav { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; }
+.ctx-pname { font-size: 12px; font-weight: 400; flex: 1; }
+.ctx-ptag { font-size: 10px; font-family: var(--mono); color: var(--gray-3); }
+.ctx-kb-item { font-size: 11px; font-family: var(--mono); color: var(--gray-2); padding: 4px 0; border-bottom: 0.5px solid var(--rule); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color .12s; }
+.ctx-kb-item:hover { color: var(--accent); }
+.ctx-kb-item:last-child { border-bottom: none; }
+.ctx-meeting-item { padding: 6px 0; border-bottom: 0.5px solid var(--rule); cursor: pointer; }
+.ctx-meeting-item:hover .ctx-meeting-title { color: var(--accent); }
+.ctx-meeting-item:last-child { border-bottom: none; }
+.ctx-meeting-date { font-size: 10px; font-family: var(--mono); color: var(--gray-3); margin-bottom: 2px; }
+.ctx-meeting-title { font-size: 12px; font-weight: 400; transition: color .12s; }
+.ctx-meeting-teams { font-size: 10px; color: var(--gray-3); margin-top: 2px; }
+
+/* POPUPS — absolute positioned */
+.popup-anchor { position: relative; }
+.owner-popup {
+  position: absolute; z-index: 300; top: calc(100% + 6px); left: 0;
+  background: #232320; border: 1px solid #363632;
+  border-radius: 5px; width: 260px;
+  font-family: var(--mono); overflow: hidden;
+  animation: popIn .15s ease;
+}
+.src-popup {
+  position: absolute; z-index: 300; top: calc(100% + 6px); left: 0;
+  background: #232320; border: 1px solid #363632;
+  border-radius: 5px; width: 290px;
+  font-family: var(--mono); overflow: hidden;
+  animation: popIn .15s ease;
+}
+@keyframes popIn { from { opacity:0; transform:translateY(-4px) scale(.97); } to { opacity:1; transform:none; } }
+.op-head { padding: 12px 14px 10px; border-bottom: 1px solid #363632; }
+.op-name { font-size: 13px; color: #d4d4cc; font-weight: 500; }
+.op-task { font-size: 10px; color: #6a6a62; margin-top: 3px; line-height: 1.4; }
+.op-team { font-size: 10px; color: #534ab7; margin-top: 2px; }
+.op-actions { padding: 6px; display: flex; flex-direction: column; gap: 3px; }
+.op-action { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 3px; cursor: pointer; transition: background .12s; border: none; background: transparent; width: 100%; text-align: left; }
+.op-action:hover { background: #363632; }
+.op-icon { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; }
+.op-action-label { font-size: 11px; color: #d4d4cc; }
+.op-action-sub   { font-size: 10px; color: #6a6a62; }
+.op-slots { padding: 0 8px 8px; }
+.op-slots-label { font-size: 9px; color: #585852; letter-spacing: .1em; text-transform: uppercase; padding: 6px 4px 5px; }
+.op-slot { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border: 1px solid #363632; border-radius: 3px; margin-bottom: 3px; cursor: pointer; transition: border-color .12s, background .12s; }
+.op-slot:hover { border-color: #534ab7; background: #1e1c2a; }
+.op-slot-date { font-size: 11px; color: #d4d4cc; }
+.op-slot-time { font-size: 10px; color: #6a6a62; }
+.op-slot-book { font-size: 9px; color: #534ab7; letter-spacing: .08em; text-transform: uppercase; }
+.op-booked { padding: 8px 14px 10px; font-size: 11px; color: #5cb85c; border-top: 1px solid #363632; display: none; }
+.op-close { position: absolute; top: 8px; right: 10px; background: transparent; border: none; color: #585852; font-size: 15px; cursor: pointer; line-height: 1; padding: 2px 4px; }
+.op-close:hover { color: #888886; }
+.sp-head { padding: 10px 14px 8px; border-bottom: 1px solid #363632; }
+.sp-type { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.sp-title { font-size: 12px; color: #d4d4cc; line-height: 1.4; }
+.sp-body { padding: 10px 14px; border-bottom: 1px solid #363632; display: flex; flex-direction: column; gap: 8px; }
+.sp-loc-label { font-size: 9px; color: #585852; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2px; }
+.sp-loc-path { font-size: 11px; color: #d4d4cc; line-height: 1.5; }
+.sp-access { font-size: 10px; padding: 3px 8px; border-radius: 2px; }
+.sp-actions { padding: 8px; display: flex; gap: 6px; }
+.sp-btn { flex: 1; padding: 7px 10px; border: 1px solid #363632; border-radius: 3px; font-size: 11px; color: #d4d4cc; cursor: pointer; background: transparent; transition: background .12s; text-align: center; }
+.sp-btn:hover { background: #363632; }
+.sp-btn-open { background: #534ab7; border-color: #534ab7; }
+.sp-btn-open:hover { background: #3c3489; }
+
+/* VOICE DEMO */
+.voice-section { padding: 48px; display: none; }
+.voice-section.visible { display: block; }
+.voice-inner { max-width: 900px; margin: 0 auto; }
+.voice-header { margin-bottom: 40px; }
+.voice-header h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+.voice-header h2 em { font-style: italic; color: var(--gray-2); }
+.voice-header p { font-size: 15px; font-weight: 300; color: var(--gray-2); max-width: 520px; }
+
+.voice-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.voice-left { display: flex; flex-direction: column; gap: 16px; }
+.voice-right { display: flex; flex-direction: column; gap: 16px; }
+
+/* Record button */
+.record-area { background: var(--gray-6); border: 1px solid var(--rule); border-radius: 6px; padding: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.record-btn { width: 72px; height: 72px; border-radius: 50%; background: #c0392b; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .15s, background .15s; position: relative; }
+.record-btn:hover { background: #e74c3c; transform: scale(1.05); }
+.record-btn.recording { background: #c0392b; animation: pulse-rec 1s infinite; }
+.record-btn.done { background: var(--teal); }
+@keyframes pulse-rec { 0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,.4); } 50% { box-shadow: 0 0 0 12px rgba(192,57,43,.0); } }
+.rec-icon { width: 24px; height: 24px; background: #fafaf7; border-radius: 50%; }
+.rec-icon.stop-icon { border-radius: 4px; }
+.record-label { font-family: var(--mono); font-size: 12px; color: var(--gray-3); letter-spacing: .06em; text-align: center; }
+.record-timer { font-family: var(--mono); font-size: 20px; font-weight: 500; color: #c0392b; display: none; }
+.record-timer.visible { display: block; }
+
+/* Transcript */
+.transcript-box { background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 16px; min-height: 120px; font-size: 14px; font-weight: 300; color: var(--gray-1); line-height: 1.75; }
+.transcript-cursor { display: inline-block; width: 2px; height: 16px; background: var(--accent); margin-left: 2px; animation: blink .7s step-end infinite; vertical-align: middle; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.transcript-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 6px; }
+
+/* Pipeline steps */
+.pipeline-steps { background: var(--gray-6); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.pipe-step { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 0.5px solid var(--rule); font-size: 12px; font-family: var(--mono); }
+.pipe-step:last-child { border-bottom: none; }
+.pipe-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--gray-4); transition: background .3s; }
+.pipe-dot.running { background: var(--accent); animation: pulse-dot 1s infinite; }
+.pipe-dot.done    { background: var(--teal); }
+.pipe-dot.error   { background: #c0392b; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+.pipe-label { flex: 1; color: var(--gray-2); }
+.pipe-label.running { color: var(--black); font-weight: 500; }
+.pipe-label.done    { color: var(--teal); }
+.pipe-time { font-size: 10px; color: var(--gray-4); }
+.pipe-time.done { color: var(--gray-3); }
+
+/* Result ticket */
+.result-ticket { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; display: none; }
+.result-ticket.visible { display: block; animation: slideUp .3s ease; }
+@keyframes slideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.rt-header { background: var(--black); padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+.rt-platform { font-family: var(--mono); font-size: 10px; color: #888886; }
+.rt-key { font-family: var(--mono); font-size: 11px; color: #6699cc; }
+.rt-body { padding: 14px; background: var(--white); }
+.rt-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+.rt-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.rt-field-label { font-size: 10px; font-family: var(--mono); color: var(--gray-3); margin-bottom: 2px; }
+.rt-field-val { font-size: 12px; color: var(--black); }
+.rt-approve { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--accent-light); border-top: 1px solid var(--rule); gap: 12px; flex-wrap: wrap; }
+.rt-approve-text { font-size: 12px; font-family: var(--mono); color: var(--accent); }
+.rt-approve-btn { padding: 7px 16px; background: var(--accent); color: var(--white); border: none; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; transition: background .15s; }
+.rt-approve-btn:hover { background: #132f82; }
+.rt-synced { padding: 8px 14px; background: var(--teal-light); border-top: 1px solid #b0dfd0; font-size: 11px; font-family: var(--mono); color: var(--teal); display: none; }
+.rt-synced.visible { display: block; }
+
+/* Backlog */
+.backlog-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 8px; }
+.backlog { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; min-height: 60px; }
+.backlog-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 0.5px solid var(--rule); font-size: 12px; transition: background .15s; }
+.backlog-item:last-child { border-bottom: none; }
+.backlog-item.new-item { background: #e8f4e8; animation: highlight .8s ease 0s 2 alternate; }
+@keyframes highlight { from { background: #b8e8c0; } to { background: #e8f4e8; } }
+.backlog-key { font-family: var(--mono); font-size: 10px; color: var(--gray-3); width: 60px; flex-shrink: 0; }
+.backlog-title { flex: 1; color: var(--black); }
+.backlog-assignee { font-size: 11px; color: var(--gray-3); }
+.backlog-tag { font-size: 10px; font-family: var(--mono); padding: 1px 7px; border-radius: 2px; flex-shrink: 0; }
+.bt-backlog { background: var(--gray-6); color: var(--gray-2); }
+.bt-new     { background: var(--teal-light); color: var(--teal); }
+
+/* Reset btn */
+.reset-btn { padding: 8px 18px; background: none; border: 1px solid var(--rule); border-radius: 3px; font-size: 12px; color: var(--gray-2); cursor: pointer; transition: border-color .15s, color .15s; margin-top: 8px; align-self: flex-start; }
+.reset-btn:hover { border-color: var(--black); color: var(--black); }
+
+/* FOOTER */
+footer { padding: 40px 48px; background: var(--black); }
+.footer-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--serif); font-size: 16px; color: #fafaf7; font-weight: 700; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #6a6a62; text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: #fafaf7; }
+.footer-copy { font-size: 12px; color: #4a4a48; }
+
+@media(max-width:1100px){ .app-shell { grid-template-columns: 200px 1fr; } .ctx { display: none; } }
+@media(max-width:800px){ nav { padding: 0 20px; } .app-demo-section,.voice-section { padding: 24px 20px; } .voice-demo { grid-template-columns: 1fr; } .app-shell { grid-template-columns: 1fr; height: auto; } .sb { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">BriefOps<sup>Beta</sup></a>
+  <div class="nav-links">
+    <a href="demo.html" class="active">App demo</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="onboarding.html">Onboarding</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="briefops_tiers.html">Compare tiers</a>
+    <a href="index.html#contact" class="nav-cta">Demo buchen →</a>
+  </div>
+</nav>
+
+<div class="demo-header">
+  <div class="demo-header-inner">
+    <div>
+      <p class="page-kicker">Interactive demos</p>
+      <h1>See BriefOps<br><em>in action.</em></h1>
+    </div>
+    <p class="page-lead">Two demos: the full app interface with all interactive elements, and a voice-to-backlog demo showing how a spoken memo becomes a Jira ticket in seconds. Switch tiers to see what changes at each level.</p>
+  </div>
+</div>
+
+<!-- DEMO TABS -->
+<div class="demo-tabs-bar">
+  <button class="demo-tab active" onclick="showTab('app')">App interface</button>
+  <button class="demo-tab" onclick="showTab('voice')">Voice → Backlog</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- APP DEMO TAB -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="app-demo-section visible" id="tab-app">
+  <div class="app-demo-inner">
+    <div class="demo-controls">
+      <span class="demo-controls-label">Tier</span>
+      <div class="tier-btns">
+        <button class="tier-btn" onclick="setTier(1,this)">Starter</button>
+        <button class="tier-btn active" onclick="setTier(2,this)">Standard</button>
+        <button class="tier-btn" onclick="setTier(3,this)">Advanced</button>
+      </div>
+      <span class="demo-hint" id="tier-hint">Click owners · source tags · meetings to interact</span>
+    </div>
+
+    <div class="app-shell">
+
+      <!-- SIDEBAR -->
+      <div class="sb">
+        <div class="sb-logo">
+          <span class="sb-logo-mark">BriefOps</span>
+          <span class="sb-logo-badge">beta</span>
+        </div>
+        <div class="sb-user">
+          <div class="sb-av">WV</div>
+          <div><div class="sb-uname">Walter V.</div><div class="sb-urole">Product Lead</div></div>
+        </div>
+        <button class="sb-cta" onclick="showMain('input')">+ New meeting input</button>
+
+        <span class="sb-section">Workspace</span>
+        <button class="sb-item active" onclick="showMain('tasks')">
+          <div class="sb-icon" style="background:#fde8e8"><svg width="11" height="11" viewBox="0 0 11 11"><circle cx="5.5" cy="5.5" r="4.5" fill="none" stroke="#c0392b" stroke-width="1.2"/><line x1="5.5" y1="3" x2="5.5" y2="6" stroke="#c0392b" stroke-width="1.2"/><circle cx="5.5" cy="8" r=".7" fill="#c0392b"/></svg></div>
+          <span class="sb-label">My tasks</span>
+          <span class="sb-badge sb-badge-red" id="sb-tasks-badge">3</span>
+        </button>
+        <button class="sb-item" onclick="showMain('blockers')">
+          <div class="sb-icon" style="background:#fdf3e0"><svg width="11" height="11" viewBox="0 0 11 11"><line x1="2" y1="5.5" x2="5.5" y2="9" stroke="#d4a84b" stroke-width="1.2"/><line x1="5.5" y1="9" x2="9" y2="2" stroke="#d4a84b" stroke-width="1.2"/></svg></div>
+          <span class="sb-label">Blockers</span>
+          <span class="sb-badge sb-badge-amb" id="sb-block-badge">1</span>
+        </button>
+        <button class="sb-item" onclick="showMain('sprints')">
+          <div class="sb-icon" style="background:#e8edf8"><svg width="11" height="11" viewBox="0 0 11 11"><rect x="1" y="2.5" width="9" height="7" rx="1" fill="none" stroke="#1a3fa3" stroke-width="1"/><line x1="1" y1="4.5" x2="10" y2="4.5" stroke="#1a3fa3" stroke-width="1"/><line x1="3.5" y1="2.5" x2="3.5" y2="1.5" stroke="#1a3fa3" stroke-width="1"/><line x1="7.5" y1="2.5" x2="7.5" y2="1.5" stroke="#1a3fa3" stroke-width="1"/></svg></div>
+          <span class="sb-label">Sprints</span>
+        </button>
+        <button class="sb-item" onclick="showMain('team')">
+          <div class="sb-icon" style="background:#f4f4f0"><svg width="11" height="11" viewBox="0 0 11 11"><circle cx="5.5" cy="4" r="2.2" fill="none" stroke="#808080" stroke-width="1"/><path d="M1.5 10c0-2.2 1.79-4 4-4s4 1.8 4 4" fill="none" stroke="#808080" stroke-width="1"/></svg></div>
+          <span class="sb-label">Team</span>
+        </button>
+
+        <span class="sb-section">Knowledge</span>
+        <button class="sb-item" onclick="showMain('kb')">
+          <div class="sb-icon" style="background:#eeedfe"><svg width="11" height="11" viewBox="0 0 11 11"><circle cx="5.5" cy="5.5" r="4" fill="none" stroke="#534ab7" stroke-width="1"/><circle cx="5.5" cy="5.5" r="1.5" fill="#534ab7"/></svg></div>
+          <span class="sb-label">Knowledge base</span>
+        </button>
+        <button class="sb-item" onclick="showMain('meetings')">
+          <div class="sb-icon" style="background:#f4f4f0"><svg width="11" height="11" viewBox="0 0 11 11"><rect x="2" y="1.5" width="7" height="8" rx="1" fill="none" stroke="#808080" stroke-width="1"/><line x1="4" y1="4" x2="8" y2="4" stroke="#808080" stroke-width="1"/><line x1="4" y1="5.5" x2="8" y2="5.5" stroke="#808080" stroke-width="1"/><line x1="4" y1="7" x2="6.5" y2="7" stroke="#808080" stroke-width="1"/></svg></div>
+          <span class="sb-label">Meetings</span>
+        </button>
+
+        <div class="sb-mini-cal">
+          <div class="sb-cal-label">Today</div>
+          <div class="sb-cal-item">
+            <div class="sb-cal-dot" style="background:#1a3fa3"></div>
+            <span class="sb-cal-time">09:30</span>
+            <span class="sb-cal-title">Q2 Sprint Planning</span>
+          </div>
+          <div class="sb-cal-item">
+            <div class="sb-cal-dot" style="background:#d4a84b"></div>
+            <span class="sb-cal-time">14:00</span>
+            <span class="sb-cal-title">Meridian GmbH</span>
+          </div>
+        </div>
+        <div class="sb-bottom">
+          <button class="sb-item" onclick="showMain('settings')">
+            <div class="sb-icon" style="background:#f4f4f0"><svg width="11" height="11" viewBox="0 0 11 11"><circle cx="5.5" cy="5.5" r="4" fill="none" stroke="#808080" stroke-width="1"/><circle cx="5.5" cy="5.5" r="1.5" fill="none" stroke="#808080" stroke-width="1"/></svg></div>
+            <span class="sb-label">Settings</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main">
+        <div class="main-header">
+          <span class="main-title" id="main-title">My tasks</span>
+          <span class="main-meta" id="main-meta">Sprint 24 · ends Apr 18</span>
+        </div>
+        <div class="main-content" id="main-content">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- CONTEXT PANEL -->
+      <div class="ctx">
+        <div class="ctx-header">Context</div>
+
+        <div class="ctx-section" id="ctx-next">
+          <div class="ctx-label">Next meeting</div>
+          <div style="background:var(--white);border:0.5px solid var(--rule);border-radius:3px;padding:10px 12px">
+            <div style="font-size:10px;font-family:var(--mono);color:var(--gray-3);margin-bottom:3px">Today · 09:30</div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:4px">Q2 Sprint Planning</div>
+            <span style="font-size:10px;background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:2px;font-family:var(--mono)">Auto-capture ready</span>
+          </div>
+        </div>
+
+        <div class="ctx-section" id="ctx-pipeline">
+          <div class="ctx-label">Pipeline status</div>
+          <div class="ctx-item"><div class="ctx-dot dot-done"></div>meeting-parser</div>
+          <div class="ctx-item"><div class="ctx-dot" id="ctx-dep-dot" style="background:#1a3fa3;animation:pulse-dot 1s infinite"></div><span id="ctx-dep-label">dependency-analyst</span></div>
+          <div class="ctx-item"><div class="ctx-dot dot-idle"></div>sprint-builder</div>
+          <div class="ctx-item"><div class="ctx-dot dot-idle"></div>delivery-agent</div>
+        </div>
+
+        <div class="ctx-section" id="ctx-blocking">
+          <div class="ctx-label">Who I'm blocking</div>
+          <div class="popup-anchor">
+            <button class="ctx-person" onclick="toggleCtxPopup('tom')">
+              <div class="ctx-pav" style="background:#e8edf8;color:#1a3fa3">TH</div>
+              <span class="ctx-pname">Tom H.</span>
+              <span class="ctx-ptag">waiting on approval</span>
+            </button>
+            <div class="owner-popup" id="popup-tom" style="display:none">
+              <button class="op-close" onclick="closeCtxPopup('tom')">×</button>
+              <div class="op-head">
+                <div class="op-name">Tom H.</div>
+                <div class="op-task">Checkout redesign — waiting on your approval</div>
+                <div class="op-team">Engineering</div>
+              </div>
+              <div class="op-actions">
+                <button class="op-action"><span class="op-icon">✉</span><div><div class="op-action-label">Send message</div><div class="op-action-sub">tom@company.com</div></div></button>
+                <button class="op-action"><span class="op-icon">📞</span><div><div class="op-action-label">Start call</div><div class="op-action-sub">Open in Slack</div></div></button>
+              </div>
+              <div class="op-slots">
+                <div class="op-slots-label">Book meeting</div>
+                <div class="op-slot" onclick="bookSlot(this,'Tom H.','Oct 16','14:00–14:30')"><span class="op-slot-date">Oct 16</span><span class="op-slot-time">14:00–14:30</span><span class="op-slot-book">Book →</span></div>
+                <div class="op-slot" onclick="bookSlot(this,'Tom H.','Oct 17','11:00–11:30')"><span class="op-slot-date">Oct 17</span><span class="op-slot-time">11:00–11:30</span><span class="op-slot-book">Book →</span></div>
+              </div>
+              <div class="op-booked" id="booked-tom"></div>
+            </div>
+          </div>
+          <div class="popup-anchor">
+            <button class="ctx-person" onclick="toggleCtxPopup('anna')">
+              <div class="ctx-pav" style="background:#e1f5ee;color:#0a4a3a">AK</div>
+              <span class="ctx-pname">Anna K.</span>
+              <span class="ctx-ptag">waiting on review</span>
+            </button>
+            <div class="owner-popup" id="popup-anna" style="display:none">
+              <button class="op-close" onclick="closeCtxPopup('anna')">×</button>
+              <div class="op-head">
+                <div class="op-name">Anna K.</div>
+                <div class="op-task">QA acceptance criteria — waiting on your review</div>
+                <div class="op-team">QA</div>
+              </div>
+              <div class="op-actions">
+                <button class="op-action"><span class="op-icon">✉</span><div><div class="op-action-label">Send message</div><div class="op-action-sub">anna@company.com</div></div></button>
+                <button class="op-action"><span class="op-icon">📞</span><div><div class="op-action-label">Start call</div><div class="op-action-sub">Open in Slack</div></div></button>
+              </div>
+              <div class="op-slots">
+                <div class="op-slots-label">Book meeting</div>
+                <div class="op-slot" onclick="bookSlot(this,'Anna K.','Oct 16','09:30–10:00')"><span class="op-slot-date">Oct 16</span><span class="op-slot-time">09:30–10:00</span><span class="op-slot-book">Book →</span></div>
+                <div class="op-slot" onclick="bookSlot(this,'Anna K.','Oct 18','11:00–11:30')"><span class="op-slot-date">Oct 18</span><span class="op-slot-time">11:00–11:30</span><span class="op-slot-book">Book →</span></div>
+              </div>
+              <div class="op-booked" id="booked-anna"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ctx-section" id="ctx-integrations">
+          <div class="ctx-label">Integrations</div>
+          <div class="ctx-item"><div class="ctx-dot dot-done"></div>Jira · connected</div>
+          <div class="ctx-item"><div class="ctx-dot dot-done"></div>Slack · connected</div>
+          <div class="ctx-item"><div class="ctx-dot dot-warn"></div>Google Calendar · needs auth</div>
+        </div>
+      </div>
+
+    </div><!-- end app-shell -->
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- VOICE DEMO TAB -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="voice-section" id="tab-voice">
+  <div class="voice-inner">
+    <div class="voice-header">
+      <h2>Speak a memo.<br><em>Task appears in Jira.</em></h2>
+      <p>Press record, speak (or let the demo run automatically), and watch the pipeline extract a structured task and route it to the backlog — with team-lead approval before anything is written.</p>
+    </div>
+
+    <div class="voice-demo">
+      <div class="voice-left">
+        <div class="record-area">
+          <button class="record-btn" id="rec-btn" onclick="startRecording()">
+            <div class="rec-icon" id="rec-icon"></div>
+          </button>
+          <div class="record-label" id="rec-label">Press to record memo</div>
+          <div class="record-timer" id="rec-timer">0:00</div>
+        </div>
+
+        <div>
+          <div class="transcript-label">Transcript</div>
+          <div class="transcript-box" id="transcript-box">
+            <span id="transcript-text"></span><span class="transcript-cursor" id="transcript-cursor" style="display:none"></span>
+          </div>
+        </div>
+
+        <div>
+          <div class="transcript-label" style="margin-bottom:6px">Pipeline</div>
+          <div class="pipeline-steps">
+            <div class="pipe-step"><div class="pipe-dot" id="pd-1"></div><span class="pipe-label" id="pl-1">Meeting parser</span><span class="pipe-time" id="pt-1"></span></div>
+            <div class="pipe-step"><div class="pipe-dot" id="pd-2"></div><span class="pipe-label" id="pl-2">Task extraction</span><span class="pipe-time" id="pt-2"></span></div>
+            <div class="pipe-step"><div class="pipe-dot" id="pd-3"></div><span class="pipe-label" id="pl-3">Owner routing</span><span class="pipe-time" id="pt-3"></span></div>
+            <div class="pipe-step"><div class="pipe-dot" id="pd-4"></div><span class="pipe-label" id="pl-4">Critic review</span><span class="pipe-time" id="pt-4"></span></div>
+            <div class="pipe-step"><div class="pipe-dot" id="pd-5"></div><span class="pipe-label" id="pl-5">Awaiting approval</span><span class="pipe-time" id="pt-5"></span></div>
+          </div>
+        </div>
+
+        <button class="reset-btn" id="reset-btn" style="display:none" onclick="resetVoiceDemo()">↺ Run again</button>
+      </div>
+
+      <div class="voice-right">
+        <div>
+          <div class="transcript-label" style="margin-bottom:6px">Generated ticket</div>
+          <div class="result-ticket" id="result-ticket">
+            <div class="rt-header">
+              <span class="rt-platform">Jira · Sprint 24</span>
+              <span class="rt-key" style="margin-left:auto">BRF-298</span>
+            </div>
+            <div class="rt-body">
+              <div class="rt-title" id="rt-title"></div>
+              <div class="rt-fields" id="rt-fields"></div>
+            </div>
+            <div class="rt-approve" id="rt-approve">
+              <span class="rt-approve-text">Awaiting team-lead approval</span>
+              <button class="rt-approve-btn" onclick="approveTicket()">Approve &amp; sync →</button>
+            </div>
+            <div class="rt-synced" id="rt-synced">✓ Synced to Jira · BRF-298 created in Sprint 24</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="backlog-label">Jira backlog — Sprint 24</div>
+          <div class="backlog" id="backlog">
+            <div class="backlog-item"><span class="backlog-key">BRF-295</span><span class="backlog-title">Design: Figma specs checkout</span><span class="backlog-assignee">Sara L.</span><span class="backlog-tag bt-backlog">in progress</span></div>
+            <div class="backlog-item"><span class="backlog-key">BRF-296</span><span class="backlog-title">Engineering: Auth refactor</span><span class="backlog-assignee">Max B.</span><span class="backlog-tag bt-backlog">in review</span></div>
+            <div class="backlog-item"><span class="backlog-key">BRF-297</span><span class="backlog-title">QA: Payment acceptance criteria</span><span class="backlog-assignee">Anna K.</span><span class="backlog-tag bt-backlog">open</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">BriefOps</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="briefops_tiers.html">Compare tiers</a>
+      <a href="legal.html">Impressum</a>
+      <a href="legal.html#datenschutz">Datenschutz</a>
+    </div>
+    <span class="footer-copy">© 2025 BriefOps</span>
+  </div>
+</footer>
+
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fafaf7;border-top:1px solid #e2e2de;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;font-family:'Lato',sans-serif;font-size:13px;color:#4a4a48">
+  <p style="margin:0;line-height:1.6;max-width:700px">Diese Website verwendet <strong>keine Cookies</strong>. Analytics über Plausible — cookiefrei, DSGVO-konform. <a href="legal.html#datenschutz" style="color:#1a3fa3;text-decoration:underline">Datenschutzerklärung</a></p>
+  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('briefops-cookie-ok','1')" style="flex-shrink:0;padding:8px 20px;background:#111110;color:#fafaf7;border:none;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;text-transform:uppercase">Verstanden</button>
+</div>
+
+<script>
+// ── Tab switching ──
+function showTab(tab) {
+  document.querySelectorAll('.demo-tab').forEach((t,i) => t.classList.toggle('active', ['app','voice'][i] === tab));
+  document.getElementById('tab-app').classList.toggle('visible', tab === 'app');
+  document.getElementById('tab-voice').classList.toggle('visible', tab === 'voice');
+}
+
+// ── Tier state ──
+let currentTier = 2;
+function setTier(t, btn) {
+  currentTier = t;
+  document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const hints = ['Starter — basic task list, no owner interaction','Standard — owner badges clickable, source tags active','Advanced — full context panel, blocker detection, executive digest'];
+  document.getElementById('tier-hint').textContent = hints[t-1];
+  renderMain(currentView);
+  updateCtxForTier(t);
+}
+
+function updateCtxForTier(t) {
+  document.getElementById('ctx-pipeline').style.display = t >= 2 ? '' : 'none';
+  document.getElementById('ctx-blocking').style.display = t >= 2 ? '' : 'none';
+  document.getElementById('ctx-integrations').style.display = t >= 1 ? '' : 'none';
+}
+
+// ── Main content views ──
+let currentView = 'tasks';
+const OWNER_SLOTS = {
+  'Sara L.':  [['Oct 15','10:00–10:30'],['Oct 16','15:00–15:30'],['Oct 17','13:00–13:30']],
+  'Tom H.':   [['Oct 16','14:00–14:30'],['Oct 17','11:00–11:30'],['Oct 20','09:00–09:30']],
+  'Anna K.':  [['Oct 16','09:30–10:00'],['Oct 17','14:30–15:00'],['Oct 18','11:00–11:30']],
+  'Lisa R.':  [['Oct 16','09:00–09:30'],['Oct 17','14:00–14:30'],['Oct 18','10:00–10:30']],
+  'Mark T.':  [['Oct 16','11:00–11:30'],['Oct 17','16:00–16:30'],['Oct 19','09:00–09:30']],
+};
+const KB_DOCS = [
+  { type:'decision', color:'#d4a84b', text:'Stripe selected as payment vendor', loc:'SharePoint / Legal / Vendor Decisions', path:'/legal/vendor-decisions/stripe-2024.pdf', access:'full' },
+  { type:'meeting',  color:'#6699cc', text:'Q2 Sprint Planning — Apr 13',        loc:'Confluence / Product / Sprints',      path:'/confluence/product/q2-planning.html', access:'full' },
+  { type:'doc',      color:'#c070d0', text:'Product Roadmap H2 2025',            loc:'SharePoint / Product / Roadmap',      path:'/product/roadmap-h2-2025.docx', access:'reference' },
+  { type:'policy',   color:'#5cb85c', text:'Data handling policy v3',            loc:'SharePoint / Legal / Policies',       path:'/legal/policies/data-handling-v3.pdf', access:'full' },
+];
+const MEETINGS = [
+  { date:'Apr 13 · 09:30', title:'Q2 Sprint Planning', teams:'Engineering · Design · QA', tasks:6, key:'mtg-001' },
+  { date:'Apr 10 · 14:00', title:'Meridian GmbH onboarding', teams:'Sales · CS · Legal', tasks:4, key:'mtg-002' },
+  { date:'Apr 8 · 10:00',  title:'Q1 Budget review', teams:'Finance · Operations · Leadership', tasks:3, key:'mtg-003' },
+  { date:'Apr 5 · 15:00',  title:'Auth migration debrief', teams:'Engineering · Security', tasks:5, key:'mtg-004' },
+];
+
+function showMain(view) {
+  currentView = view;
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  renderMain(view);
+}
+
+function renderMain(view) {
+  const content = document.getElementById('main-content');
+  const title   = document.getElementById('main-title');
+  const meta    = document.getElementById('main-meta');
+  let html = '';
+
+  if (view === 'tasks' || view === 'input' || view === 'settings' || view === 'sprints' || view === 'team') {
+    title.textContent = view === 'tasks' ? 'My tasks' : view === 'input' ? 'New meeting input' : view === 'sprints' ? 'Sprints' : view === 'team' ? 'Team' : 'Settings';
+    meta.textContent  = 'Sprint 24 · ends Apr 18';
+
+    if (view === 'input') {
+      html = `<div style="background:var(--gray-6);border:1px solid var(--rule);border-radius:4px;padding:20px">
+        <p style="font-size:13px;font-weight:700;margin-bottom:12px">Submit a meeting or memo</p>
+        <select style="width:100%;margin-bottom:10px;padding:8px 10px;font-size:13px;border:1px solid var(--rule);border-radius:3px;background:var(--white)"><option>Jira</option><option>Monday.com</option><option>Linear</option><option>ClickUp</option></select>
+        <textarea style="width:100%;min-height:100px;padding:10px;font-size:13px;border:1px solid var(--rule);border-radius:3px;background:var(--white);resize:vertical;font-family:var(--sans)" placeholder="Paste transcript, memo or meeting notes..."></textarea>
+        <button style="margin-top:10px;width:100%;padding:10px;background:var(--black);color:#fafaf7;border:none;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer">Analyse &amp; extract tasks</button>
+      </div>`;
+    } else if (view === 'tasks') {
+      const ownerBadge = currentTier >= 2;
+      html = `<div class="alert-card"><div class="alert-title">1 blocker needs your attention</div><div class="alert-text">Checkout redesign blocked by Sara L. — Figma specs overdue. Due Oct 18.</div></div>`;
+      html += taskCard('Review dependency graph — Q2 Sprint','open','Assigned by orchestrator · due today · sprint-builder waiting', ownerBadge ? 'Sara L.' : '', 'sara');
+      html += taskCard('Approve Jira tickets — Meridian onboarding','approval','4 tickets pending your sign-off · 10 min estimated', ownerBadge ? 'Tom H.' : '', 'tom-t');
+      if (currentTier >= 2) html += taskCard('Submit Q3 variance report','done','Completed Oct 18 · Lisa R. notified', 'Lisa R.', 'lisa');
+      if (currentTier >= 3) html += taskCard('Executive digest — ready for review','open','Weekly digest generated · 3 risk flags identified', 'Lisa R.', 'lisa2');
+    } else {
+      html = `<div style="padding:40px;text-align:center;font-size:13px;font-weight:300;color:var(--gray-3)">${view.charAt(0).toUpperCase()+view.slice(1)} view — click a sidebar item to explore</div>`;
+    }
+  }
+
+  if (view === 'kb') {
+    title.textContent = 'Knowledge base';
+    meta.textContent  = currentTier >= 2 ? `${KB_DOCS.length} documents indexed` : 'Not available on Starter';
+    if (currentTier < 2) {
+      html = `<div style="padding:32px;text-align:center;background:var(--gray-6);border:1px solid var(--rule);border-radius:4px"><p style="font-size:13px;font-weight:300;color:var(--gray-3)">Knowledge base is available on Standard and Advanced tiers.</p></div>`;
+    } else {
+      html = `<div style="margin-bottom:10px"><input style="width:100%;padding:9px 12px;font-size:13px;border:1px solid var(--rule);border-radius:3px;background:var(--white)" placeholder="Search knowledge base..." /></div>`;
+      KB_DOCS.forEach((d,i) => {
+        html += `<div class="task-card popup-anchor">
+          <div class="tc-head">
+            <span class="tc-tag" style="background:rgba(${hexToRgb(d.color)},.12);color:${d.color}">${d.type}</span>
+            <span class="tc-title">${d.text}</span>
+          </div>
+          <div class="tc-meta">${d.loc}</div>
+          <div style="margin-top:6px"><button class="tc-owner" onclick="toggleKBPopup('kb${i}')">View source ↗</button></div>
+          ${srcPopupHTML('kb'+i, d)}
+        </div>`;
+      });
+    }
+  }
+
+  if (view === 'meetings') {
+    title.textContent = 'Meetings';
+    meta.textContent  = `${MEETINGS.length} meetings indexed`;
+    MEETINGS.forEach((m,i) => {
+      const teamsArr = m.teams.split(' · ');
+      html += `<div class="task-card popup-anchor" style="cursor:pointer" onclick="toggleMeetingPopup('m${i}')">
+        <div class="tc-head">
+          <span class="tc-tag" style="background:#e8edf8;color:#1a3fa3">meeting</span>
+          <span class="tc-title">${m.title}</span>
+        </div>
+        <div class="tc-meta">${m.date} · ${m.tasks} tasks extracted</div>
+        <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
+          ${teamsArr.map(t => `<span style="font-size:10px;font-family:var(--mono);background:var(--gray-6);color:var(--gray-2);padding:2px 7px;border-radius:2px">${t}</span>`).join('')}
+        </div>
+        ${meetingPopupHTML('m'+i, m, teamsArr)}
+      </div>`;
+    });
+  }
+
+  if (view === 'blockers') {
+    title.textContent = 'Blockers';
+    meta.textContent  = '1 active blocker';
+    html = `<div class="task-card" style="border-left:3px solid #d4a84b;border-radius:0 4px 4px 0">
+      <div class="tc-head"><span class="tc-tag tag-blocked">blocked</span><span class="tc-title">Checkout redesign — Engineering waiting on Design</span></div>
+      <div class="tc-meta">Tom H. (Engineering) is blocked by Sara L. (Design) · Figma specs due Oct 18 · 2 days overdue</div>
+      ${currentTier >= 2 ? `<div class="popup-anchor"><button class="tc-owner" onclick="toggleOwnerPopup('sara-b')">Sara L. · Design</button>${ownerPopupHTML('sara-b','Sara L.','sara@company.com','Figma specs — checkout flow','Oct 18','Design',OWNER_SLOTS['Sara L.'])}</div>` : ''}
+    </div>
+    <div style="padding:12px 14px;background:var(--gray-6);border:1px solid var(--rule);border-radius:4px;font-size:13px;font-weight:300;color:var(--gray-2)">No other blockers. 4 tasks on critical path are on schedule.</div>`;
+  }
+
+  content.innerHTML = html;
+}
+
+function taskCard(title, status, meta, ownerName, ownerId) {
+  const tagClass = { open:'tag-open', approval:'tag-approval', done:'tag-done', blocked:'tag-blocked' }[status] || 'tag-open';
+  let ownerHtml = '';
+  if (ownerName && OWNER_SLOTS[ownerName]) {
+    ownerHtml = `<div class="popup-anchor">
+      <button class="tc-owner" onclick="toggleOwnerPopup('${ownerId}')">${ownerName}</button>
+      ${ownerPopupHTML(ownerId, ownerName, ownerName.toLowerCase().replace(' ','.')+' @company.com', title, 'Oct 20', 'Team', OWNER_SLOTS[ownerName])}
+    </div>`;
+  }
+  return `<div class="task-card">
+    <div class="tc-head"><span class="tc-title">${title}</span><span class="tc-tag ${tagClass}">${status}</span></div>
+    <div class="tc-meta">${meta}</div>
+    ${ownerHtml}
+  </div>`;
+}
+
+function ownerPopupHTML(id, person, email, task, deadline, team, slots) {
+  return `<div class="owner-popup" id="popup-${id}" style="display:none">
+    <button class="op-close" onclick="closePopupById('popup-${id}')">×</button>
+    <div class="op-head">
+      <div class="op-name">${person}</div>
+      <div class="op-task">${task}</div>
+      <div class="op-team">${team}</div>
+    </div>
+    <div class="op-actions">
+      <button class="op-action" onclick="window.location.href='mailto:${email}?subject=Re: ${encodeURIComponent(task)}'">
+        <span class="op-icon">✉</span><div><div class="op-action-label">Send message</div><div class="op-action-sub">${email}</div></div>
+      </button>
+      <button class="op-action">
+        <span class="op-icon">📞</span><div><div class="op-action-label">Start call</div><div class="op-action-sub">Open in Slack / Teams</div></div>
+      </button>
+    </div>
+    <div class="op-slots">
+      <div class="op-slots-label">Book meeting</div>
+      ${slots.map((s,i) => `<div class="op-slot" onclick="bookSlot(this,'${person}','${s[0]}','${s[1]}','booked-${id}')">
+        <span class="op-slot-date">${s[0]}</span><span class="op-slot-time">${s[1]}</span><span class="op-slot-book">Book →</span>
+      </div>`).join('')}
+    </div>
+    <div class="op-booked" id="booked-${id}"></div>
+  </div>`;
+}
+
+function srcPopupHTML(id, d) {
+  const accessLabel = d.access === 'full' ? '● Full access — AI reads content' : '◐ Reference-only — AI knows location';
+  const accessColor = d.access === 'full' ? '#5cb85c' : '#d4a84b';
+  return `<div class="src-popup" id="popup-${id}" style="display:none">
+    <button class="op-close" onclick="closePopupById('popup-${id}')">×</button>
+    <div class="sp-head">
+      <div class="sp-type" style="color:${d.color}">${d.type}</div>
+      <div class="sp-title">${d.text}</div>
+    </div>
+    <div class="sp-body">
+      <div><div class="sp-loc-label">Storage location</div><div class="sp-loc-path">${d.loc}</div></div>
+      <div><div class="sp-loc-label">File path</div><div class="sp-loc-path" style="color:#6699cc">${d.path}</div></div>
+      <span class="sp-access" style="color:${accessColor};background:rgba(0,0,0,.2)">${accessLabel}</span>
+    </div>
+    <div class="sp-actions">
+      <button class="sp-btn sp-btn-open" onclick="closePopupById('popup-${id}')">Open ↗</button>
+      <button class="sp-btn">Copy path</button>
+    </div>
+  </div>`;
+}
+
+function meetingPopupHTML(id, m, teams) {
+  return `<div class="owner-popup" id="popup-${id}" style="display:none;width:280px">
+    <button class="op-close" onclick="closePopupById('popup-${id}');event.stopPropagation()">×</button>
+    <div class="op-head">
+      <div class="op-name">${m.title}</div>
+      <div class="op-task">${m.date}</div>
+      <div class="op-team">${m.tasks} tasks extracted · ${teams.length} teams</div>
+    </div>
+    <div class="op-slots" style="padding:8px">
+      <div class="op-slots-label">Teams present</div>
+      ${teams.map(t => `<div style="padding:5px 8px;border:1px solid #363632;border-radius:3px;margin-bottom:3px;font-size:11px;color:#d4d4cc">${t}</div>`).join('')}
+    </div>
+    <div class="op-actions">
+      <button class="op-action"><span class="op-icon">📋</span><div><div class="op-action-label">View full transcript</div><div class="op-action-sub">Open in Knowledge Base</div></div></button>
+      <button class="op-action"><span class="op-icon">📊</span><div><div class="op-action-label">View extracted tasks</div><div class="op-action-sub">${m.tasks} tasks generated</div></div></button>
+    </div>
+  </div>`;
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ── Popup toggles ──
+function toggleOwnerPopup(id) {
+  if (currentTier < 2) return;
+  const p = document.getElementById('popup-'+id);
+  if (!p) return;
+  const isOpen = p.style.display !== 'none';
+  closeAllPopups();
+  if (!isOpen) p.style.display = 'block';
+}
+function toggleKBPopup(id) {
+  if (currentTier < 2) return;
+  const p = document.getElementById('popup-'+id);
+  if (!p) return;
+  const isOpen = p.style.display !== 'none';
+  closeAllPopups();
+  if (!isOpen) p.style.display = 'block';
+}
+function toggleMeetingPopup(id) {
+  const p = document.getElementById('popup-'+id);
+  if (!p) return;
+  const isOpen = p.style.display !== 'none';
+  closeAllPopups();
+  if (!isOpen) p.style.display = 'block';
+}
+function toggleCtxPopup(id) {
+  if (currentTier < 2) return;
+  const p = document.getElementById('popup-'+id);
+  if (!p) return;
+  const isOpen = p.style.display !== 'none';
+  closeAllPopups();
+  if (!isOpen) p.style.display = 'block';
+}
+function closeCtxPopup(id) { const p = document.getElementById('popup-'+id); if (p) p.style.display = 'none'; }
+function closePopupById(id) { const p = document.getElementById(id); if (p) p.style.display = 'none'; }
+function closeAllPopups() { document.querySelectorAll('.owner-popup,.src-popup').forEach(p => p.style.display = 'none'); }
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.popup-anchor') && !e.target.closest('.ctx-person')) closeAllPopups();
+});
+
+function bookSlot(el, person, date, time, bookedId) {
+  const parent = el.closest('.owner-popup');
+  const bid = bookedId || parent.querySelector('.op-booked')?.id;
+  const booked = bid ? document.getElementById(bid) : parent.querySelector('.op-booked');
+  if (booked) { booked.textContent = `✓ Booked: ${date} · ${time} · Invite sent to ${person}`; booked.style.display = 'block'; }
+  el.closest('.op-slots').querySelectorAll('.op-slot').forEach(s => s.style.opacity = s === el ? '1' : '.3');
+  setTimeout(closeAllPopups, 2000);
+}
+
+// ── Voice demo ──
+const MEMO_TEXT = "Sara needs to update the checkout flow Figma specs by this Friday — that's blocking Tom's implementation. High priority, estimated one and a half days. Please create a ticket and assign it to Sara in the Design team.";
+let recTimer, recSeconds = 0, voiceRunning = false;
+
+function startRecording() {
+  if (voiceRunning) return;
+  voiceRunning = true;
+  const btn = document.getElementById('rec-btn');
+  const icon = document.getElementById('rec-icon');
+  const label = document.getElementById('rec-label');
+  const timer = document.getElementById('rec-timer');
+  const cursor = document.getElementById('transcript-cursor');
+
+  btn.classList.add('recording');
+  icon.classList.add('stop-icon');
+  icon.style.borderRadius = '4px';
+  label.textContent = 'Recording...';
+  timer.classList.add('visible');
+  cursor.style.display = 'inline-block';
+  document.getElementById('transcript-text').textContent = '';
+
+  recSeconds = 0;
+  recTimer = setInterval(() => {
+    recSeconds++;
+    timer.textContent = `0:${recSeconds.toString().padStart(2,'0')}`;
+  }, 1000);
+
+  // Type out transcript
+  let i = 0;
+  const typeInterval = setInterval(() => {
+    document.getElementById('transcript-text').textContent = MEMO_TEXT.slice(0, i);
+    i += 3;
+    if (i >= MEMO_TEXT.length) {
+      clearInterval(typeInterval);
+      document.getElementById('transcript-text').textContent = MEMO_TEXT;
+      stopRecording();
+    }
+  }, 50);
+}
+
+function stopRecording() {
+  clearInterval(recTimer);
+  const btn = document.getElementById('rec-btn');
+  btn.classList.remove('recording');
+  btn.classList.add('done');
+  document.getElementById('rec-icon').style.display = 'none';
+  document.getElementById('rec-label').textContent = 'Processing...';
+  document.getElementById('transcript-cursor').style.display = 'none';
+  runPipeline();
+}
+
+function runPipeline() {
+  const steps = [
+    { id:1, label:'Meeting parser', time:'0.8s' },
+    { id:2, label:'Task extraction', time:'1.2s' },
+    { id:3, label:'Owner routing',   time:'0.4s' },
+    { id:4, label:'Critic review',   time:'0.6s' },
+    { id:5, label:'Awaiting approval', time:'' },
+  ];
+  steps.forEach((s, i) => {
+    setTimeout(() => {
+      document.getElementById('pd-'+s.id).className = 'pipe-dot running';
+      document.getElementById('pl-'+s.id).className = 'pipe-label running';
+      setTimeout(() => {
+        if (s.id < 5) {
+          document.getElementById('pd-'+s.id).className = 'pipe-dot done';
+          document.getElementById('pl-'+s.id).className = 'pipe-label done';
+          document.getElementById('pt-'+s.id).textContent = s.time;
+          document.getElementById('pt-'+s.id).className = 'pipe-time done';
+        } else {
+          showTicket();
+        }
+      }, 900);
+    }, i * 1100);
+  });
+}
+
+function showTicket() {
+  document.getElementById('rec-label').textContent = 'Done — ticket generated';
+  const ticket = document.getElementById('result-ticket');
+  document.getElementById('rt-title').textContent = 'Design: Update Figma specs — checkout flow';
+  document.getElementById('rt-fields').innerHTML = `
+    <div><div class="rt-field-label">Assignee</div><div class="rt-field-val">Sara L.</div></div>
+    <div><div class="rt-field-label">Team</div><div class="rt-field-val">Design</div></div>
+    <div><div class="rt-field-label">Priority</div><div class="rt-field-val">High</div></div>
+    <div><div class="rt-field-label">Story points</div><div class="rt-field-val">3</div></div>
+    <div><div class="rt-field-label">Estimate</div><div class="rt-field-val">1.5 days</div></div>
+    <div><div class="rt-field-label">Deadline</div><div class="rt-field-val">This Friday</div></div>
+    <div style="grid-column:1/-1"><div class="rt-field-label">Blocks</div><div class="rt-field-val" style="color:#d4a84b">Tom H. (Engineering) — cannot start implementation</div></div>
+  `;
+  ticket.classList.add('visible');
+  document.getElementById('reset-btn').style.display = 'block';
+}
+
+function approveTicket() {
+  document.getElementById('rt-approve').style.display = 'none';
+  document.getElementById('rt-synced').classList.add('visible');
+  // Add to backlog
+  const backlog = document.getElementById('backlog');
+  const newItem = document.createElement('div');
+  newItem.className = 'backlog-item new-item';
+  newItem.innerHTML = '<span class="backlog-key">BRF-298</span><span class="backlog-title">Design: Update Figma specs — checkout</span><span class="backlog-assignee">Sara L.</span><span class="backlog-tag bt-new">new</span>';
+  backlog.appendChild(newItem);
+  document.getElementById('pd-5').className = 'pipe-dot done';
+  document.getElementById('pl-5').className = 'pipe-label done';
+  document.getElementById('pt-5').textContent = 'synced';
+  document.getElementById('pt-5').className = 'pipe-time done';
+}
+
+function resetVoiceDemo() {
+  voiceRunning = false;
+  clearInterval(recTimer);
+  const btn = document.getElementById('rec-btn');
+  btn.className = 'record-btn';
+  document.getElementById('rec-icon').className = 'rec-icon';
+  document.getElementById('rec-icon').style.display = '';
+  document.getElementById('rec-icon').style.borderRadius = '';
+  document.getElementById('rec-label').textContent = 'Press to record memo';
+  document.getElementById('rec-timer').classList.remove('visible');
+  document.getElementById('rec-timer').textContent = '0:00';
+  document.getElementById('transcript-text').textContent = '';
+  document.getElementById('transcript-cursor').style.display = 'none';
+  [1,2,3,4,5].forEach(i => {
+    document.getElementById('pd-'+i).className = 'pipe-dot';
+    document.getElementById('pl-'+i).className = 'pipe-label';
+    document.getElementById('pt-'+i).textContent = '';
+    document.getElementById('pt-'+i).className = 'pipe-time';
+  });
+  document.getElementById('result-ticket').classList.remove('visible');
+  document.getElementById('rt-approve').style.display = 'flex';
+  document.getElementById('rt-synced').classList.remove('visible');
+  document.getElementById('reset-btn').style.display = 'none';
+  // Remove new backlog item
+  const newItems = document.querySelectorAll('.backlog-item.new-item');
+  newItems.forEach(i => i.remove());
+}
+
+// ── Init ──
+updateCtxForTier(2);
+renderMain('tasks');
+if (!localStorage.getItem('briefops-cookie-ok')) document.getElementById('cookie-banner').style.display = 'flex';
+</script>
+</body>
+</html>

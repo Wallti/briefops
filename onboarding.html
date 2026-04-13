@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BriefOps — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<script defer data-domain="briefops.org" src="https://plausible.io/js/script.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0d0d0c; --gray-1: #1e1e1d; --gray-2: #4a4a48; --gray-3: #808080;
+  --gray-4: #b8b8b4; --gray-5: #e2e2de; --gray-6: #f4f4f0; --white: #fafaf7;
+  --accent: #1a3fa3; --accent-light: #e8edf8; --rule: #e2e2de;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'Lato', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 16px; font-weight: 400; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 54px; background: rgba(250,250,247,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.logo { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: -0.01em; }
+.logo sup { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); vertical-align: super; margin-left: 3px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 13px; font-weight: 400; color: var(--gray-2); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--black); }
+.nav-links a.active { color: var(--black); font-weight: 700; }
+.nav-cta { font-size: 13px !important; font-weight: 700 !important; color: var(--white) !important; background: var(--black); padding: 8px 18px; border-radius: 3px; transition: background .15s !important; }
+.nav-cta:hover { background: var(--accent) !important; }
+
+.page-header { padding: 80px 48px 64px; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+.page-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 16px; }
+h1 { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+h1 em { font-style: italic; color: var(--gray-2); }
+.page-lead { font-size: 17px; font-weight: 300; color: var(--gray-2); line-height: 1.75; }
+
+section { padding: 80px 48px; border-bottom: 1px solid var(--rule); }
+.inner { max-width: 1280px; margin: 0 auto; }
+.section-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 12px; }
+h2 { font-family: var(--serif); font-size: 36px; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; margin-bottom: 16px; }
+h2 em { font-style: italic; color: var(--gray-2); }
+.section-desc { font-size: 16px; font-weight: 300; color: var(--gray-2); line-height: 1.75; max-width: 560px; margin-bottom: 48px; }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: grid; grid-template-columns: 120px 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--rule); position: relative; }
+.tl-item:last-child { border-bottom: none; }
+.tl-day { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding-top: 2px; }
+.tl-day-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); }
+.tl-day-name { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--black); }
+.tl-day-sub { font-family: var(--mono); font-size: 10px; color: var(--gray-4); }
+.tl-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+.tl-body p { font-size: 14px; font-weight: 300; color: var(--gray-2); line-height: 1.75; margin-bottom: 12px; }
+.tl-tasks { display: flex; flex-direction: column; gap: 6px; }
+.tl-task { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gray-1); }
+.tl-who { font-family: var(--mono); font-size: 10px; color: var(--gray-3); background: var(--gray-6); padding: 1px 7px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+.tl-badge { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 2px; margin-top: 8px; }
+.tb-us   { background: var(--accent-light); color: var(--accent); }
+.tb-them { background: #e1f5ee; color: #0a4a3a; }
+.tb-both { background: #faeeda; color: #633806; }
+
+/* ── WHAT CUSTOMER DELIVERS ── */
+.deliver-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 32px; }
+.deliver-card { border: 1px solid var(--rule); border-radius: 4px; padding: 24px; }
+.deliver-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.deliver-card p { font-size: 13px; font-weight: 300; color: var(--gray-2); line-height: 1.7; margin-bottom: 14px; }
+.deliver-list { display: flex; flex-direction: column; gap: 5px; }
+.deliver-item { font-size: 12px; font-family: var(--mono); color: var(--gray-2); display: flex; gap: 8px; align-items: flex-start; }
+.deliver-item::before { content: '→'; color: var(--gray-4); flex-shrink: 0; }
+.deliver-required { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.req-yes { color: #c0392b; }
+.req-opt { color: #d4a84b; }
+
+/* ── DISCOVERY PACKAGE ── */
+.discovery-box { border: 2px solid var(--black); border-radius: 4px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 32px; }
+.disc-price { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+.disc-price-sub { font-size: 14px; font-weight: 300; color: var(--gray-2); margin-bottom: 24px; }
+.disc-cta { display: inline-block; padding: 12px 28px; background: var(--black); color: var(--white); font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 3px; text-decoration: none; transition: background .15s; }
+.disc-cta:hover { background: var(--accent); }
+.disc-includes h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+.disc-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; font-weight: 300; color: var(--gray-2); margin-bottom: 8px; line-height: 1.6; }
+.disc-item::before { content: '✓'; color: #0f6e56; font-weight: 700; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+footer { padding: 40px 48px; background: var(--black); }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--serif); font-size: 16px; color: #fafaf7; font-weight: 700; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #6a6a62; text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: #fafaf7; }
+.footer-copy { font-size: 12px; color: #4a4a48; }
+
+@media(max-width:960px){
+  nav { padding: 0 20px; }
+  .page-header-inner { grid-template-columns: 1fr; gap: 24px; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; }
+  .deliver-grid { grid-template-columns: 1fr; }
+  .discovery-box { grid-template-columns: 1fr; gap: 24px; }
+  section, .page-header { padding: 56px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">BriefOps<sup>Beta</sup></a>
+  <div class="nav-links">
+    <a href="demo.html">App demo</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="onboarding.html" class="active">Onboarding</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="briefops_tiers.html">Compare tiers</a>
+    <a href="index.html#contact" class="nav-cta">Demo buchen →</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <p class="page-kicker">Onboarding · Timeline · What you need to prepare</p>
+      <h1>From signed contract<br>to <em>first live meeting.</em></h1>
+    </div>
+    <p class="page-lead">BriefOps is implemented in 7–25 days depending on tier. The Discovery Package runs first — two hours, three of your real meetings, no commitment required. Here is exactly what happens from day one.</p>
+  </div>
+</div>
+
+<!-- DISCOVERY PACKAGE -->
+<section id="discovery">
+  <div class="inner">
+    <p class="section-kicker">Step zero · Before you commit</p>
+    <h2>The Discovery Package.<br><em>See it work on your data.</em></h2>
+    <p class="section-desc">Before any implementation begins, we run three of your actual meetings through the full BriefOps pipeline and show you the output. You keep everything — the analysis, the org-chart mapping, the task extractions — regardless of whether you proceed.</p>
+    <div class="discovery-box">
+      <div>
+        <div class="disc-price">€300</div>
+        <p class="disc-price-sub">2 hours · 3 meetings · no commitment</p>
+        <a href="index.html#contact" class="disc-cta">Book discovery session →</a>
+      </div>
+      <div class="disc-includes">
+        <h4>What's included</h4>
+        <div class="disc-item">Live pipeline run on 3 of your actual meeting transcripts or memos</div>
+        <div class="disc-item">Full task extraction and dependency graph for each meeting</div>
+        <div class="disc-item">Draft org-chart mapping based on your team structure</div>
+        <div class="disc-item">Tier recommendation (Starter / Standard / Advanced) with written justification</div>
+        <div class="disc-item">Implementation timeline estimate specific to your setup</div>
+        <div class="disc-item">All outputs delivered as PDF — yours to keep</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT CUSTOMER DELIVERS -->
+<section id="what-you-need" style="background:var(--gray-6)">
+  <div class="inner">
+    <p class="section-kicker">Preparation · What you provide</p>
+    <h2>What we need<br><em>from you.</em></h2>
+    <p class="section-desc">BriefOps is configured around your actual organisation. The quality of the output depends directly on the quality of the input. Here is what you need to prepare — and what is optional.</p>
+    <div class="deliver-grid">
+
+      <div class="deliver-card">
+        <p class="deliver-required req-yes">Required · Day 1</p>
+        <h4>Org-chart &amp; team structure</h4>
+        <p>A list of your teams, their leads, and how they depend on each other. Doesn't need to be formal — a spreadsheet or Notion table is fine.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">Team names and responsible leads</div>
+          <div class="deliver-item">Who approves what (sign-off chains)</div>
+          <div class="deliver-item">Cross-team dependency rules (e.g. Design before Engineering)</div>
+          <div class="deliver-item">Email addresses for delivery routing</div>
+        </div>
+      </div>
+
+      <div class="deliver-card">
+        <p class="deliver-required req-yes">Required · Day 1</p>
+        <h4>Integration credentials</h4>
+        <p>API keys and access tokens for the tools BriefOps will write to. We provide a credential checklist during onboarding.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">Jira / Monday / Linear / ClickUp API token</div>
+          <div class="deliver-item">Slack Bot token + target channels</div>
+          <div class="deliver-item">Google Calendar or Outlook OAuth consent</div>
+          <div class="deliver-item">SMTP credentials for email delivery (optional)</div>
+        </div>
+      </div>
+
+      <div class="deliver-card">
+        <p class="deliver-required req-yes">Required · Day 1</p>
+        <h4>Three sample meetings</h4>
+        <p>Transcripts, memos, or notes from three representative meetings. These calibrate the parser to your team's language and terminology.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">At least one sprint planning or project meeting</div>
+          <div class="deliver-item">At least one cross-team meeting</div>
+          <div class="deliver-item">Any format: transcript, audio file, or written notes</div>
+          <div class="deliver-item">Anonymised if needed — content only</div>
+        </div>
+      </div>
+
+      <div class="deliver-card">
+        <p class="deliver-required req-opt">Optional · Improves output quality</p>
+        <h4>Existing sprint / task history</h4>
+        <p>A Jira or Monday export of the last 2–3 sprints. Used to calibrate story point estimates and identify team capacity patterns.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">CSV export from Jira / Monday / Linear</div>
+          <div class="deliver-item">Last 2–3 sprints sufficient</div>
+          <div class="deliver-item">Used only for estimation calibration</div>
+        </div>
+      </div>
+
+      <div class="deliver-card">
+        <p class="deliver-required req-opt">Optional · Advanced tier only</p>
+        <h4>Document library</h4>
+        <p>Key reference documents — policies, previous decisions, product specs — that the Knowledge Base agent should be aware of.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">PDF or Word format</div>
+          <div class="deliver-item">Privacy level assigned per document (full / reference-only)</div>
+          <div class="deliver-item">Maximum 500MB for initial ingestion</div>
+        </div>
+      </div>
+
+      <div class="deliver-card">
+        <p class="deliver-required req-opt">Optional · Standard + Advanced</p>
+        <h4>Approval workflow rules</h4>
+        <p>Who needs to approve which types of tasks before they go to Jira. Default is team lead approval for all tickets — custom rules can be configured.</p>
+        <div class="deliver-list">
+          <div class="deliver-item">Approval thresholds by task type or story points</div>
+          <div class="deliver-item">Escalation rules for blocked tasks</div>
+          <div class="deliver-item">Auto-approve rules for routine task types</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTATION TIMELINE -->
+<section id="timeline">
+  <div class="inner">
+    <p class="section-kicker">Implementation · Day by day</p>
+    <h2>What the first week<br><em>looks like.</em></h2>
+    <p class="section-desc">This is the Starter timeline (7 days). Standard adds dependency setup and multi-channel delivery in days 5–10. Advanced adds knowledge base, executive digest, and capacity analysis in days 11–25.</p>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-day">
+          <span class="tl-day-label">Day</span>
+          <span class="tl-day-name">01</span>
+          <span class="tl-day-sub">Kickoff</span>
+        </div>
+        <div class="tl-body">
+          <h3>Contract signed. Kickoff call. Credentials collected.</h3>
+          <p>90-minute kickoff call. We walk through your org-chart together, configure the initial team mapping, and verify all integration credentials. By end of day, the org-chart JSON is configured and credential checks pass.</p>
+          <div class="tl-tasks">
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Send credential checklist + org-chart template</div>
+            <div class="tl-task"><span class="tl-who">Client</span>Complete org-chart template, provide API credentials</div>
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Configure team routing and verify integration connections</div>
+          </div>
+          <span class="tl-badge tb-both">Both sides · ~3h total</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-day">
+          <span class="tl-day-label">Day</span>
+          <span class="tl-day-name">02</span>
+          <span class="tl-day-sub">Calibration</span>
+        </div>
+        <div class="tl-body">
+          <h3>Pipeline calibration on your sample meetings.</h3>
+          <p>We run your three sample meetings through the full pipeline. You review the extracted tasks and flag any routing errors or terminology mismatches. The parser is adjusted to your team's language.</p>
+          <div class="tl-tasks">
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Run sample meetings through parser, deliver output report</div>
+            <div class="tl-task"><span class="tl-who">Client</span>Review output, flag errors (1h review time)</div>
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Adjust parser configuration based on feedback</div>
+          </div>
+          <span class="tl-badge tb-both">~2h client time</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-day">
+          <span class="tl-day-label">Day</span>
+          <span class="tl-day-name">03</span>
+          <span class="tl-day-sub">Staging</span>
+        </div>
+        <div class="tl-body">
+          <h3>Staging environment. End-to-end test.</h3>
+          <p>Full pipeline test in staging: meeting input → task extraction → Jira staging board → Slack staging channel → calendar test event. You verify the output looks correct in each target system.</p>
+          <div class="tl-tasks">
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Run end-to-end test on staging</div>
+            <div class="tl-task"><span class="tl-who">Client</span>Verify Jira staging board, Slack messages, calendar entries (~30min)</div>
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Fix any formatting or routing issues</div>
+          </div>
+          <span class="tl-badge tb-us">Mostly us · 30min client</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-day">
+          <span class="tl-day-label">Day</span>
+          <span class="tl-day-name">04–05</span>
+          <span class="tl-day-sub">Team training</span>
+        </div>
+        <div class="tl-body">
+          <h3>Team onboarding. First live meeting.</h3>
+          <p>45-minute team walkthrough: how to submit a meeting, how to review and approve tasks, how to use the web interface. The first real meeting is processed live during the session. Team leads receive the approval workflow guide.</p>
+          <div class="tl-tasks">
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Run team training session (45min video call)</div>
+            <div class="tl-task"><span class="tl-who">Client</span>Submit first real meeting during session</div>
+            <div class="tl-task"><span class="tl-who">Client</span>Team lead approves first ticket batch</div>
+          </div>
+          <span class="tl-badge tb-both">45min all-team session</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-day">
+          <span class="tl-day-label">Day</span>
+          <span class="tl-day-name">07</span>
+          <span class="tl-day-sub">Go-live</span>
+        </div>
+        <div class="tl-body">
+          <h3>Production. Full handover.</h3>
+          <p>System moves to production. You receive full documentation, the admin panel, and direct contact for the first 30 days. A 30-day check-in call is scheduled automatically.</p>
+          <div class="tl-tasks">
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Production deployment, handover documentation</div>
+            <div class="tl-task"><span class="tl-who">BriefOps</span>Admin access, monitoring dashboard access</div>
+            <div class="tl-task"><span class="tl-who">Both</span>30-day check-in call scheduled</div>
+          </div>
+          <span class="tl-badge tb-us">Handover complete</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STANDARD / ADVANCED EXTENSIONS -->
+<section style="background:var(--gray-6)">
+  <div class="inner">
+    <p class="section-kicker">Standard + Advanced · Additional steps</p>
+    <h2>What changes<br><em>for higher tiers.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px">
+      <div style="border:1px solid var(--rule);border-radius:4px;padding:28px;background:var(--white)">
+        <p style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#d4a84b;margin-bottom:12px">Standard · Days 5–14</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Dependency graph configuration — cross-team blocking rules set up based on your org-chart</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Multi-channel delivery tuning — Slack channels mapped per team, email templates reviewed</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Approval workflow configuration — who approves what, escalation thresholds</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Blocker detection calibration — test cases for your most common cross-team dependencies</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--rule);border-radius:4px;padding:28px;background:var(--white)">
+        <p style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#534ab7;margin-bottom:12px">Advanced · Days 11–25</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Knowledge base initial ingestion — document library processed and indexed</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Document privacy classification — each document assigned full / reference-only / invisible</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Capacity analysis calibration — sprint history loaded, estimation model trained on your data</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Executive digest configuration — recipients, format, delivery schedule</div>
+          <div style="font-size:14px;font-weight:300;color:var(--gray-1);display:flex;gap:10px;align-items:flex-start"><span style="color:var(--gray-3);flex-shrink:0">→</span>Follow-up agent calibration — escalation thresholds tuned to your team's working rhythm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">BriefOps</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="demo.html">App demo</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="briefops_tiers.html">Compare tiers</a>
+      <a href="legal.html">Impressum</a>
+      <a href="legal.html#datenschutz">Datenschutz</a>
+    </div>
+    <span class="footer-copy">© 2025 BriefOps</span>
+  </div>
+</footer>
+
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fafaf7;border-top:1px solid #e2e2de;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;font-family:'Lato',sans-serif;font-size:13px;color:#4a4a48">
+  <p style="margin:0;line-height:1.6;max-width:700px">Diese Website verwendet <strong>keine Cookies</strong> und kein Tracking. Analytics laufen über Plausible — cookiefrei, DSGVO-konform. <a href="legal.html#datenschutz" style="color:#1a3fa3;text-decoration:underline">Datenschutzerklärung</a></p>
+  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('briefops-cookie-ok','1')" style="flex-shrink:0;padding:8px 20px;background:#111110;color:#fafaf7;border:none;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;text-transform:uppercase">Verstanden</button>
+</div>
+<script>if(!localStorage.getItem('briefops-cookie-ok')){document.getElementById('cookie-banner').style.display='flex';}</script>
+
+</body>
+</html>
