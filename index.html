@@ -2668,9 +2668,9 @@ form { display: flex; flex-direction: column; gap: 16px; }
           </div>
           <div class="blocker-warn" id="bw-sw1-t2" style="display:none"></div>
           <p class="out-section">Tasks — routed by knowledge model</p>
-          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Prepare Q3 variance report — actuals vs. budget</span><span class="tc-d">→ Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="fin-variance" data-blocks="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Prepare Q3 variance report — actuals vs. budget</span><span class="tc-d">→ Oct 18</span></div>
           <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2"><input type="checkbox" class="task-cb"><span class="otag ot-team">Finance</span><span class="tc-t task-text">Circulate revised budget assumptions</span><span class="tc-d">→ Oct 19</span></div>
-          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="fin-variance" data-blocks="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Operations</span><span class="tc-t task-text">Submit headcount reconciliation for H2 review</span><span class="tc-d">→ Oct 20</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-id="ops-headcount"><input type="checkbox" class="task-cb"><span class="otag ot-team">Operations</span><span class="tc-t task-text">Submit headcount reconciliation for H2 review</span><span class="tc-d">→ Oct 20</span></div>
           <div class="out-row show task-row" style="grid-template-columns:20px 90px 1fr 80px" data-pb="sw1-t2" data-blocks="fin-variance"><input type="checkbox" class="task-cb"><span class="otag ot-team">Leadership</span><span class="tc-t task-text">Budget sign-off call — CEO + CFO</span><span class="tc-d">→ Oct 22</span></div>
           <p class="out-section">Dependencies detected</p>
           <div class="out-row show" style="grid-template-columns:auto 1fr"><span class="otag ot-dep">Blocks</span><span class="tc-m">Operations headcount <span class="tc-a">must complete before</span> Finance can finalise cost base</span></div>
@@ -2691,7 +2691,7 @@ form { display: flex; flex-direction: column; gap: 16px; }
           </div>
           <div class="blocker-warn" id="bw-sw1-t3" style="display:none"></div>
           <p class="out-section">Tasks — with estimates</p>
-          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a1" data-est="6" data-deadline="18"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Finance" data-person="Lisa R." data-email="lisa@company.com" data-task="Prepare Q3 variance report" data-deadline="Oct 18">Finance · Lisa R.</span><span class="tc-t task-text">Prepare Q3 variance report</span><span class="tc-b">est. 6h</span><span class="tc-d">Oct 18</span></div>
+          <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a1" data-est="6" data-deadline="18" data-blocks="a3"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Finance" data-person="Lisa R." data-email="lisa@company.com" data-task="Prepare Q3 variance report" data-deadline="Oct 18">Finance · Lisa R.</span><span class="tc-t task-text">Prepare Q3 variance report</span><span class="tc-b">est. 6h</span><span class="tc-d">Oct 18</span></div>
           <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a2" data-est="1" data-deadline="19" data-blocks="a1"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Finance" data-person="Lisa R." data-email="lisa@company.com" data-task="Circulate revised assumptions" data-deadline="Oct 19">Finance · Lisa R.</span><span class="tc-t task-text">Circulate revised assumptions</span><span class="tc-b">est. 1h</span><span class="tc-d">Oct 19</span></div>
           <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a3" data-est="3" data-deadline="20"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Operations" data-person="Mark T." data-email="mark@company.com" data-task="Submit headcount reconciliation" data-deadline="Oct 20">Operations · Mark T.</span><span class="tc-t task-text">Submit headcount reconciliation</span><span class="tc-b">est. 3h</span><span class="tc-d">Oct 20</span></div>
           <div class="out-row show task-row" style="grid-template-columns:20px 1fr 1fr 90px 70px" data-pb="sw1-t3" data-id="a4" data-est="0.5" data-deadline="22" data-blocks="a1 a3"><input type="checkbox" class="task-cb"><span class="otag ot-team owner-badge" data-owner="Leadership" data-person="CEO + CFO" data-email="exec@company.com" data-task="Budget sign-off call" data-deadline="Oct 22">Leadership · Exec</span><span class="tc-t task-text">Budget sign-off call — CEO + CFO</span><span class="tc-b">30 min</span><span class="tc-d">Oct 22</span></div>
@@ -4078,10 +4078,12 @@ form { display: flex; flex-direction: column; gap: 16px; }
       // Map task rows to gantt bars by data-id order
       const taskRows = Array.from(terminal.querySelectorAll('.task-row'));
       const bars = gantt.querySelectorAll('.gantt-bar');
-      // For sw1-t3: explicit mapping — headcount (a3) triggers its own bar (index 2)
-      //             finance (a1) triggers bar index 0, assumptions (a2) index 1
-      const idToBar = { 'a1': 0, 'a2': 1, 'a3': 2, 'a4': 3,
-                        'c1': 0, 'c2': 0, 'c3': 1, 'c4': 2 };
+      // sw1-t3 Gantt order: Finance(a1)=bar0, Assumptions(a2)=bar1, Headcount(a3)=bar2, Sign-off(a4)=bar3
+      // sw2-t3 Gantt order: Auth(c1)=bar0, Design specs(c2)=bar1, Checkout(c3)=bar2, QA(c4)=bar3
+      const idToBar = {
+        'a1': 0, 'a2': 1, 'a3': 2, 'a4': 3,
+        'c1': 0, 'c2': 1, 'c3': 2, 'c4': 3
+      };
       taskRows.forEach((row) => {
         const taskId = row.dataset.id;
         const barIdx = idToBar[taskId];
