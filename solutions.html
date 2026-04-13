@@ -4,267 +4,329 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BriefOps — Solutions & Deployment</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <script defer data-domain="briefops.org" src="https://plausible.io/js/script.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fbfaf8;--surface:#fff;--black:#111110;--gray1:#2a2926;--gray2:#6a6860;--gray3:#a0a098;--gray4:#c8c6c2;--gray5:#e8e6e2;--gray6:#f4f2ee;--rule:#e8e6e2;--green:#1a5c32;--green-light:#edf5f0;--red:#991a1a;--red-light:#fdf2f2;--blue:#1a3a8a;--blue-light:#eef2fc;--amber:#7a4e0a;--amber-light:#fdf4e6;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--black);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:58px;background:rgba(251,250,248,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
-.logo{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--black);text-decoration:none;display:flex;align-items:baseline}
-.logo em{font-style:italic}
-.logo-sup{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray4);margin-left:4px;vertical-align:super}
-.nav-mid{display:flex}
-.nl{font-size:13px;color:var(--gray2);padding:8px 16px;cursor:pointer;transition:color .15s;text-decoration:none}
-.nl:hover{color:var(--black)}
-.nl.active{color:var(--black);font-weight:500}
-.nav-cta{padding:9px 22px;background:var(--black);color:var(--bg);font-size:13px;font-weight:500;border:none;border-radius:24px;cursor:pointer;transition:opacity .2s}
-.nav-cta:hover{opacity:.8}
-section{padding:96px 56px;border-bottom:1px solid var(--rule)}
-section.alt{background:var(--surface)}
-.inner{max-width:1240px;margin:0 auto}
-.sk{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray4);margin-bottom:16px}
-.sh2{font-family:var(--serif);font-size:44px;font-weight:400;line-height:1.12;letter-spacing:-.015em;margin-bottom:56px}
-.sh2 em{font-style:italic;color:var(--gray2)}
-.slead{font-size:15px;font-weight:300;color:var(--gray2);line-height:1.85;max-width:520px;margin-bottom:48px}
-.rv{opacity:0;transform:translateY(16px);transition:opacity .75s ease,transform .75s ease}
-.rv.vis{opacity:1;transform:none}
-.btn-p{padding:12px 24px;background:var(--black);color:var(--bg);font-size:13px;font-weight:500;border:none;border-radius:24px;cursor:pointer;transition:opacity .2s}
-.btn-p:hover{opacity:.8}
-.tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:10px;display:inline-block}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* PAGE HEADER */
-.page-header{padding:80px 56px 72px;border-bottom:1px solid var(--rule)}
-.ph-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}
-.ph1{font-family:var(--serif);font-size:52px;font-weight:400;line-height:1.08;letter-spacing:-.02em}
-.ph1 em{font-style:italic;color:var(--gray2)}
-.ph-lead{font-size:15px;font-weight:300;color:var(--gray2);line-height:1.85}
+:root {
+  --black: #0d0d0c;
+  --gray-1: #1e1e1d;
+  --gray-2: #4a4a48;
+  --gray-3: #808080;
+  --gray-4: #b8b8b4;
+  --gray-5: #e2e2de;
+  --gray-6: #f4f4f0;
+  --white: #fafaf7;
+  --accent: #1a3fa3;
+  --accent-light: #e8edf8;
+  --rule: #e2e2de;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'Lato', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
 
-/* DEPLOY CARDS */
-.deploy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
-.dc{padding:40px 36px;border-right:1px solid var(--rule)}
-.dc:last-child{border-right:none}
-.dc.feat{background:var(--black)}
-.dc-badge{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;padding:3px 10px;border-radius:10px;display:inline-block}
-.db-cloud{background:var(--blue-light);color:var(--blue)}
-.db-docker{background:var(--black);color:var(--bg)}
-.dc.feat .db-docker{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
-.db-local{background:var(--green-light);color:var(--green)}
-.dc-title{font-family:var(--serif);font-size:22px;font-weight:400;font-style:italic;margin-bottom:10px}
-.dc.feat .dc-title{color:var(--bg)}
-.dc-desc{font-size:13px;font-weight:300;color:var(--gray2);line-height:1.75;margin-bottom:20px}
-.dc.feat .dc-desc{color:rgba(255,255,255,.55)}
-.dc-list{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
-.dc-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--gray1);line-height:1.5}
-.dc.feat .dc-item{color:rgba(255,255,255,.65)}
-.dc-item::before{content:'→';color:var(--gray4);flex-shrink:0;font-size:11px;margin-top:2px;font-family:var(--mono)}
-.dc.feat .dc-item::before{color:rgba(255,255,255,.25)}
-.dc-privacy{padding:12px 14px;border-radius:8px;font-size:12px;font-weight:300;line-height:1.6}
-.dp-n{background:var(--gray6);color:var(--gray2)}
-.dp-g{background:var(--green-light);color:var(--green)}
-.dp-b{background:var(--blue-light);color:var(--blue)}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 16px; font-weight: 400; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
-/* DOCKER SETUP */
-.docker-steps{display:flex;flex-direction:column;gap:0}
-.ds{display:grid;grid-template-columns:56px 1fr;gap:28px;padding:32px 0;border-bottom:1px solid var(--rule)}
-.ds:last-child{border-bottom:none}
-.ds-num{font-family:var(--serif);font-size:36px;font-weight:400;color:var(--gray5);line-height:1;padding-top:4px}
-.ds-title{font-size:16px;font-weight:500;margin-bottom:8px}
-.ds-desc{font-size:14px;font-weight:300;color:var(--gray2);line-height:1.75;margin-bottom:12px}
-.code{background:var(--black);color:#d4d4cc;font-family:var(--mono);font-size:12px;padding:16px 20px;border-radius:8px;line-height:1.7;overflow-x:auto}
-.cc{color:#4a4a46}.ck{color:#7a9ccc}.cv{color:#6aaa6a}
+nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 54px; background: rgba(250,250,247,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.logo { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: -0.01em; }
+.logo sup { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); vertical-align: super; margin-left: 3px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 13px; font-weight: 400; color: var(--gray-2); text-decoration: none; letter-spacing: .01em; transition: color .15s; }
+.nav-links a:hover { color: var(--black); }
+.nav-links a.active { color: var(--black); font-weight: 700; }
+.nav-cta { font-size: 13px !important; font-weight: 700 !important; color: var(--white) !important; background: var(--black); padding: 8px 18px; border-radius: 3px; letter-spacing: .02em !important; transition: background .15s !important; }
+.nav-cta:hover { background: var(--accent) !important; }
 
-/* LLM TABLE */
-.llm-table{width:100%;border-collapse:collapse}
-.llm-table th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray4);padding:10px 16px;border-bottom:2px solid var(--rule);text-align:left;font-weight:400}
-.llm-table td{padding:14px 16px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:300;color:var(--gray1);vertical-align:top}
-.llm-table tr:last-child td{border-bottom:none}
-.llm-table tr:hover td{background:var(--gray6)}
-.lt{font-family:var(--mono);font-size:10px;padding:2px 9px;border-radius:10px}
-.lt-local{background:var(--green-light);color:var(--green)}
-.lt-cloud{background:var(--blue-light);color:var(--blue)}
-.lt-both{background:var(--amber-light);color:var(--amber)}
+/* ── PAGE HEADER ── */
+.page-header { padding: 80px 48px 64px; border-bottom: 1px solid var(--rule); }
+.page-header-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+.page-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 16px; }
+h1 { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--black); }
+h1 em { font-style: italic; color: var(--gray-2); }
+.page-lead { font-size: 17px; font-weight: 300; color: var(--gray-2); line-height: 1.75; }
 
-/* INDUSTRY */
-.industry-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ic{border:1px solid var(--rule);border-radius:10px;padding:28px 30px}
-.ic.medium{border-left:3px solid #d97706;border-radius:0 10px 10px 0}
-.ic.hard{border-left:3px solid var(--red);border-radius:0 10px 10px 0}
-.ic-sector{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray4);margin-bottom:10px}
-.ic-title{font-family:var(--serif);font-size:17px;font-style:italic;font-weight:400;color:var(--black);margin-bottom:8px}
-.ic-desc{font-size:13px;font-weight:300;color:var(--gray2);line-height:1.7;margin-bottom:12px}
-.ic-reqs{display:flex;flex-direction:column;gap:5px}
-.ic-req{font-family:var(--mono);font-size:11px;color:var(--gray2);display:flex;align-items:center;gap:7px}
-.req-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+/* ── SHARED ── */
+section { padding: 80px 48px; border-bottom: 1px solid var(--rule); }
+.inner { max-width: 1280px; margin: 0 auto; }
+.section-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 12px; }
+h2 { font-family: var(--serif); font-size: 36px; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; margin-bottom: 16px; }
+h2 em { font-style: italic; color: var(--gray-2); }
+.section-desc { font-size: 16px; font-weight: 300; color: var(--gray-2); line-height: 1.75; max-width: 560px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 
-/* FAQ */
-.faq-item{border-bottom:1px solid var(--rule)}
-.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:15px;font-weight:400;color:var(--black);cursor:pointer;background:none;border:none;text-align:left;gap:16px;font-family:var(--sans)}
-.faq-icon{font-size:18px;color:var(--gray4);flex-shrink:0;transition:transform .2s}
-.faq-a{font-size:14px;font-weight:300;color:var(--gray2);line-height:1.8;padding-bottom:20px;display:none}
-.faq-item.open .faq-a{display:block}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
+/* ── DEPLOYMENT CARDS ── */
+.deploy-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 48px; }
+.deploy-card { border: 1px solid var(--rule); border-radius: 4px; padding: 32px; background: var(--gray-6); }
+.deploy-card.featured { background: var(--white); border-color: var(--black); }
+.deploy-card-head { margin-bottom: 20px; }
+.deploy-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; display: inline-block; margin-bottom: 12px; }
+.db-cloud  { background: #e8edf8; color: #1a3fa3; }
+.db-docker { background: #111110; color: #fafaf7; }
+.db-local  { background: #e1f5ee; color: #0a4a3a; }
+.deploy-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.deploy-card p { font-size: 14px; font-weight: 300; color: var(--gray-2); line-height: 1.7; }
+.deploy-list { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+.deploy-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gray-1); }
+.deploy-item::before { content: '→'; color: var(--gray-3); flex-shrink: 0; margin-top: 2px; }
+.deploy-privacy { margin-top: 20px; padding: 12px 14px; border-radius: 3px; font-size: 12px; font-weight: 300; line-height: 1.6; }
+.dp-neutral { background: rgba(0,0,0,.03); color: var(--gray-2); }
+.dp-good    { background: rgba(15,110,86,.06); color: #0a4a3a; }
+.dp-best    { background: rgba(26,63,163,.06); color: #1a3fa3; }
 
-footer{padding:40px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--rule)}
-.fl{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--black);text-decoration:none}
-.fl-links{display:flex;gap:24px;flex-wrap:wrap}
-.fl-links a{font-size:12px;color:var(--gray3);text-decoration:none;transition:color .15s}
-.fl-links a:hover{color:var(--black)}
-.fc{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gray4)}
-@media(max-width:960px){.nav{padding:0 24px}.nav-mid .nl{display:none}section,.page-header{padding:64px 24px}.ph-inner{grid-template-columns:1fr;gap:24px}.deploy-grid{grid-template-columns:1fr}.industry-grid{grid-template-columns:1fr}.ds{grid-template-columns:1fr}.ds-num{display:none}footer{padding:32px 24px}}
+/* ── DOCKER SETUP ── */
+.docker-steps { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+.docker-step { display: grid; grid-template-columns: 48px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--rule); }
+.docker-step:last-child { border-bottom: none; }
+.step-num { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--gray-4); line-height: 1; padding-top: 4px; }
+.step-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+.step-body p  { font-size: 14px; font-weight: 300; color: var(--gray-2); line-height: 1.7; margin-bottom: 12px; }
+.code-block { background: #1e1e1c; color: #d4d4cc; font-family: var(--mono); font-size: 12px; padding: 14px 18px; border-radius: 4px; line-height: 1.7; overflow-x: auto; }
+.code-block .comment { color: #6a6a62; }
+.code-block .key { color: #6699cc; }
+.code-block .val { color: #5cb85c; }
+
+/* ── LLM TIER TABLE ── */
+.llm-table { width: 100%; border-collapse: collapse; margin-top: 32px; font-size: 14px; }
+.llm-table th { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); padding: 8px 16px; border-bottom: 2px solid var(--rule); text-align: left; }
+.llm-table td { padding: 14px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.6; color: var(--gray-1); }
+.llm-table tr:last-child td { border-bottom: none; }
+.llm-table tr:hover td { background: var(--gray-6); }
+.llm-tag { font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 2px; display: inline-block; }
+.lt-local { background: #e1f5ee; color: #0a4a3a; }
+.lt-cloud { background: #e8edf8; color: #1a3fa3; }
+.lt-both  { background: #faeeda; color: #633806; }
+
+/* ── DSGVO INDUSTRIES ── */
+.industry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+.industry-card { border: 1px solid var(--rule); border-radius: 4px; padding: 24px; }
+.industry-icon { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-3); margin-bottom: 10px; }
+.industry-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.industry-card p { font-size: 13px; font-weight: 300; color: var(--gray-2); line-height: 1.7; }
+.industry-reqs { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+.req-item { font-family: var(--mono); font-size: 11px; color: var(--gray-2); display: flex; align-items: center; gap: 6px; }
+.req-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-4); flex-shrink: 0; }
+.req-dot.warn { background: #d4a84b; }
+.req-dot.crit { background: #c0392b; }
+.industry-card.easy { border-color: var(--rule); }
+.industry-card.medium { border-left: 3px solid #d4a84b; border-radius: 0 4px 4px 0; }
+.industry-card.hard { border-left: 3px solid #c0392b; border-radius: 0 4px 4px 0; }
+
+/* ── FAQ ── */
+.faq-list { margin-top: 40px; display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid var(--rule); }
+.faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 0; font-size: 15px; font-weight: 700; color: var(--black); cursor: pointer; background: none; border: none; text-align: left; gap: 16px; }
+.faq-icon { font-size: 18px; color: var(--gray-3); flex-shrink: 0; transition: transform .2s; }
+.faq-a { font-size: 14px; font-weight: 300; color: var(--gray-2); line-height: 1.8; padding-bottom: 20px; display: none; }
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+/* ── FOOTER ── */
+footer { padding: 40px 48px; background: var(--black); }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--serif); font-size: 16px; color: #fafaf7; font-weight: 700; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #6a6a62; text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: #fafaf7; }
+.footer-copy { font-size: 12px; color: #4a4a48; }
+
+@media(max-width:960px){
+  nav { padding: 0 20px; }
+  .nav-links { gap: 14px; }
+  .page-header-inner,.two-col,.three-col,.deploy-cards,.industry-grid { grid-template-columns: 1fr; gap: 24px; }
+  section,.page-header { padding: 56px 24px; }
+}
 </style>
 </head>
 <body>
-<nav class="nav">
-  <a href="index.html" class="logo">Brief<em>Ops</em><span class="logo-sup">Beta</span></a>
-  <div class="nav-mid">
-    <a href="index.html" class="nl">Home</a>
-    <a href="solutions.html" class="nl active">Solutions</a>
-    <a href="onboarding.html" class="nl">Onboarding</a>
-    <a href="index.html#pricing" class="nl">Pricing</a>
-    <a href="demo.html" class="nl">App demo</a>
+
+<nav>
+  <a href="index.html" class="logo">BriefOps<sup>Beta</sup></a>
+  <div class="nav-links">
+    <a href="index.html#how">Process</a>
+    <a href="index.html#features">Features</a>
+    <a href="demo.html">App demo</a>
+    <a href="solutions.html" class="active">Solutions</a>
+    <a href="onboarding.html">Onboarding</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="legal.html">Legal</a>
+    <a href="index.html#contact" class="nav-cta">Book a call</a>
   </div>
-  <button class="nav-cta" onclick="location.href='index.html#contact'">Demo buchen</button>
 </nav>
 
+<!-- PAGE HEADER -->
 <div class="page-header">
-  <div class="ph-inner">
+  <div class="page-header-inner">
     <div>
-      <div class="sk">Deployment · Infrastructure · Compliance</div>
-      <h1 class="ph1 rv">Built for teams<br>that take data <em>seriously.</em></h1>
+      <p class="page-kicker">Deployment · Infrastructure · Compliance</p>
+      <h1>Built for teams<br>that take data <em>seriously.</em></h1>
     </div>
-    <p class="ph-lead rv" style="transition-delay:.1s">BriefOps runs wherever your data needs to stay — managed cloud for speed, self-hosted Docker for data sovereignty, and fully local for environments where no byte can leave the building.</p>
+    <p class="page-lead">BriefOps runs wherever your data needs to stay. Cloud-hosted for teams that move fast, self-hosted Docker for organisations with strict data sovereignty requirements, and fully local for environments where no byte can leave the building.</p>
   </div>
 </div>
 
-<!-- DEPLOYMENT -->
-<section>
+<!-- DEPLOYMENT OPTIONS -->
+<section id="deployment">
   <div class="inner">
-    <div class="sk">Deployment options</div>
-    <h2 class="sh2 rv">Three ways to<br><em>run BriefOps.</em></h2>
-    <div class="deploy-grid rv" style="transition-delay:.1s">
-      <div class="dc">
-        <span class="dc-badge db-cloud">Cloud</span>
-        <div class="dc-title">Managed cloud</div>
-        <div class="dc-desc">Hosted on AWS Frankfurt. All data stays within the EU. Quickest way to get started.</div>
-        <div class="dc-list">
-          <div class="dc-item">AWS Frankfurt (eu-central-1) — EU only</div>
-          <div class="dc-item">AES-256 encryption at rest and in transit</div>
-          <div class="dc-item">DPA and SCCs signed before go-live</div>
-          <div class="dc-item">Updates delivered automatically</div>
-          <div class="dc-item">Failover to Vertex AI EU if AWS unavailable</div>
+    <p class="section-kicker">Deployment</p>
+    <h2>Three ways to<br><em>run BriefOps.</em></h2>
+    <div class="deploy-cards">
+
+      <div class="deploy-card">
+        <div class="deploy-card-head">
+          <span class="deploy-badge db-cloud">Cloud</span>
+          <h3>Managed cloud</h3>
+          <p>Hosted on AWS Frankfurt. All data stays within the EU. Quickest way to get started — no infrastructure required on your end.</p>
         </div>
-        <div class="dc-privacy dp-n">Meeting content is processed in the cloud. Suitable for teams without strict on-premise requirements.</div>
-      </div>
-      <div class="dc feat">
-        <span class="dc-badge db-docker">Self-hosted Docker · Recommended</span>
-        <div class="dc-title">Your server, your data.</div>
-        <div class="dc-desc">BriefOps ships as a Docker Compose stack. One command starts the entire system on your own server — behind your firewall, under your control.</div>
-        <div class="dc-list">
-          <div class="dc-item">Runs on any Linux server or NAS</div>
-          <div class="dc-item">docker-compose up — full system in 5 minutes</div>
-          <div class="dc-item">No data leaves your network</div>
-          <div class="dc-item">Optional Mistral 7B local LLM via Ollama</div>
-          <div class="dc-item">Automatic updates via Watchtower</div>
-          <div class="dc-item">Configurable RBAC per team and document</div>
+        <div class="deploy-list">
+          <div class="deploy-item">AWS Frankfurt (EU) — no data leaves Europe</div>
+          <div class="deploy-item">AES-256 encryption at rest and in transit</div>
+          <div class="deploy-item">DPA and SCCs signed before go-live</div>
+          <div class="deploy-item">SOC 2 Type II via AWS</div>
+          <div class="deploy-item">Updates delivered automatically</div>
+          <div class="deploy-item">No server management on your side</div>
         </div>
-        <div class="dc-privacy dp-b" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.5)">Zero data egress. Fully on-premise. Suitable for finance, legal, healthcare, and public sector.</div>
+        <div class="deploy-privacy dp-neutral">Meeting content is processed in the cloud. Suitable for teams without strict on-premise requirements.</div>
       </div>
-      <div class="dc">
-        <span class="dc-badge db-local">Fully local · Add-on</span>
-        <div class="dc-title">Air-gapped option.</div>
-        <div class="dc-desc">All AI inference runs locally using Llama 3.3 70B. No internet connection required after initial setup.</div>
-        <div class="dc-list">
-          <div class="dc-item">100% on-premise — zero cloud calls</div>
-          <div class="dc-item">Llama 3.3 70B or Mistral Small 24B</div>
-          <div class="dc-item">Requires dedicated GPU server</div>
-          <div class="dc-item">Works air-gapped after model download</div>
-          <div class="dc-item">Optional cloud escalation for edge cases</div>
+
+      <div class="deploy-card featured">
+        <div class="deploy-card-head">
+          <span class="deploy-badge db-docker">Self-Hosted Docker · Recommended</span>
+          <h3>Your server, your data.</h3>
+          <p>BriefOps ships as a Docker Compose stack. One command starts the entire system on your own server — behind your firewall, under your control.</p>
         </div>
-        <div class="dc-privacy dp-g">Required for §203 StGB professions, Art. 9 DSGVO sensitive data, BSI IT-Grundschutz environments.</div>
+        <div class="deploy-list">
+          <div class="deploy-item">Runs on any Linux server or NAS</div>
+          <div class="deploy-item">docker-compose up — full system in under 5 minutes</div>
+          <div class="deploy-item">No data leaves your network</div>
+          <div class="deploy-item">Optional local LLM (Mistral 7B via Ollama) included</div>
+          <div class="deploy-item">Automatic updates via Watchtower or manual pull</div>
+          <div class="deploy-item">Configurable RBAC per team and document type</div>
+        </div>
+        <div class="deploy-privacy dp-good">Zero data egress. Fully on-premise. Suitable for finance, legal, healthcare, and public sector clients.</div>
       </div>
+
+      <div class="deploy-card">
+        <div class="deploy-card-head">
+          <span class="deploy-badge db-local">Fully local</span>
+          <h3>Air-gapped option.</h3>
+          <p>All AI inference runs locally using Llama 3.3 70B or Mistral Small. No internet connection required after initial setup. For environments where cloud access is not permitted.</p>
+        </div>
+        <div class="deploy-list">
+          <div class="deploy-item">100% on-premise — no cloud calls</div>
+          <div class="deploy-item">Llama 3.3 70B or Mistral Small (24B)</div>
+          <div class="deploy-item">Requires dedicated GPU server (A100 or equivalent)</div>
+          <div class="deploy-item">Works air-gapped after initial model download</div>
+          <div class="deploy-item">Quality approaches cloud models for 80% of tasks</div>
+          <div class="deploy-item">Optional escalation to cloud for critical reasoning</div>
+        </div>
+        <div class="deploy-privacy dp-best">Required for §203 StGB professions, Art. 9 DSGVO sensitive data, BSI IT-Grundschutz environments.</div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- DOCKER SETUP -->
-<section class="alt">
+<section id="docker-setup" style="background:var(--gray-6)">
   <div class="inner">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:56px;align-items:end">
+    <div class="two-col" style="margin-bottom:48px">
       <div>
-        <div class="sk">Self-hosted setup</div>
-        <h2 class="sh2 rv" style="margin-bottom:0">Up and running<br><em>in four steps.</em></h2>
+        <p class="section-kicker">Self-Hosted Setup</p>
+        <h2>Up and running<br><em>in four steps.</em></h2>
       </div>
-      <p class="slead rv" style="margin-bottom:0;transition-delay:.1s">The Docker stack includes the Python backend, FastAPI server, LightRAG knowledge base, Ollama for local LLMs, and the web frontend. Your team accesses it through any browser on your internal network.</p>
+      <p class="section-desc" style="padding-top:8px">The BriefOps Docker stack includes the Python backend, FastAPI server, LightRAG knowledge base, Ollama for local LLMs, and the web frontend. Your team accesses it through any browser on your internal network.</p>
     </div>
+
     <div class="docker-steps">
-      <div class="ds rv">
-        <div class="ds-num">01</div>
-        <div>
-          <div class="ds-title">Clone and configure</div>
-          <div class="ds-desc">BriefOps ships with a preconfigured <code style="font-family:var(--mono);font-size:12px;background:var(--gray6);padding:1px 6px;border-radius:4px">docker-compose.yml</code>. Copy the environment template and fill in your API keys.</div>
-          <div class="code"><span class="cc"># Clone the repository</span>
+      <div class="docker-step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <h4>Clone and configure</h4>
+          <p>BriefOps ships with a preconfigured <code style="font-family:var(--mono);font-size:13px;background:#e8e8e4;padding:1px 6px;border-radius:2px">docker-compose.yml</code>. Copy the environment template and fill in your API keys and integration credentials.</p>
+          <div class="code-block">
+<span class="comment"># Clone the repository</span>
 git clone https://github.com/yourorg/briefops.git
 cd briefops
 
-<span class="cc"># Copy environment template</span>
+<span class="comment"># Copy environment template</span>
 cp .env.example .env
+
+<span class="comment"># Fill in your credentials</span>
 nano .env</div>
         </div>
       </div>
-      <div class="ds rv" style="transition-delay:.08s">
-        <div class="ds-num">02</div>
-        <div>
-          <div class="ds-title">Configure your org-chart</div>
-          <div class="ds-desc">Edit the org-chart JSON with your actual teams, owners, and dependency rules. This is the only configuration file you need to touch.</div>
-          <div class="code">{
-  <span class="ck">"teams"</span>: [
-    {<span class="ck">"id"</span>: <span class="cv">"engineering"</span>, <span class="ck">"lead"</span>: <span class="cv">"Tom H."</span>},
-    {<span class="ck">"id"</span>: <span class="cv">"design"</span>,      <span class="ck">"lead"</span>: <span class="cv">"Sara L."</span>}
+
+      <div class="docker-step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <h4>Configure your org-chart</h4>
+          <p>BriefOps needs to know your team structure to route tasks correctly. Edit the org-chart JSON with your actual teams, owners, and dependency rules. This is the only configuration file you need to touch.</p>
+          <div class="code-block">
+<span class="comment"># Edit your team structure</span>
+nano config/org_chart.json
+
+<span class="comment"># Example structure</span>
+{
+  <span class="key">"teams"</span>: [
+    {<span class="key">"id"</span>: <span class="val">"engineering"</span>, <span class="key">"lead"</span>: <span class="val">"Tom H."</span>},
+    {<span class="key">"id"</span>: <span class="val">"design"</span>,      <span class="key">"lead"</span>: <span class="val">"Sara L."</span>}
   ]
 }</div>
         </div>
       </div>
-      <div class="ds rv" style="transition-delay:.16s">
-        <div class="ds-num">03</div>
-        <div>
-          <div class="ds-title">Start the stack</div>
-          <div class="ds-desc">One command starts all services — API server, knowledge base, local LLM, frontend, and monitoring dashboard.</div>
-          <div class="code"><span class="cc"># Start all services</span>
+
+      <div class="docker-step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <h4>Start the stack</h4>
+          <p>One command starts all services: the API server, knowledge base, local LLM (if configured), frontend, and monitoring dashboard.</p>
+          <div class="code-block">
+<span class="comment"># Start all services</span>
 docker compose up -d
 
-<span class="cc"># Health check</span>
-curl http://your-server:8000/health</div>
+<span class="comment"># Check status</span>
+docker compose ps
+
+<span class="comment"># View logs</span>
+docker compose logs -f briefops-api</div>
         </div>
       </div>
-      <div class="ds rv" style="transition-delay:.24s">
-        <div class="ds-num">04</div>
-        <div>
-          <div class="ds-title">Connect your integrations</div>
-          <div class="ds-desc">Open the web interface on your internal network and connect Jira, Slack, and your calendar. The system runs a test meeting through the full pipeline before go-live.</div>
-          <div class="code"><span class="cc"># Access the web interface</span>
+
+      <div class="docker-step">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <h4>Connect your integrations</h4>
+          <p>Open the web interface on your internal network and connect Jira, Slack, and your calendar. The system validates each connection and runs a test meeting through the full pipeline before go-live.</p>
+          <div class="code-block">
+<span class="comment"># Access the web interface</span>
 http://your-server:8080
 
-<span class="cc"># API documentation</span>
-http://your-server:8000/docs</div>
+<span class="comment"># API documentation</span>
+http://your-server:8000/docs
+
+<span class="comment"># Health check</span>
+curl http://your-server:8000/health</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LLM TABLE -->
-<section>
+<!-- LOCAL LLM TABLE -->
+<section id="local-llm">
   <div class="inner">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:48px;align-items:end">
+    <div class="two-col" style="margin-bottom:16px">
       <div>
-        <div class="sk">Hybrid AI · Local LLMs</div>
-        <h2 class="sh2 rv" style="margin-bottom:0">80% local.<br><em>20% cloud.</em></h2>
+        <p class="section-kicker">Hybrid AI · Local LLMs</p>
+        <h2>80% local.<br><em>20% cloud.</em></h2>
       </div>
-      <p class="slead rv" style="margin-bottom:0;transition-delay:.1s">The hybrid architecture routes routine tasks to a local Mistral 7B instance and reserves Claude for reasoning-heavy work — ~70% lower API costs with ~80% of data never leaving the server.</p>
+      <p class="section-desc" style="padding-top:8px">The hybrid architecture routes simple, high-volume tasks to a local Mistral 7B instance and reserves Claude for the reasoning-heavy work. Result: ~70% lower API costs and ~80% of your data never leaves the server.</p>
     </div>
-    <table class="llm-table rv" style="transition-delay:.15s">
+    <table class="llm-table">
       <thead>
         <tr>
           <th>Task</th>
@@ -274,122 +336,239 @@ http://your-server:8000/docs</div>
         </tr>
       </thead>
       <tbody>
-        <tr><td><strong>Meeting summarisation</strong></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-local">Mistral 7B local</span></td><td><span class="lt lt-local">Llama 70B local</span></td></tr>
-        <tr><td><strong>Task extraction</strong></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-local">Mistral 7B local</span></td><td><span class="lt lt-local">Llama 70B local</span></td></tr>
-        <tr><td><strong>Dependency analysis</strong></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-local">Llama 70B local</span></td></tr>
-        <tr><td><strong>Sprint builder</strong></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-local">Llama 70B local</span></td></tr>
-        <tr><td><strong>Delivery formatting</strong></td><td><span class="lt lt-cloud">Claude Sonnet</span></td><td><span class="lt lt-local">Mistral 7B local</span></td><td><span class="lt lt-local">Mistral 7B local</span></td></tr>
-        <tr><td><strong>Auto-fallback</strong></td><td>—</td><td><span class="lt lt-both">Local → Claude if unavailable</span></td><td><span class="lt lt-both">Local → optional cloud</span></td></tr>
-        <tr><td><strong>Est. API cost / month</strong></td><td style="color:var(--gray2)">€80–120 / client</td><td style="color:var(--green);font-weight:500">€10–20 / client</td><td style="color:var(--green);font-weight:500">€0–5 / client</td></tr>
-        <tr><td><strong>Data leaving network</strong></td><td style="color:var(--gray2)">~100%</td><td style="color:var(--amber);font-weight:500">~20%</td><td style="color:var(--green);font-weight:500">0%</td></tr>
+        <tr>
+          <td><strong>Meeting summarisation</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Mistral 7B local</span></td>
+          <td><span class="llm-tag lt-local">Llama 70B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Task extraction</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Mistral 7B local</span></td>
+          <td><span class="llm-tag lt-local">Llama 70B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Dependency analysis</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Llama 70B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Sprint builder</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Llama 70B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Delivery formatting</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Mistral 7B local</span></td>
+          <td><span class="llm-tag lt-local">Mistral 7B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Knowledge base queries</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-both">Local + optional cloud</span></td>
+        </tr>
+        <tr>
+          <td><strong>Executive digest</strong></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-cloud">Claude Sonnet</span></td>
+          <td><span class="llm-tag lt-local">Llama 70B local</span></td>
+        </tr>
+        <tr>
+          <td><strong>Automatic fallback</strong></td>
+          <td>—</td>
+          <td><span class="llm-tag lt-both">Local → Claude if unavailable</span></td>
+          <td><span class="llm-tag lt-both">Local → optional cloud escalation</span></td>
+        </tr>
+        <tr>
+          <td><strong>Est. API cost / month</strong></td>
+          <td style="color:var(--gray-2)">€80–120 per client</td>
+          <td style="color:#0a4a3a;font-weight:700">€10–20 per client</td>
+          <td style="color:#0a4a3a;font-weight:700">€0–5 per client</td>
+        </tr>
+        <tr>
+          <td><strong>Data leaving network</strong></td>
+          <td style="color:var(--gray-2)">~100%</td>
+          <td style="color:#d4a84b;font-weight:700">~20%</td>
+          <td style="color:#0a4a3a;font-weight:700">0%</td>
+        </tr>
       </tbody>
     </table>
-    <p style="font-family:var(--mono);font-size:11px;color:var(--gray4);margin-top:14px;letter-spacing:.02em">Why Mistral? Mistral AI is a French company. Apache 2.0 licensed. No US export controls — relevant for European procurement teams.</p>
+    <p style="font-size:12px;font-weight:300;color:var(--gray-3);margin-top:12px">Why Mistral? Mistral AI is a French company. The model is Apache 2.0 licensed and subject to no US export controls — a meaningful argument for European procurement and legal teams.</p>
   </div>
 </section>
 
-<!-- DSGVO -->
-<section class="alt">
+<!-- DSGVO BY INDUSTRY -->
+<section id="dsgvo" style="background:var(--gray-6)">
   <div class="inner">
-    <div class="sk">DSGVO · Compliance by industry</div>
-    <h2 class="sh2 rv">What your industry<br><em>actually requires.</em></h2>
+    <p class="section-kicker">DSGVO · Compliance by industry</p>
+    <h2>What your industry<br><em>actually requires.</em></h2>
+    <p class="section-desc">The DSGVO applies to everyone. But some industries have additional requirements that interact directly with how BriefOps processes meeting content.</p>
     <div class="industry-grid">
-      <div class="ic rv">
-        <div class="ic-sector">Agencies · Product teams · Consultancies</div>
-        <div class="ic-title">Standard compliance — simplest path</div>
-        <div class="ic-desc">Standard DPA + SCCs sufficient. No sector-specific regulation beyond baseline DSGVO.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Standard DPA + SCCs sufficient</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>AWS Frankfurt satisfies data residency</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Cloud or self-hosted — free choice</div>
+
+      <div class="industry-card easy">
+        <div class="industry-icon">Agencies · Product teams · Consultancies</div>
+        <h4>Standard compliance — simplest path</h4>
+        <p>These teams can run BriefOps on managed cloud with a standard DPA and SCCs. No additional regulatory requirements beyond baseline DSGVO.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Standard DPA + SCCs sufficient</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>AWS Frankfurt (EU) satisfies data residency</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>No sector-specific regulation</div>
         </div>
       </div>
-      <div class="ic medium rv" style="transition-delay:.06s">
-        <div class="ic-sector">Finance · Insurance · Asset management</div>
-        <div class="ic-title">MaRisk + BaFin outsourcing rules</div>
-        <div class="ic-desc">AI processing qualifies as outsourcing. Formal outsourcing agreement, exit strategy, and DORA compliance from 2025.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:#d97706"></span>Outsourcing agreement required (BaFin)</div>
-          <div class="ic-req"><span class="req-dot" style="background:#d97706"></span>DORA ICT risk assessment from 2025</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Self-hosted Docker resolves most requirements</div>
+
+      <div class="industry-card medium">
+        <div class="industry-icon">Finance · Insurance · Asset management</div>
+        <h4>MaRisk + BaFin outsourcing rules</h4>
+        <p>AI processing qualifies as outsourcing under MaRisk and BaFin guidelines. Requires formal outsourcing agreement, exit strategy documentation, and audit rights. DORA applies from 2025 for ICT risk management.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot warn"></span>Outsourcing agreement required (BaFin)</div>
+          <div class="req-item"><span class="req-dot warn"></span>Exit strategy + audit rights documented</div>
+          <div class="req-item"><span class="req-dot warn"></span>DORA ICT risk assessment from 2025</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Self-Hosted Docker resolves most requirements</div>
         </div>
       </div>
-      <div class="ic hard rv" style="transition-delay:.12s">
-        <div class="ic-sector">Legal · Tax advisory · Notaries</div>
-        <div class="ic-title">§203 StGB — professional secrecy</div>
-        <div class="ic-desc">Client-related meeting content falls under §203 StGB. No client data may be processed in a cloud system. Fully local required.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:var(--red)"></span>§203 StGB — no client data in cloud</div>
-          <div class="ic-req"><span class="req-dot" style="background:#d97706"></span>Fully local deployment required</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Air-gapped option available</div>
+
+      <div class="industry-card hard">
+        <div class="industry-icon">Legal · Tax advisory · Notaries</div>
+        <h4>§203 StGB — professional secrecy</h4>
+        <p>Client-related meeting content falls under §203 StGB professional secrecy obligations. Technically, no client-identifying data may be processed in a cloud system. Fully local deployment is required.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot crit"></span>§203 StGB — no client data in cloud</div>
+          <div class="req-item"><span class="req-dot crit"></span>Anonymisation before cloud processing not sufficient</div>
+          <div class="req-item"><span class="req-dot warn"></span>Fully local deployment required</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Air-gapped option available</div>
         </div>
       </div>
-      <div class="ic hard rv" style="transition-delay:.18s">
-        <div class="ic-sector">Healthcare · Hospitals · Medical practices</div>
-        <div class="ic-title">Art. 9 DSGVO — special categories</div>
-        <div class="ic-desc">Patient data falls under Art. 9 DSGVO. Meeting content with patient references cannot be processed in cloud AI.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:var(--red)"></span>Art. 9 DSGVO — explicit legal basis required</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--red)"></span>Patient data cannot go to cloud AI</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Fully local + reference-only privacy mode</div>
+
+      <div class="industry-card hard">
+        <div class="industry-icon">Healthcare · Hospitals · Medical practices</div>
+        <h4>Art. 9 DSGVO — special categories</h4>
+        <p>Patient data falls under Art. 9 DSGVO (special categories) and national health data laws. Meeting content with patient references must be excluded from AI processing entirely, or a fully local setup must be used.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot crit"></span>Art. 9 DSGVO — explicit legal basis required</div>
+          <div class="req-item"><span class="req-dot crit"></span>Patient data cannot be processed in cloud AI</div>
+          <div class="req-item"><span class="req-dot warn"></span>Technical exclusion of patient references required</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Fully local + Reference-only privacy mode</div>
         </div>
       </div>
-      <div class="ic medium rv" style="transition-delay:.24s">
-        <div class="ic-sector">Public sector · Municipalities · Agencies</div>
-        <div class="ic-title">BSI IT-Grundschutz + C5</div>
-        <div class="ic-desc">BSI IT-Grundschutz compliance required. AWS Frankfurt holds BSI C5 certification. Art. 35 DSGVO — DSFA mandatory.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:#d97706"></span>BSI IT-Grundschutz required</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>AWS Frankfurt BSI C5 certified</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Self-hosted on Bundescloud possible</div>
+
+      <div class="industry-card medium">
+        <div class="industry-icon">Public sector · Municipalities · Agencies</div>
+        <h4>BSI IT-Grundschutz + C5</h4>
+        <p>Public sector procurement requires BSI IT-Grundschutz compliance. AWS Frankfurt holds BSI C5 certification. Self-Hosted Docker on BSI-certified infrastructure satisfies procurement requirements.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot warn"></span>BSI IT-Grundschutz compliance required</div>
+          <div class="req-item"><span class="req-dot warn"></span>Art. 35 DSGVO — DSFA mandatory</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>AWS Frankfurt BSI C5 certified</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Self-Hosted on Bundescloud possible</div>
         </div>
       </div>
-      <div class="ic rv" style="transition-delay:.3s">
-        <div class="ic-sector">Technology · SaaS · E-Commerce</div>
-        <div class="ic-title">Baseline DSGVO — straightforward</div>
-        <div class="ic-desc">Mature data handling processes, no sector-specific obligations. Cloud deployment with DPA sufficient.</div>
-        <div class="ic-reqs">
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Standard DPA sufficient</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>No sector-specific regulation</div>
-          <div class="ic-req"><span class="req-dot" style="background:var(--green)"></span>Cloud or self-hosted — free choice</div>
+
+      <div class="industry-card easy">
+        <div class="industry-icon">Technology · SaaS · E-Commerce</div>
+        <h4>Baseline DSGVO — straightforward</h4>
+        <p>Tech companies typically have mature data handling processes and no sector-specific obligations beyond standard DSGVO. Cloud deployment with DPA is sufficient for most cases.</p>
+        <div class="industry-reqs">
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Standard DPA sufficient</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>No sector-specific regulation</div>
+          <div class="req-item"><span class="req-dot" style="background:#0f6e56"></span>Cloud or self-hosted — free choice</div>
         </div>
       </div>
+
     </div>
-    <p style="font-size:13px;font-weight:300;color:var(--gray4);margin-top:24px">This overview is for general orientation. Please consult your data protection officer or legal counsel before go-live in regulated environments.</p>
+    <p style="font-size:13px;font-weight:300;color:var(--gray-3);margin-top:24px">This overview is for general orientation. BriefOps is not a law firm. Please consult your data protection officer or legal counsel before go-live in regulated environments.</p>
   </div>
 </section>
 
 <!-- FAQ -->
-<section>
-  <div class="inner" style="max-width:800px">
-    <div class="sk">Frequently asked</div>
-    <h2 class="sh2 rv">Questions we get<br><em>in every sales call.</em></h2>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Who hosts the data, and where?<span class="faq-icon">+</span></button><div class="faq-a">On managed cloud: AWS Frankfurt (eu-central-1). No data processed outside the EU. On self-hosted Docker: your own server, we never see the data. On fully local: no internet connection required after setup.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">What happens when a model update comes out?<span class="faq-icon">+</span></button><div class="faq-a">On managed cloud: updates applied automatically after testing. On self-hosted: you control when updates are pulled. We provide a changelog and migration guide for every version. No automatic updates without your consent.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why not just use ChatGPT for this?<span class="faq-icon">+</span></button><div class="faq-a">ChatGPT processes one meeting at a time and forgets it immediately. BriefOps is configured around your actual org-chart, knows your team's history, routes tasks automatically, follows up when deadlines are missed, and builds a searchable knowledge base from every meeting.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">What if the AI makes a mistake?<span class="faq-icon">+</span></button><div class="faq-a">Every task goes through a Critic agent review before delivery. On Standard and Advanced tiers, a team lead approval step is required before anything is written to Jira or sent to Slack. Nothing is pushed without human sign-off.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you offer an SLA?<span class="faq-icon">+</span></button><div class="faq-a">Yes. Managed cloud: 99.5% uptime SLA, 4h response for critical issues. Self-hosted: SLA covers the Docker stack and update support, not the underlying server. Full SLA details in the service agreement.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can we try it before committing?<span class="faq-icon">+</span></button><div class="faq-a">Yes — the Discovery Package (€300) is a two-hour session where we run three of your actual meetings through the full pipeline. You keep the analysis regardless of whether you proceed.</div></div>
+<section id="faq">
+  <div class="inner">
+    <p class="section-kicker">Frequently asked</p>
+    <h2>Questions we get<br><em>in every sales call.</em></h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Who hosts the data, and where?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">On managed cloud: AWS Frankfurt (eu-central-1). No data is processed outside the EU. On self-hosted Docker: your own server, your own network — we never see the data at all. On fully local: no internet connection required after setup.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What happens when a model update comes out?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">On managed cloud: updates are applied automatically after testing. On self-hosted: you control when updates are pulled. We provide a changelog and migration guide for every version. No automatic updates happen without your consent on self-hosted deployments.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Why not just use ChatGPT or Copilot for this?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">ChatGPT processes one meeting at a time and forgets it immediately. BriefOps is configured around your actual org chart, knows your team's history, routes tasks to the right people automatically, follows up when deadlines are missed, and builds a searchable knowledge base from every meeting. It's the difference between a smart assistant and an integrated system.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What if the AI makes a mistake in task extraction?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Every task goes through a Critic agent review before delivery. On Standard and Advanced tiers, a team lead approval step is required before anything is written to Jira or sent to Slack. Nothing is pushed without human sign-off.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Do you offer an SLA?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. Managed cloud: 99.5% uptime SLA, 4h response time for critical issues, 8h for standard. Self-hosted: SLA covers the Docker stack and update support, not the underlying server infrastructure. Full SLA details are included in the service agreement.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Can we try it before committing?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes — the Discovery Package (€300) is a two-hour structured session where we run three of your actual meetings through the full pipeline and show you the output. You keep the analysis and the org-chart mapping regardless of whether you proceed. No commitment required.</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <footer>
-  <a href="index.html" class="fl">BriefOps</a>
-  <div class="fl-links">
-    <a href="index.html">Home</a>
-    <a href="onboarding.html">Onboarding</a>
-    <a href="demo.html">App demo</a>
-    <a href="briefops_tiers.html">Compare tiers</a>
-    <a href="legal.html">Impressum</a>
-    <a href="legal.html#datenschutz">Datenschutz</a>
+  <div class="footer-inner">
+    <span class="footer-logo">BriefOps</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="demo.html">App demo</a>
+      <a href="onboarding.html">Onboarding</a>
+      <a href="briefops_tiers.html">Compare tiers</a>
+      <a href="legal.html">Impressum</a>
+      <a href="legal.html#datenschutz">Datenschutz</a>
+    </div>
+    <span class="footer-copy">© 2025 BriefOps</span>
   </div>
-  <span class="fc">© 2025 BriefOps</span>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fafaf7;border-top:1px solid #e2e2de;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;font-family:'Lato',sans-serif;font-size:13px;color:#4a4a48">
+  <p style="margin:0;line-height:1.6;max-width:700px">Diese Website verwendet <strong>keine Cookies</strong> und kein Tracking. Analytics laufen über Plausible — cookiefrei, DSGVO-konform, keine Weitergabe an Dritte. <a href="legal.html#datenschutz" style="color:#1a3fa3;text-decoration:underline">Datenschutzerklärung</a></p>
+  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('briefops-cookie-ok','1')" style="flex-shrink:0;padding:8px 20px;background:#111110;color:#fafaf7;border:none;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer;text-transform:uppercase">Verstanden</button>
+</div>
 <script>
-const rv=document.querySelectorAll('.rv');
-function check(){rv.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*.88){el.classList.add('vis')}})}
-window.addEventListener('scroll',check,{passive:true});
-setTimeout(check,300);
+if(!localStorage.getItem('briefops-cookie-ok')){
+  document.getElementById('cookie-banner').style.display='flex';
+}
 </script>
+
 </body>
 </html>
